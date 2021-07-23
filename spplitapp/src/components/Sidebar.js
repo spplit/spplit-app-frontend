@@ -5,5 +5,7 @@ import styled from 'styled-components/native';
 import * as Font from 'expo-font';
 
 export default function Sidebar() {
-
+    return (
+        <View />
+    )
 }

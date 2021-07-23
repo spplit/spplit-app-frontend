@@ -4,14 +4,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';  // only for ios!
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Follower from './Follower';
-import Landing from './Landing';
-import Login from './Login';
-import Main from './Main';
-import MyNameCard from './MyNameCard';
-import Notice from './Notice';
-import Settings from './Settings';
-import SignUp from './SignUp';
+import Follower from './src/routes/Follower';
+import Landing from './src/routes/Landing';
+import Login from './src/routes/Login';
+import Main from './src/routes/Main';
+import MyNameCard from './src/routes/MyNameCard';
+import Notice from './src/routes/Notice';
+import Settings from './src/routes/Settings';
+import SignUp from './src/routes/SignUp';
+import Header from './src/components/Header';
 
 
 
@@ -20,8 +21,11 @@ const Stack = createStackNavigator(); // 스택 형식으로 앱 화면 전환 -
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={Main} />
+      {/* <Text>Hello</Text>
+      <Header /> */}
+      <Main />
+      {/* <Stack.Navigator>
+        <Stack.Screen name="Hello" component={Main} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Follower" component={Follower} />
         <Stack.Screen name="Landing" component={Landing} />
@@ -29,7 +33,7 @@ export default function App() {
         <Stack.Screen name="Notice" component={Notice} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="SignUp" component={SignUp} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }
