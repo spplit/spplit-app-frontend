@@ -56,7 +56,7 @@ const NoticeButton = styled.View`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-right: 25;
+    margin-right: 25px;
 `;
 
 const NoticeImage = styled.Image`
@@ -66,7 +66,7 @@ const NoticeImage = styled.Image`
 
 const NoticeNumber = styled.Text`
     color: #707070;
-    font-size: 22;
+    font-size: 22px;
 `;
 
 export default function Header() {
