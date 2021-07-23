@@ -17,41 +17,41 @@ const HeaderContainer = styled.View `
 
 const SidebarButtonContainer = styled.View `
     flex: 1;
-    height: 60;
+    height: 60px;
     /* background-color: grey; */
     justify-content: center;
 `;
 
 const SidebarButton = styled.Image `
-    width: 30;
-    margin-left: 25;
+    width: 30px;
+    margin-left: 25px;
 `;
 
 const LogoContainer = styled.View`
     flex: 1;
-    height: 60;
+    height: 60px;
     /* background-color: aliceblue; */
     justify-content: center;
     align-items: center;
 `;
 
 const LogoImage = styled.Image`
-    width: 25;
-    height: 30;
+    width: 25px;
+    height: 30px;
 `;
 
 const NoticeButtonContainer = styled.View`
     flex: 1;
-    height: 60;
+    height: 60px;
     /* background-color: antiquewhite; */
     justify-content: center;
     align-items: flex-end;
 `;
 
 const NoticeButton = styled.View`
-    width: 75;
-    height: 38;
-    border-radius: 7;
+    width: 75px;
+    height: 38px;
+    border-radius: 7px;
     background-color: #f2f2f2;
     flex-direction: row;
     justify-content: center;
@@ -60,8 +60,8 @@ const NoticeButton = styled.View`
 `;
 
 const NoticeImage = styled.Image`
-    width: 20;
-    margin-right: 9;
+    width: 20px;
+    margin-right: 9px;
 `;
 
 const NoticeNumber = styled.Text`

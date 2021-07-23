@@ -21,8 +21,6 @@ const Stack = createStackNavigator(); // 스택 형식으로 앱 화면 전환 -
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <Text>Hello</Text>
-      <Header /> */}
       <Main />
       {/* <Stack.Navigator>
         <Stack.Screen name="Hello" component={Main} />
