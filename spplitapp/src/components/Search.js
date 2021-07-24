@@ -13,7 +13,7 @@ const SearchbarContainer = styled.View`
 
 const Searchbar = styled.TextInput `
     width: 88%;
-    height: 70%;
+    height: 90%;
     background-color: #f2f2f2;
     border-radius: 7px;
     padding-left: 15px;
