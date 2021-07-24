@@ -9,7 +9,10 @@ const Bell = require('../assets/images/notice_bell.png');
 const Menubar = require('../assets/images/menubar.png');
 
 const HeaderContainer = styled.View `
+    position: absolute;
     height: 100px;
+    width: 100%;
+    top: 0;
     background-color: white;
     flex-direction: row;
     align-items: flex-end;
