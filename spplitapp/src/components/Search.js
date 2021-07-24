@@ -5,8 +5,11 @@ import styled from 'styled-components/native';
 import * as Font from 'expo-font';
 
 const SearchbarContainer = styled.View`
-    flex: 0.07;
-    /* background-color: aliceblue; */
+    height: 60px;
+    position: absolute;
+    width: 100%;
+    top: 100px;
+    background-color: white;
     justify-content: center;
     align-items: center;
 `;

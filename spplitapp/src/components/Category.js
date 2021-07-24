@@ -10,6 +10,7 @@ const coffee = require('../assets/images/coffee_icon.png')
 const book = require('../assets/images/book_icon.png')
 
 const CategoryContainer = styled.View `
+    background-color: white;
     position: absolute;
     width: 100%;
     height: 110px;
