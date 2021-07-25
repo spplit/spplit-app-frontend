@@ -21,17 +21,21 @@ const Stack = createStackNavigator(); // 스택 형식으로 앱 화면 전환 -
 export default function App() {
   return (
     <NavigationContainer>
-      <Main />
-      {/* <Stack.Navigator>
+      {/* <Main /> */}
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+      >
         <Stack.Screen name="Hello" component={Main} />
-        <Stack.Screen name="Login" component={Login} />
+        {/* <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Follower" component={Follower} />
         <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="MyNameCard" component={MyNameCard} />
         <Stack.Screen name="Notice" component={Notice} />
         <Stack.Screen name="Settings" component={Settings} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-      </Stack.Navigator> */}
+        <Stack.Screen name="SignUp" component={SignUp} /> */}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

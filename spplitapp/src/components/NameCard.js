@@ -81,20 +81,13 @@ export default function NameCard() {
     return (
         <NameCardListContainer>
             <NameCardList>
-                <NameCardContent name={PersonalInfo[0].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[1].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[2].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[3].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[4].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[4].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[4].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[4].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[4].name} job={PersonalInfo[0].job} />
-                <NameCardContent name={PersonalInfo[4].name} job={PersonalInfo[0].job} />
-                    {PersonalInfo.map(info => {
-                            <NameCardContent name={info.name} job={info.job} />
-                    })}
+                {PersonalInfo.map(info => {
+                    return(
+                        <NameCardContent name={info.name} job={info.job} />
+                    )
+                })}
             </NameCardList>
+                
         </NameCardListContainer>
     )
 }
