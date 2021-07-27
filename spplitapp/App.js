@@ -23,7 +23,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
+          headerShown: false,
+          cardStyle: {backgroundColor: 'transparent'}
         }}
         initialRouteName="Main"
       >

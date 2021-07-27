@@ -10,20 +10,22 @@ const coffee = require('../assets/images/coffee_icon.png')
 const book = require('../assets/images/book_icon.png')
 
 const CategoryContainer = styled.View `
-    background-color: white;
+    /* background-color: white; */
     position: absolute;
     width: 100%;
-    height: 110px;
+    height: 90px;
     bottom: 0;
     align-items: center;
     justify-content: center;
 `;
 
 const Categorybar = styled.View `
+    position: absolute;
     background-color: white;
     box-shadow: 4px 4px 10px rgba(17, 17, 26, 0.25);
     width: 90%;
-    height: 70px;
+    height: 60px;
+    bottom: 30px;
     border-radius: 60px;
     justify-content: space-evenly;
     align-items: center;
@@ -37,8 +39,8 @@ const CategoryIconContainer = styled.View`
 `;
 
 const CategoryIcon = styled.Image`
-    width: 28px;
-    height: 28px;
+    width: 23px;
+    height: 23px;
 `;
 
 const CategoryIconList = [home, bookmark, coffee, book]
