@@ -45,13 +45,13 @@ const PersonalInfo = [
 const NameCardListContainer = styled.View`
     position: absolute;
     width: 100%;
-    bottom: 110px;
-    top: 160px;
-    /* background-color: lightgreen; */
+    top: 140px;
+    justify-content: center;
+    align-items: center;
 `;
 
 const NameCardList = styled.ScrollView`
-    width: 100%;
+    width: 97%;
     flex: 1;
     /* background-color: lightpink; */
     flex-direction: column;
@@ -63,14 +63,17 @@ const NameCardList = styled.ScrollView`
 const NameCardContainer = styled.View`
     width: 100%;
     height: 130px;
-    background-color: lightgrey;
+    background-color: #f2f2f2;
+    box-shadow: rgba(149, 157, 165, 0.3) 3px 5px 5px;
     border-radius: 9px;
     margin-bottom: 20px;
+    padding: 12px;
 `;
 
 const NameText = styled.Text`
     font-size: 20px;
     font-weight: bold;
+    margin-bottom: 5px;
 `;
 
 const JobText = styled.Text`

@@ -10,18 +10,18 @@ const QRContainer = styled.View`
     position: absolute;
     background-color: #4672AF;
     border-radius: 60px;
-    width: 80px;
-    height: 80px;
-    right: 12px;
-    bottom: 120px;
+    width: 70px;
+    height: 70px;
+    right: 15px;
+    bottom: 105px;
     box-shadow: 2px 2px 4px rgba(99, 99, 99, 0.7);
     justify-content: center;
     align-items: center;
 `;
 
 const QRImage = styled.Image`
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
 `;
 
 export default function FloatingQR() {
