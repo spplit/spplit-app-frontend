@@ -1,6 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import * as Font from 'expo-font';
 
@@ -73,13 +76,16 @@ const NoticeNumber = styled.Text`
 `;
 
 export default function Header() {
-    return(
+    const navigation = useNavigation();
+    return (
         <HeaderContainer>
             <SidebarButtonContainer>
                 <SidebarButton source={Menubar} />
             </SidebarButtonContainer>
             <LogoContainer>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                 <LogoImage source={Logo} />
+                </TouchableOpacity>
             </LogoContainer>
             <NoticeButtonContainer>
                 <NoticeButton>
@@ -90,3 +96,5 @@ export default function Header() {
         </HeaderContainer>
     )   
 }
+
+
