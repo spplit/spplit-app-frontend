@@ -1,8 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import * as Font from 'expo-font';
@@ -80,7 +78,9 @@ export default function Header() {
     return (
         <HeaderContainer>
             <SidebarButtonContainer>
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <SidebarButton source={Menubar} />
+                </TouchableOpacity>
             </SidebarButtonContainer>
             <LogoContainer>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -88,10 +88,12 @@ export default function Header() {
                 </TouchableOpacity>
             </LogoContainer>
             <NoticeButtonContainer>
-                <NoticeButton>
-                    <NoticeImage resizeMode="contain" source={Bell} />
-                    <NoticeNumber>7</NoticeNumber>
-                </NoticeButton>
+                <TouchableOpacity onPress={() => navigation.navigate('Notice')}>
+                    <NoticeButton>
+                        <NoticeImage resizeMode="contain" source={Bell} />
+                        <NoticeNumber>7</NoticeNumber>
+                    </NoticeButton>
+                </TouchableOpacity>
             </NoticeButtonContainer>
         </HeaderContainer>
     )   
