@@ -22,6 +22,7 @@ const Drawer = createDrawerNavigator();
 const MainStack = createStackNavigator();
 const ScheduleStack = createStackNavigator();
 
+
 const MainStackScreen = ({navigation}) => {
     return(
       <MainStack.Navigator
