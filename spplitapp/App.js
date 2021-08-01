@@ -34,6 +34,7 @@ const MainStackScreen = ({navigation}) => {
         }}
       >
         <MainStack.Screen name="Main" component={Main} />
+        <MainStack.Screen name="Login" component={Login} />
         <MainStack.Screen name="Notice" component={Notice} />
         <MainStack.Screen 
           name="Detail"

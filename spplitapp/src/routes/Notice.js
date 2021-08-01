@@ -35,12 +35,16 @@ const Notifications = [
         id: 5,
         title: "New Request from Hyebin Lee"
     },
+    {
+        id: 6,
+        title: "Pizza Event: Share in Instagram"
+    }
 ]
 
 const backbutton = require('../assets/images/backbutton_icon.png')
 
 const HeaderContainer = styled.View `
-    background-color: aliceblue;
+    background-color: white;
     position: absolute;
     height: 100px;
     width: 100%;
@@ -66,8 +70,8 @@ const BackButton = styled.Image`
 
 const NoticeOuterContainer = styled.View`
     position: absolute;
-    top: 140px;
-    background-color: antiquewhite;
+    top: 100px;
+    background-color: white;
     width: 100%;
 `;
 
@@ -109,7 +113,7 @@ const Notice = ({ navigation }) => {
         );
     };
 
-    const renderItem = (data, rowMap) => {
+    const renderItem = (data) => {
         return (
             <VisibleItem data={ data }/>
         );
@@ -143,16 +147,18 @@ const Notice = ({ navigation }) => {
     return (
         <View>
             <HeaderContainer>
-                    <BackButton source={ backbutton }/>
+                    <BackButton source={ backbutton } />
                 <Title>Notifications</Title>
             </HeaderContainer>
-            <SwipeListView
-                data={listData}
-                renderItem={renderItem}
-                renderHiddenItem={renderHiddenItem}
-                leftOpenValue={75}
-                rightOpenValue={-150}
-            />
+            <NoticeOuterContainer>
+                <SwipeListView
+                    data={listData}
+                    renderItem={renderItem}
+                    renderHiddenItem={renderHiddenItem}
+                    leftOpenValue={75}
+                    rightOpenValue={-150}
+                />
+            </NoticeOuterContainer>
         </View>
         
     )
