@@ -17,14 +17,17 @@ import Header from './src/components/Header';
 import Sidebar from './src/components/Sidebar';
 import StackNavigator from './src/routes/StackNavigator';
 import Schedule from './src/routes/Schedule';
+import Detail from './src/routes/Detail';
 
 const Drawer = createDrawerNavigator();
 const MainStack = createStackNavigator();
 const ScheduleStack = createStackNavigator();
 
+
 const MainStackScreen = ({navigation}) => {
     return(
       <MainStack.Navigator
+        initialRouteName="Main"
         screenOptions={{
         headerShown: false,
         cardStyle: {backgroundColor: 'white'}
@@ -32,6 +35,20 @@ const MainStackScreen = ({navigation}) => {
       >
         <MainStack.Screen name="Main" component={Main} />
         <MainStack.Screen name="Notice" component={Notice} />
+        <MainStack.Screen 
+          name="Detail"
+          component={Detail}
+          options={navigation => ({
+            headerBackTitleVisible: false,
+            cardStyleInterpolator: ({current: {progress}}) => {
+              return {
+                cardStyle: {
+                  opacity: progress
+                }
+              }
+            }
+          })}
+        />
       </MainStack.Navigator>
     )
   }

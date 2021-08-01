@@ -6,13 +6,14 @@ import Search from '../components/Search';
 import Category from '../components/Category';
 import NameCard from '../components/NameCard';
 import FloatingQR from '../components/FloatingQR';
+import { useNavigation } from '@react-navigation/native';
 
 const MainView = styled.View `
     flex: 1;
 `;
 
+const Main = () => {
 
-export default function Main() {
     return(
         <MainView>
             <NameCard />
@@ -23,3 +24,5 @@ export default function Main() {
         </MainView>
     )
 }
+
+export default Main;
