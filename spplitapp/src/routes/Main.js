@@ -16,9 +16,7 @@ const Main = () => {
 
     return(
         <MainView>
-            <NameCard />
             <Header />
-            <Search />           
             <Category />
             <FloatingQR />
         </MainView>
