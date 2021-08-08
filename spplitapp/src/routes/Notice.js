@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useAnimatedStyle } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
 
 const Notifications = [
     {
@@ -60,12 +61,17 @@ const Title = styled.Text`
     padding-bottom: 15px;
 `;
 
-const BackButton = styled.Image`
+const BackButtonContainer = styled.View`
     position: absolute;
     width: 30px;
     height: 30px;
     left: 22px;
     bottom: 12px;
+`;
+
+const BackButton = styled.Image`
+    width: 30px;
+    height: 30px;
 `;
 
 const NoticeOuterContainer = styled.View`
@@ -76,10 +82,14 @@ const NoticeOuterContainer = styled.View`
 `;
 
 const NoticeCardContainer = styled.View`
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
     width: 95%;
     height: 50px;
     margin: 10px;
     background-color: white;
+    border-radius: 10px;
     box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15) ;
 `;
 
@@ -147,7 +157,11 @@ const Notice = ({ navigation }) => {
     return (
         <View>
             <HeaderContainer>
-                    <BackButton source={ backbutton } />
+                <BackButtonContainer>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <BackButton source={ backbutton } />
+                    </TouchableOpacity>
+                </BackButtonContainer>
                 <Title>Notifications</Title>
             </HeaderContainer>
             <NoticeOuterContainer>
