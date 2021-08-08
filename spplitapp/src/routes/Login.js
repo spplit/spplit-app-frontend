@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
-const Back = require('../assets/images/home_icon.png');
+const Back = require('../assets/images/backbutton_icon.png');
 const Logo = require('../assets/images/spplit_logo.png');
 
 const HeaderContainer = styled.View `
@@ -128,7 +128,7 @@ export default function Login({navigation}) {
             <HeaderContainer>
                 <BackButtonContainer>
                     <TouchableOpacity onPress={() => navigation.navigate('Main')}>
-                        <BackButton source={Back} />
+                        <BackButton resizeMode="contain" source={Back} />
                     </TouchableOpacity>
                 </BackButtonContainer>
                 <LogoContainer>

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useAnimatedStyle } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
 
 const Notifications = [
     {
@@ -35,12 +36,16 @@ const Notifications = [
         id: 5,
         title: "New Request from Hyebin Lee"
     },
+    {
+        id: 6,
+        title: "Pizza Event: Share in Instagram"
+    }
 ]
 
 const backbutton = require('../assets/images/backbutton_icon.png')
 
 const HeaderContainer = styled.View `
-    background-color: aliceblue;
+    background-color: white;
     position: absolute;
     height: 100px;
     width: 100%;
@@ -56,7 +61,7 @@ const Title = styled.Text`
     padding-bottom: 15px;
 `;
 
-const BackButton = styled.Image`
+const BackButtonContainer = styled.View`
     position: absolute;
     width: 30px;
     height: 30px;
@@ -64,18 +69,27 @@ const BackButton = styled.Image`
     bottom: 12px;
 `;
 
+const BackButton = styled.Image`
+    width: 30px;
+    height: 30px;
+`;
+
 const NoticeOuterContainer = styled.View`
     position: absolute;
-    top: 140px;
-    background-color: antiquewhite;
+    top: 100px;
+    background-color: white;
     width: 100%;
 `;
 
 const NoticeCardContainer = styled.View`
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
     width: 95%;
     height: 50px;
     margin: 10px;
     background-color: white;
+    border-radius: 10px;
     box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15) ;
 `;
 
@@ -109,7 +123,7 @@ const Notice = ({ navigation }) => {
         );
     };
 
-    const renderItem = (data, rowMap) => {
+    const renderItem = (data) => {
         return (
             <VisibleItem data={ data }/>
         );
@@ -143,16 +157,22 @@ const Notice = ({ navigation }) => {
     return (
         <View>
             <HeaderContainer>
-                    <BackButton source={ backbutton }/>
+                <BackButtonContainer>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <BackButton source={ backbutton } />
+                    </TouchableOpacity>
+                </BackButtonContainer>
                 <Title>Notifications</Title>
             </HeaderContainer>
-            <SwipeListView
-                data={listData}
-                renderItem={renderItem}
-                renderHiddenItem={renderHiddenItem}
-                leftOpenValue={75}
-                rightOpenValue={-150}
-            />
+            <NoticeOuterContainer>
+                <SwipeListView
+                    data={listData}
+                    renderItem={renderItem}
+                    renderHiddenItem={renderHiddenItem}
+                    leftOpenValue={75}
+                    rightOpenValue={-150}
+                />
+            </NoticeOuterContainer>
         </View>
         
     )

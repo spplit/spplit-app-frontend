@@ -18,6 +18,7 @@ import Sidebar from './src/components/Sidebar';
 import StackNavigator from './src/routes/StackNavigator';
 import Schedule from './src/routes/Schedule';
 import Detail from './src/routes/Detail';
+import CustomDrawerContent from './src/components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
 const MainStack = createStackNavigator();
@@ -34,6 +35,7 @@ const MainStackScreen = ({navigation}) => {
         }}
       >
         <MainStack.Screen name="Main" component={Main} />
+        <MainStack.Screen name="Login" component={Login} />
         <MainStack.Screen name="Notice" component={Notice} />
         <MainStack.Screen 
           name="Detail"
@@ -71,7 +73,13 @@ const MainStackScreen = ({navigation}) => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator
+        drawerContentOptions={{
+          activeTintColor: '#4672af',
+          itemStyle: {marginVertical: 5},
+        }}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+      >
         <Drawer.Screen name="Main" component={MainStackScreen}/>
         <Drawer.Screen name="Schedule" component={ScheduleStackScreen}/>
         <Drawer.Screen name="Settings" component={Settings}/>

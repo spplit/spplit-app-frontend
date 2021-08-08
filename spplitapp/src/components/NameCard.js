@@ -10,9 +10,9 @@ const NameCardContent = ({ name, job }) => {
     return (
         <TouchableScale
             activeScale={0.9}
-            tension={50}
+            tension={30}
             friction={7}
-            useNativeDriver
+            useNativeDriver={true}
             onPress={() => navigation.navigate('Detail')}
         >
         <NameCardContainer>
