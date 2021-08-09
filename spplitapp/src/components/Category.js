@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components/native';
 import * as Font from 'expo-font';
 import axios from 'axios';
 import Search from '../components/Search';
+import { cardList } from './CardList';
 
 // const home = require('../assets/images/home_icon.png')
 // const bookmark = require('../assets/images/bookmark_icon.png')
@@ -18,7 +19,7 @@ const TotalContainer = styled.View `
 `;
 
 const CategoryContainer = styled.View `
-    /* background-color: white; */
+    z-index : 100;
     position: absolute;
     width: 100%;
     height: 90px;
@@ -76,13 +77,12 @@ const CategoryText = styled.Text`
 
 
 
-export default function Category() {
+export default function Category({ cardList }) {
 
     const [categoryList, setCategoryList] = useState([]);
     const [categoryBar, setCategoryBar] = useState([]);
 
     const [clicked, setClicked] = useState(0);
-    const [cardList, setCardList] = useState([]);
 
     // 토큰 획득
     USER_TOKEN = "657891e7e05b426a39198353e3c19778600cdc4e"
@@ -166,7 +166,7 @@ export default function Category() {
 
     return (
         <TotalContainer>
-            <Search cards={cards}/>
+            <Search cards={cards} />
             <CategoryContainer>
                 <Categorybar>
                     {buttonList}

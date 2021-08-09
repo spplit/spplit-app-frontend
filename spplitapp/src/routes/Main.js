@@ -7,6 +7,7 @@ import Category from '../components/Category';
 import NameCard from '../components/NameCard';
 import FloatingQR from '../components/FloatingQR';
 import { useNavigation } from '@react-navigation/native';
+import CardList from '../components/CardList';
 
 const MainView = styled.View `
     flex: 1;
@@ -17,7 +18,9 @@ const Main = () => {
     return(
         <MainView>
             <Header />
-            <Category />
+            {/* <Search /> */}
+            <CardList />
+            {/* <Category /> */}
             <FloatingQR />
         </MainView>
     )
