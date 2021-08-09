@@ -85,7 +85,7 @@ export default function Category({ cardList }) {
     const [clicked, setClicked] = useState(0);
 
     // 토큰 획득
-    USER_TOKEN = "657891e7e05b426a39198353e3c19778600cdc4e"
+    USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     // 유저별 custom 카테고리 획득
@@ -130,18 +130,7 @@ export default function Category({ cardList }) {
         )
     })
 
-    // 카드 획득
-    useEffect(() => {
-        const url = "https://spplit.herokuapp.com/card";
-        axios.get(url, { headers : { Authorization: AuthStr} })
-        .then(function(response) {
-            setCardList(response.data);
-            console.log("Card-data loading success");
-        })
-        .catch(function(error) {
-            console.log("Card-data loading failure");
-        })
-    }, [])
+
 
 
     const cards = cardList.filter((card)=> {

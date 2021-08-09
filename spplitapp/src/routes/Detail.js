@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
 import Header from '../components/Header';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
@@ -136,8 +136,8 @@ export default function Detail({ route, navigation }) {
                 </BackButtonContainer> */}
                 <BackButtonContainer>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Text>go back</Text>
-                        {/* <BackButton source={ backbutton } /> */}
+                        {/* <Text>go back</Text> */}
+                        <Image source={ backbutton } />
                     </TouchableOpacity>
                 </BackButtonContainer>
                 <NamecardContentContanier>
