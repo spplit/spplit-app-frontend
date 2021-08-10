@@ -62,7 +62,8 @@ export default function Category({ cardList }) {
     const [clicked, setClicked] = useState(0);
 
     // 토큰 획득
-    USER_TOKEN = "657891e7e05b426a39198353e3c19778600cdc4e"
+    USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
+
 
     // 유저별 Custom-Category 획득
     useEffect(() => {
@@ -109,6 +110,9 @@ export default function Category({ cardList }) {
     })
 
     // 카테고리에 맞는 카드 필터
+
+
+
     const cards = cardList.filter((card)=> {
         console.log(clicked)
         // All 띄우기
