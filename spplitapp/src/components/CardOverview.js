@@ -11,6 +11,7 @@ import NameCard from "./NameCard";
 const NameCardListContainer = styled.View`
     position: absolute;
     width: 100%;
+    height: 500px;
     top: 50px;
     justify-content: center;
     align-items: center;

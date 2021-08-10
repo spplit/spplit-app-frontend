@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import Search from '../components/Search';
 import { cardList } from './CardList';
@@ -18,7 +18,7 @@ const TotalContainer = styled.View`
     background-color: white;
 `;
 
-const CategoryContainer = styled.View `
+const CategoryContainer = styled.View`
     z-index : 100;
     position: absolute;
     width: 100%;
@@ -28,7 +28,7 @@ const CategoryContainer = styled.View `
     justify-content: center;
 `;
 
-const Categorybar = styled.View `
+const Categorybar = styled.View`
     position: absolute;
     background-color: white;
     box-shadow: 4px 4px 10px rgba(17, 17, 26, 0.25);
@@ -41,15 +41,14 @@ const Categorybar = styled.View `
     flex-direction: row;
 `;
 
-const CategoryIconContainer = styled.View`
+const CategoryTextContainer = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
 `;
 
-const CategoryIcon = styled.Image`
-    width: 23px;
-    height: 23px;
+const CategoryText = styled.Text`
+    
 `;
 
 const CategoryIconList = [home, bookmark, coffee, book]
@@ -63,45 +62,48 @@ export default function Category({ cardList }) {
 
     // 토큰 획득
     USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
+    const AuthStr = "Token ".concat(USER_TOKEN)
 
 
     // 유저별 Custom-Category 획득
+    // 유저별 custom 카테고리 획득
     useEffect(() => {
         const url = "https://spplit.herokuapp.com/user/category";
-        axios.get(url, { headers : { Authorization: `token ${USER_TOKEN}` } })
-        .then(response => {
-            setCategoryList(response.data);
-            console.log("Category loading success");
+        axios.get(url, { headers: { Authorization: AuthStr } })
+            .then(function (response) {
+                setCategoryList(response.data);
+                console.log("Category loading success");
 
-            const category_dict = {};
-            const categories = [];
-            
-            category_dict["category1"] = categoryList[0].category1
-            category_dict["category2"] = categoryList[0].category2
-            category_dict["category3"] = categoryList[0].category3
-            category_dict["category4"] = categoryList[0].category4
-            category_dict["category5"] = categoryList[0].category5
-            category_dict["category6"] = categoryList[0].category6
-            category_dict["category7"] = categoryList[0].category7
-            category_dict["category8"] = categoryList[0].category8
-            category_dict["category9"] = categoryList[0].category9
-            category_dict["category10"] = categoryList[0].category10
+                const category_dict = {}
+                const categories = [];
 
-            for (var key in category_dict) {
-                if (category_dict.hasOwnProperty(key)) {
-                    categories.push(category_dict[key]);
+                category_dict["category1"] = categoryList[0].category1
+                category_dict["category2"] = categoryList[0].category2
+                category_dict["category3"] = categoryList[0].category3
+                category_dict["category4"] = categoryList[0].category4
+                category_dict["category5"] = categoryList[0].category5
+                category_dict["category6"] = categoryList[0].category6
+                category_dict["category7"] = categoryList[0].category7
+                category_dict["category8"] = categoryList[0].category8
+                category_dict["category9"] = categoryList[0].category9
+                category_dict["category10"] = categoryList[0].category10
+
+                for (var key in category_dict) {
+                    if (category_dict.hasOwnProperty(key)) {
+                        categories.push(category_dict[key]);
+                    }
                 }
-            }  
-            setCategoryBar(categories)
-        })
-        .catch(error => {
-            console.log(error);
-        })
+                setCategoryBar(categories)
+            })
+            .catch(function (error) {
+                console.log("Category loading failure");
+            })
     }, [])
 
 
+
     //선택된 네 개의 카테고리 버튼을 카테고리 바 안에 넣기
-    const buttonList = categoryBar.slice(0,4).map((value, index) => {
+    const buttonList = categoryBar.slice(0, 4).map((value, index) => {
         return (
             <CategoryTextContainer>
                 <CategoryText key={index} active={clicked === index} onPress={() => setClicked(index)}>{value}</CategoryText>
@@ -113,7 +115,7 @@ export default function Category({ cardList }) {
 
 
 
-    const cards = cardList.filter((card)=> {
+    const cards = cardList.filter((card) => {
         console.log(clicked)
         // All 띄우기
         if (clicked === categoryBar.indexOf("All")) {
