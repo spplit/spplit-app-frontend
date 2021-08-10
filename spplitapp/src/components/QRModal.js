@@ -66,7 +66,7 @@ export default function QRModal({ visible, setVisible }) {
                         value={"hello"}
                     />
                     <ModalButtom>
-                        <Text>명함 고르세여</Text>
+                        <Text>명함 고르세요</Text>
                     </ModalButtom>
                 </ModalMain>
             </ModalContainer>
