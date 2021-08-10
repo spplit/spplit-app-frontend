@@ -1,19 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import styled from 'styled-components/native';
-import * as Font from 'expo-font';
-<<<<<<< HEAD
-=======
 import axios from 'axios';
 import Search from '../components/Search';
 import { cardList } from './CardList';
->>>>>>> 0bda17d1682541d488c00d163f12dd076825d688
 
 const home = require('../assets/images/home_icon.png')
 const bookmark = require('../assets/images/bookmark_icon.png')
 const coffee = require('../assets/images/coffee_icon.png')
 const book = require('../assets/images/book_icon.png')
+
+const TotalContainer = styled.View`
+    position: absolute;
+    width: 100%;
+    height: 88%;
+    bottom: 0;
+    background-color: white;
+`;
 
 const CategoryContainer = styled.View `
     z-index : 100;
@@ -29,8 +32,8 @@ const Categorybar = styled.View `
     position: absolute;
     background-color: white;
     box-shadow: 4px 4px 10px rgba(17, 17, 26, 0.25);
-    width: 90%;
-    height: 60px;
+    width: 84%;
+    height: 50px;
     bottom: 30px;
     border-radius: 60px;
     justify-content: space-evenly;
@@ -51,21 +54,6 @@ const CategoryIcon = styled.Image`
 
 const CategoryIconList = [home, bookmark, coffee, book]
 
-<<<<<<< HEAD
-export default function Category() {
-    return (
-        <CategoryContainer>
-            <Categorybar>
-                {CategoryIconList.map((icon, index) => {
-                    return (
-                        <CategoryIconContainer>
-                            <CategoryIcon resizeMode='contain' key={index} source={icon} />
-                        </CategoryIconContainer>
-                    )
-                })}
-            </Categorybar>
-        </CategoryContainer>
-=======
 export default function Category({ cardList }) {
 
     const [categoryList, setCategoryList] = useState([]);
@@ -75,17 +63,16 @@ export default function Category({ cardList }) {
 
     // 토큰 획득
     USER_TOKEN = "657891e7e05b426a39198353e3c19778600cdc4e"
-    const AuthStr = "Token ".concat(USER_TOKEN)
 
-    // 유저별 custom 카테고리 획득
+    // 유저별 Custom-Category 획득
     useEffect(() => {
         const url = "https://spplit.herokuapp.com/user/category";
-        axios.get(url, { headers : { Authorization: AuthStr} })
-        .then(function(response) {
+        axios.get(url, { headers : { Authorization: `token ${USER_TOKEN}` } })
+        .then(response => {
             setCategoryList(response.data);
             console.log("Category loading success");
 
-            const category_dict = {}
+            const category_dict = {};
             const categories = [];
             
             category_dict["category1"] = categoryList[0].category1
@@ -106,11 +93,13 @@ export default function Category({ cardList }) {
             }  
             setCategoryBar(categories)
         })
-        .catch(function(error) {
-            console.log("Category loading failure");
+        .catch(error => {
+            console.log(error);
         })
     }, [])
 
+
+    //선택된 네 개의 카테고리 버튼을 카테고리 바 안에 넣기
     const buttonList = categoryBar.slice(0,4).map((value, index) => {
         return (
             <CategoryTextContainer>
@@ -119,20 +108,7 @@ export default function Category({ cardList }) {
         )
     })
 
-    // 카드 획득
-    useEffect(() => {
-        const url = "https://spplit.herokuapp.com/card";
-        axios.get(url, { headers : { Authorization: AuthStr} })
-        .then(function(response) {
-            setCardList(response.data);
-            console.log("Card-data loading success");
-        })
-        .catch(function(error) {
-            console.log("Card-data loading failure");
-        })
-    }, [])
-
-
+    // 카테고리에 맞는 카드 필터
     const cards = cardList.filter((card)=> {
         console.log(clicked)
         // All 띄우기
@@ -161,7 +137,6 @@ export default function Category({ cardList }) {
                     {buttonList}
                 </Categorybar>
             </CategoryContainer>
-         </TotalContainer>
->>>>>>> 0bda17d1682541d488c00d163f12dd076825d688
+        </TotalContainer>
     )
 }

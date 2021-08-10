@@ -11,7 +11,7 @@ const Menubar = require('../assets/images/menubar.png');
 
 const HeaderContainer = styled.View `
     position: absolute;
-    height: 100px;
+    height: 98px;
     width: 100%;
     top: 0;
     background-color: white;
@@ -27,7 +27,8 @@ const SidebarButtonContainer = styled.View `
 `;
 
 const SidebarButton = styled.Image `
-    width: 30px;
+    width: 18px;
+    height: 18px;
     margin-left: 25px;
 `;
 
@@ -40,8 +41,8 @@ const LogoContainer = styled.View`
 `;
 
 const LogoImage = styled.Image`
-    width: 25px;
-    height: 30px;
+    width: 20px;
+    height: 23px;
 `;
 
 const NoticeButtonContainer = styled.View`
@@ -53,8 +54,8 @@ const NoticeButtonContainer = styled.View`
 `;
 
 const NoticeButton = styled.View`
-    width: 75px;
-    height: 38px;
+    width: 50px;
+    height: 26px;
     border-radius: 7px;
     background-color: #f2f2f2;
     flex-direction: row;
@@ -64,13 +65,13 @@ const NoticeButton = styled.View`
 `;
 
 const NoticeImage = styled.Image`
-    width: 20px;
-    margin-right: 9px;
+    width: 14px;
+    margin-right: 6px;
 `;
 
 const NoticeNumber = styled.Text`
     color: #707070;
-    font-size: 22px;
+    font-size: 15px;
 `;
 
 export default function Header() {

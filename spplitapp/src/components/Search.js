@@ -1,24 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import styled from 'styled-components/native';
-import * as Font from 'expo-font';
-<<<<<<< HEAD
-=======
-import { cards } from './Category';
-import NameCard from './NameCard';
 import CardOverview from './CardOverview';
 
-const TotalContainer = styled.View `
-    width : 100%;
-`;
->>>>>>> 0bda17d1682541d488c00d163f12dd076825d688
 
 const SearchbarContainer = styled.View`
-    height: 60px;
-    position: absolute;
+    height: 47px;
     width: 100%;
-    top: 100px;
     background-color: white;
     justify-content: center;
     align-items: center;
@@ -30,17 +18,9 @@ const Searchbar = styled.TextInput `
     background-color: #f2f2f2;
     border-radius: 7px;
     padding-left: 15px;
-    font-size: 20px;
+    font-size: 17px;
 `;
 
-<<<<<<< HEAD
-export default function Search() {
-    const [text, setText] = useState('');
-    return (
-        <SearchbarContainer>
-            <Searchbar />
-        </SearchbarContainer>
-=======
 export default function Search({ cards }) {
 
     const [query, setQuery] = useState(null);
@@ -74,13 +54,11 @@ export default function Search({ cards }) {
 
 
     return (
-        <TotalContainer>
+        <View>
             <SearchbarContainer>
                 <Searchbar placeholder="Contact your partner" value={query} onChangeText={text => setQuery(text)}/> 
             </SearchbarContainer>
             <CardOverview results={results} />
-        </TotalContainer>
-
->>>>>>> 0bda17d1682541d488c00d163f12dd076825d688
+        </View>
     )
 }

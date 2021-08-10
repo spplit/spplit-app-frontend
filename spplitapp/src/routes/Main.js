@@ -17,16 +17,11 @@ const Main = () => {
 
     return(
         <MainView>
-            <NameCard />
+            {/* <NameCard /> */}
             <Header />
-<<<<<<< HEAD
-            <Search />           
-            <Category />
-=======
             {/* <Search /> */}
             <CardList />
             {/* <Category /> */}
->>>>>>> 0bda17d1682541d488c00d163f12dd076825d688
             <FloatingQR />
         </MainView>
     )
