@@ -24,11 +24,13 @@ const QRImage = styled.Image`
     height: 30px;
 `;
 
-export default function FloatingQR() {
-    return(
+export default function FloatingQR({ setVisible }) {
+    return (
+        <TouchableOpacity onPress={() => setVisible(true)}>
             <QRContainer>
-                <QRImage resizeMode="contain" source={QRCode}/>
+                <QRImage resizeMode="contain" source={QRCode} />
             </QRContainer>
+        </TouchableOpacity>
     )
 
 }
