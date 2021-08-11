@@ -11,11 +11,11 @@ import NameCard from "./NameCard";
 const NameCardListContainer = styled.View`
     position: absolute;
     width: 100%;
-    height: 500px;
+    height: 700px;
     top: 50px;
     justify-content: center;
     align-items: center;
-    background-color: aliceblue;
+    background-color: transparent;
 `;
 
 const NameCardList = styled.ScrollView`

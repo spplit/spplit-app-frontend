@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, Button, PanResponder, Animated } from 'react-na
 
 const CardContainer = styled.View`
     width: 315px;
-    height: 460px;
+    height: 400px;
     border-radius: 14px;
     background-color: #d9d9d9;
+    box-shadow: 0px 2px 8px rgba(99, 99, 99, 0.2);
 `;
 
 export default function MyNameCardContainer() {
@@ -25,11 +26,12 @@ export default function MyNameCardContainer() {
                 [
                     null,
                     { dx: pan.x, dy: pan.y }
-                ]
+                ],
+                {useNativeDriver: true}
             ),
             onPanResponderRelease : () => {
                 Animated.spring(pan, {
-                    toValue: { x: 0, y: 0 }
+                    toValue: { x: 0, y: 0 }, useNativeDriver: true
                 }).start();
             }
         })
