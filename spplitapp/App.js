@@ -5,17 +5,11 @@ import 'react-native-gesture-handler';  // only for ios!
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Follower from './src/routes/Follower';
-import Landing from './src/routes/Landing';
 import Login from './src/routes/Login';
 import Main from './src/routes/Main';
 import MyNameCard from './src/routes/MyNameCard';
 import Notice from './src/routes/Notice';
 import Settings from './src/routes/Settings';
-import SignUp from './src/routes/SignUp';
-import Header from './src/components/Header';
-import Sidebar from './src/components/Sidebar';
-import StackNavigator from './src/routes/StackNavigator';
 import Schedule from './src/routes/Schedule';
 import Detail from './src/routes/Detail';
 import CustomDrawerContent from './src/components/CustomDrawerContent';
@@ -26,6 +20,7 @@ const ScheduleStack = createStackNavigator();
 
 
 const MainStackScreen = ({navigation}) => {
+    
     return(
       <MainStack.Navigator
         initialRouteName="Main"
@@ -73,6 +68,7 @@ const MainStackScreen = ({navigation}) => {
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar style="dark" />
       <Drawer.Navigator
         drawerContentOptions={{
           activeTintColor: '#4672af',

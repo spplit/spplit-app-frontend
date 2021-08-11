@@ -1,23 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import styled from 'styled-components/native';
-import * as Font from 'expo-font';
-import NameCard from './NameCard';
-import CardList from './CardList';
-import { cards } from './Category';
+import CardOverview from './CardOverview';
 
-const TotalContainer = styled.View `
-    width : 100%;
-    height : 100%;
-`;
 
 const SearchbarContainer = styled.View`
-    height: 60px;
-    position: absolute;
+    height: 47px;
     width: 100%;
-    top: 100px;
     background-color: white;
     justify-content: center;
     align-items: center;
@@ -29,18 +18,18 @@ const Searchbar = styled.TextInput `
     background-color: #f2f2f2;
     border-radius: 7px;
     padding-left: 15px;
-    font-size: 18px;
+    font-size: 17px;
 `;
 
-export default function Search({cards}) {
+export default function Search({ cards }) {
 
     const [query, setQuery] = useState(null);
 
-    if (!cards) {
-        return null
-    }
-
+    
+    // 검색 필터
     const results = cards.filter((result) => {
+
+        console.log(query)
 
         if (query === null) {
             return result
@@ -63,13 +52,13 @@ export default function Search({cards}) {
             }
     })
 
+
     return (
-        <TotalContainer>
+        <View>
             <SearchbarContainer>
                 <Searchbar placeholder="Contact your partner" value={query} onChangeText={text => setQuery(text)}/> 
             </SearchbarContainer>
-            <CardList results={results} />
-        </TotalContainer>
-
+            <CardOverview results={results} />
+        </View>
     )
 }

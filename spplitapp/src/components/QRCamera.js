@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
 
-// mount : b321c5a1-1301-4107-ab0b-67d2feba4822   
 const { width, height } = Dimensions.get('window');
 const boxLen = width * 4 / 5;
 const viewMinX = (width - boxLen) / 2;

@@ -10,6 +10,7 @@ import FloatingQR from '../components/FloatingQR';
 import QRModal from '../components/QRModal';
 import QRCamera from '../components/QRCamera';
 import { useNavigation } from '@react-navigation/native';
+import CardList from '../components/CardList';
 
 const MainView = styled.View`
     flex: 1;
@@ -29,14 +30,22 @@ const Main = () => {
 
     return (
         <MainView>
+            {/* <NameCard /> */}
             <Header />
-            <Category />
+
+            
+            
+
+            {/* <Search /> */}
+            <CardList />
+            {/* <Category /> */}
             <FloatingQR setVisible={setQRVisible} />
             <QRModal visible={qrVisible} setVisible={setQRVisible} />
             <QRCamera visible={cameraVisible} setVisible={setCameraVisible} />
             <Camera onPress={() => setCameraVisible(true)}>
                 <Text>카메라</Text>
             </Camera>
+
         </MainView>
     )
 }
