@@ -24,7 +24,7 @@ const BackText = styled.Text`
 
 export default function QRCamera({ visible, setVisible }) {
     const url = "https://spplit.herokuapp.com/request";
-    USER_TOKEN = "6a9c0aa53ae62715659b3575b1cdd011f097e1c9"
+    USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     const [hasPermission, setHasPermission] = useState(null);
@@ -39,19 +39,25 @@ export default function QRCamera({ visible, setVisible }) {
     }, []);
 
     useEffect(() => {
+        let form = new FormData()
+        form.append('cardId', code)
+        
         axios.post(
-            url,
-            { headers: { Authorization: AuthStr } },
-            { cardId: code })
+            url, form, 
+            { headers: { Authorization: AuthStr,
+            "Content-Type" : "multipart/form-data" } 
+            })
             .then((response) => { console.log("success") })
             .then(() => {
                 alert('card request success');
             })
             .catch(function (error) {
-                console.log("card request failure");
+                console.log(error);
             })
 
     }, [code])
+
+    
 
 
     const handleBarCodeScanned = (BarCodeScannerResult) => {
@@ -61,6 +67,7 @@ export default function QRCamera({ visible, setVisible }) {
             setScanned(true);
             setVisible(false);
             setCode(data);
+            console.log(code)
             setScanned(false);
         }
     };
