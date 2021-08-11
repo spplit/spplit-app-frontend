@@ -57,7 +57,7 @@ export default function NameCard({ name, job, email, phone, tag1, tag2, tag3, cu
     return (
         <TouchableScale
             activeScale={0.9}
-            tension={30}
+            tension={18}
             friction={7}
             useNativeDriver={true}
             onPress={() => navigation.navigate('Detail', { name, job, email, phone, tag1, tag2, tag3, 
