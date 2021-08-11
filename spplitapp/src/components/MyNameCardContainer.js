@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { StyleSheet, Text, View, Button, PanResponder, Animated } from 'react-native';
+import { StyleSheet, Text, View, Alert, Modal, Pressable } from 'react-native';
+import TouchableScale from 'react-native-touchable-scale';
 
 const CardContainer = styled.View`
     width: 315px;
@@ -11,39 +12,51 @@ const CardContainer = styled.View`
 `;
 
 export default function MyNameCardContainer() {
-    const pan = useRef(new Animated.ValueXY()).current;
-
-    const panResponder = useRef(
-        PanResponder.create({
-            onMoveShouldSetPanResponder: () => true,
-            // onPanResponderGrant: () => {
-            //     pan.setOffset({
-            //         x: pan.x._value,
-            //         y: pan.y._value,
-            //     });
-            // },
-            onPanResponderMove: Animated.event(
-                [
-                    null,
-                    { dx: pan.x, dy: pan.y }
-                ],
-                {useNativeDriver: true}
-            ),
-            onPanResponderRelease : () => {
-                Animated.spring(pan, {
-                    toValue: { x: 0, y: 0 }, useNativeDriver: true
-                }).start();
-            }
-        })
-    ).current;
+    const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <View>
-            <Animated.View style={{
-                transform: [{ translateX: pan.x }, { translateY: pan.y }]
-            }} {...panResponder.panHandlers}>
+            <Modal
+                animationType="slide"
+                visible={modalVisible}
+                presentationStyle='pageSheet'
+                onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  setModalVisible(!modalVisible);
+                }}
+            >
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+            <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+            </Modal>
+            <TouchableScale
+                activeScale={0.9}
+                tension={18}
+                friction={7}
+                useNativeDriver={true}
+                onPress={() => setModalVisible(true)}
+            >
                 <CardContainer />
-            </Animated.View>
+            </TouchableScale>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2
+    },
+    buttonClose: {
+      backgroundColor: "#2196F3",
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center"
+    },
+  });

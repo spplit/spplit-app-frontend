@@ -63,8 +63,6 @@ const MainStackScreen = ({navigation}) => {
     )
   }
 
-
-
 export default function App() {
   return (
     <NavigationContainer>
