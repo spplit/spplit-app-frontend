@@ -86,7 +86,7 @@ export default function Header() {
                 </TouchableOpacity>
             </SidebarButtonContainer>
             <LogoContainer>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Main')}>
                 <LogoImage source={Logo} />
                 </TouchableOpacity>
             </LogoContainer>
