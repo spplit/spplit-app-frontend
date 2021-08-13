@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';  // only for ios!
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Login from './src/routes/Login';
+import SignUp from './src/routes/SignUp';
 import Main from './src/routes/Main';
 import MyNameCard from './src/routes/MyNameCard';
 import Notice from './src/routes/Notice';
@@ -13,12 +14,31 @@ import Settings from './src/routes/Settings';
 import Schedule from './src/routes/Schedule';
 import Detail from './src/routes/Detail';
 import CustomDrawerContent from './src/components/CustomDrawerContent';
+import AuthCheck from './src/routes/AuthCheck';
 
 const Drawer = createDrawerNavigator();
 const MainStack = createStackNavigator();
 const ScheduleStack = createStackNavigator();
+const AuthStack = createStackNavigator();
 
+// 로그인 혹은 회원가입 화면
+const AuthStackScreen = ({navigation}) => {
+  return (
+    <AuthStack.Navigator
+      screenOptions={{
+      headerShown: false,
+      cardStyle: {backgroundColor: 'white'}
+      }}
+    >
+      <AuthStack.Screen name="AuthCheck" component={AuthCheck} />
+      <AuthStack.Screen name="Login" component={Login} />
+      <AuthStack.Screen name="SignUp" component={SignUp} />
 
+    </AuthStack.Navigator>
+  )
+}
+
+// 메인화면
 const MainStackScreen = ({navigation}) => {
     
     return(
@@ -50,6 +70,7 @@ const MainStackScreen = ({navigation}) => {
     )
   }
 
+  //스케줄 화면
   const ScheduleStackScreen = ({navigation}) => {
     return (
       <ScheduleStack.Navigator
@@ -63,10 +84,14 @@ const MainStackScreen = ({navigation}) => {
     )
   }
 
+
 export default function App() {
+  const [login, setLogin] = useState(true);
+
   return (
     <NavigationContainer>
       <StatusBar style="dark" />
+      { login ? (
       <Drawer.Navigator
         drawerContentOptions={{
           activeTintColor: '#4672af',
@@ -78,6 +103,11 @@ export default function App() {
         <Drawer.Screen name="Settings" component={Settings}/>
         <Drawer.Screen name="MyNameCard" component={MyNameCard}/>
       </Drawer.Navigator>
+      ) : (
+        <AuthStackScreen />
+      )
+      }
+
     </NavigationContainer>
   );
 }
