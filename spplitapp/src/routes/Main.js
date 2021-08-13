@@ -15,18 +15,10 @@ import CardList from '../components/CardList';
 const MainView = styled.View`
     flex: 1;
 `;
-const Camera = styled.TouchableOpacity`
-    background-color: yellow;
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    margin: 200px;
-    z-index: 3;
-`;
+
 
 const Main = () => {
     const [qrVisible, setQRVisible] = useState(false);
-    const [cameraVisible, setCameraVisible] = useState(false);
 
     return (
         <MainView>
@@ -34,10 +26,7 @@ const Main = () => {
             <FloatingQR setVisible={setQRVisible} />
             <CardList />
             <QRModal visible={qrVisible} setVisible={setQRVisible} />
-            <QRCamera visible={cameraVisible} setVisible={setCameraVisible} />
-            <Camera onPress={() => setCameraVisible(true)}>
-                <Text>카메라</Text>
-            </Camera>
+            <QRCamera />
 
         </MainView>
     )

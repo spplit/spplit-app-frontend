@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
 import * as Font from 'expo-font';
+import QRModal from './QRModal';
 
 const QRCode = require('../assets/images/qrcode_icon.png')
 
@@ -25,12 +26,18 @@ const QRImage = styled.Image`
 `;
 
 export default function FloatingQR({ setVisible }) {
+    const [qrVisible, setQRVisible] = useState(false);
+
     return (
+        <View>
+        <QRModal visible={qrVisible} setVisible={setQRVisible} />
         <TouchableOpacity onPress={() => setVisible(true)}>
             <QRContainer>
                 <QRImage resizeMode="contain" source={QRCode} />
             </QRContainer>
         </TouchableOpacity>
+        
+        </View>
     )
 
 }
