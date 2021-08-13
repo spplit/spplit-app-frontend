@@ -6,8 +6,8 @@ import styled from 'styled-components/native';
 import * as Font from 'expo-font';
 
 const Logo = require('../assets/images/spplit_logo.png');
-const Bell = require('../assets/images/notice_bell.png');
-const Menubar = require('../assets/images/menubar.png');
+const Bell = require('../assets/images/notice_icon.png');
+const Menubar = require('../assets/images/menubar_icon.png');
 
 const HeaderContainer = styled.View `
     position: absolute;

@@ -30,16 +30,9 @@ const Main = () => {
 
     return (
         <MainView>
-            {/* <NameCard /> */}
             <Header />
-
-            
-            
-
-            {/* <Search /> */}
-            <CardList />
-            {/* <Category /> */}
             <FloatingQR setVisible={setQRVisible} />
+            <CardList />
             <QRModal visible={qrVisible} setVisible={setQRVisible} />
             <QRCamera visible={cameraVisible} setVisible={setCameraVisible} />
             <Camera onPress={() => setCameraVisible(true)}>
