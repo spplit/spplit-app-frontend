@@ -19,7 +19,8 @@ const NameCardContainer = styled.View`
     width: 100%;
     flex: 48;
     background-color: #d9d9d9;
-    border-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
 `;
 
 // 회색 부분 안에 명함 주인 정보를 모아둔 컨테이너

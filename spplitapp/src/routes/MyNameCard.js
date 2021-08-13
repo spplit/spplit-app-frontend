@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, Button, PanResponder, Animated } from 'react-na
 import styled from 'styled-components';
 import Header from '../components/Header';
 import MyNameCardContainer from '../components/MyNameCardContainer';
+import { useNavigation } from '@react-navigation/native';
+import TouchableScale from 'react-native-touchable-scale';
 
 
 const CardView = styled.View`
@@ -14,6 +16,7 @@ const CardView = styled.View`
 
 
 export default function MyNameCard() {
+    const navigation = useNavigation();
 
     return ( 
         <CardView>
