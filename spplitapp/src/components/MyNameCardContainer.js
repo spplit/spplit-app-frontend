@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const close = require('../assets/images/close_icon.png');
 
-
+// 누르면 모달 오픈
 const CardContainer = styled.View`
     width: 315px;
     height: 400px;
@@ -15,6 +15,7 @@ const CardContainer = styled.View`
     box-shadow: 0px 2px 8px rgba(99, 99, 99, 0.2);
 `;
 
+//closeText 담긴 부분
 const ModalHeader = styled.View`
     width: 100%;
     height: 50px;

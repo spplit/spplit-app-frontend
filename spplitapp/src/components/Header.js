@@ -53,6 +53,7 @@ const NoticeButtonContainer = styled.View`
     align-items: flex-end;
 `;
 
+
 const NoticeButton = styled.View`
     width: 50px;
     height: 26px;

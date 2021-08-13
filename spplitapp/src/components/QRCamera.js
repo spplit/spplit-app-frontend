@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Dimensions, Modal, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Dimensions, Modal, Text, View, Button, TouchableOpacity, Touchable } from 'react-native';
 import React from 'react';
 import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
 
+const Camera = require('../assets/images/camera_icon.png');
 const { width, height } = Dimensions.get('window');
 const boxLen = width * 4 / 5;
 const viewMinX = (width - boxLen) / 2;
@@ -19,7 +20,25 @@ const BackContainer = styled.TouchableOpacity`
 
 const BackText = styled.Text`
     color: white;
-    font-size: 22px;
+    font-size: 18px;
+`;
+
+const CameraContainer = styled.View`
+    background-color: #f2f2f2;
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    top: 55px;
+    right: 85px;
+    z-index: 3;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+`;
+
+const CameraImage = styled.Image`
+    width: 18px;
+    height: 18px;
 `;
 
 export default function QRCamera({ visible, setVisible }) {
@@ -30,6 +49,7 @@ export default function QRCamera({ visible, setVisible }) {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const [code, setCode] = useState();
+    const [cameraVisible, setCameraVisible] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -80,12 +100,16 @@ export default function QRCamera({ visible, setVisible }) {
     }
 
     return (
-        <>
-            {visible ? <Modal style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-            }}>
+        <View>
+            <Modal
+                visible={cameraVisible}
+                onRequestClose={() => {setCameraVisible(!cameraVisible)}}
+                style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                }}
+            >
                 <BarCodeScanner
                     onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
                     style={[StyleSheet.absoluteFillObject, {
@@ -95,21 +119,25 @@ export default function QRCamera({ visible, setVisible }) {
                     },]}
                 >
                     <View style={{
-                        borderWidth: 4,
+                        borderWidth: 1,
                         borderColor: "white",
                         width: boxLen,
                         height: boxLen
                     }}>
 
                     </View>
-                    <BackContainer onPress={() => setVisible(false)}>
-                        <BackText>BACK</BackText>
+                    <BackContainer onPress={() => setCameraVisible(!cameraVisible)}>
+                        <BackText>Close</BackText>
                     </BackContainer>
                 </BarCodeScanner>
-            </Modal> :
-                <></>
-            }
+            </Modal>
 
-        </>
+            <TouchableOpacity onPress={() => setCameraVisible(true)}>
+                    <CameraContainer>
+                        <CameraImage resizeMode='contain' source={Camera} />
+                    </CameraContainer>
+            </TouchableOpacity>
+
+        </View>
     )
 }
