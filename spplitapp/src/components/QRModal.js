@@ -20,8 +20,8 @@ const ModalContainer = styled.View`
 const ModalMain = styled.View`
     background-color: white;
     border-radius: 10px;
-    width : ${MODAL_SIZE};
-    height: ${MODAL_SIZE};
+    width : ${MODAL_SIZE}px;
+    height: ${MODAL_SIZE}px;
     display: flex;
     align-items: center;
 `;

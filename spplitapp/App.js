@@ -70,7 +70,6 @@ export default function App() {
       <Drawer.Navigator
         drawerContentOptions={{
           activeTintColor: '#4672af',
-          itemStyle: {marginVertical: 5},
         }}
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
@@ -82,12 +81,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
