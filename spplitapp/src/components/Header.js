@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import * as Font from 'expo-font';
+import { CameraContainer } from '../components/QRCamera';
 
 const Logo = require('../assets/images/spplit_logo.png');
 const Bell = require('../assets/images/notice_icon.png');

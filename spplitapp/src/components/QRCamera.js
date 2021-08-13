@@ -30,7 +30,7 @@ const CameraContainer = styled.View`
     height: 26px;
     top: 55px;
     right: 85px;
-    z-index: 3;
+
     align-items: center;
     justify-content: center;
     border-radius: 5px;
