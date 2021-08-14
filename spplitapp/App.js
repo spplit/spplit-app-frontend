@@ -12,6 +12,7 @@ import Notice from './src/routes/Notice';
 import Settings from './src/routes/Settings';
 import Schedule from './src/routes/Schedule';
 import Detail from './src/routes/Detail';
+import CategoryEdit from './src/routes/CategoryEdit';
 import CustomDrawerContent from './src/components/CustomDrawerContent';
 
 const Drawer = createDrawerNavigator();
@@ -80,6 +81,7 @@ export default function App() {
         <Drawer.Screen name="Schedule" component={ScheduleStackScreen}/>
         <Drawer.Screen name="Settings" component={Settings}/>
         <Drawer.Screen name="MyNameCard" component={MyNameCard}/>
+        <Drawer.Screen name="CategoryEdit" component={CategoryEdit}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
