@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
+import axios from 'axios';
 
 const BackButton = require('../assets/images/backbutton_icon.png');
 const Logo = require('../assets/images/spplit_logo.png');
@@ -62,7 +63,7 @@ const MidContainer = styled.View`
 `;
 
 const WelcomeText = styled.Text`
-    font-size: 22;
+    font-size: 22px;
     text-align: center;
     color: #707070;
 `
@@ -97,7 +98,7 @@ const PasswordInput = styled.TextInput`
     top: 20px;
 `
 
-const LoginButton = styled.View`
+const LoginButton = styled.TouchableOpacity`
     height: 45px;
     width: 45px;
     background-color: #f2f2f2;
@@ -111,6 +112,29 @@ const LoginImage = styled.Image`
 `;
 
 export default function Login({ navigation }) {
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [errortext, setErrortext] = useState('');
+
+    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/login";
+
+    const loginSubmit = (ID, Password) => {
+        let form = new FormData();
+        form.append('email', ID)
+        form.append('password', Password)
+
+        axios.post(
+            url, form)
+            .then((response) => { console.log(response) })
+            .then(() => {
+                alert(`Welcome back!`)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     return (
         <LoginContainer>
             <HeaderContainer>
@@ -128,11 +152,22 @@ export default function Login({ navigation }) {
             <MidContainer>
                 <WelcomeText>WELCOME!</WelcomeText>
                 <LoginFormContainer>
-                    <IDInput autoCapitalize='none' placeholder="Username or Email" />
-                    <PasswordInput autoCapitalize='none' placeholder="Password" />
+                    <IDInput
+                        autoCapitalize='none'
+                        placeholder="Username or Email"
+                        onChangeText={(userEmail) => setUserEmail(userEmail)}
+                        />
+                    <PasswordInput
+                        autoCapitalize='none'
+                        placeholder="Password"
+                        onChangeText={(userPassword) => setUserPassword(userPassword)}
+                        />
                 </LoginFormContainer>
-                <LoginButton>
-                    <LoginImage resizeMode="contain" source={Unlock}/>
+                <LoginButton onPress={() => loginSubmit(userEmail, userPassword)}>
+                    <LoginImage
+                        resizeMode="contain" 
+                        source={Unlock}
+                        />
                 </LoginButton>
             </MidContainer>
         </LoginContainer>
