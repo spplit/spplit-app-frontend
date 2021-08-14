@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
+import axios from 'axios';
 
-const Back = require('../assets/images/backbutton_icon.png');
+const BackButton = require('../assets/images/backbutton_icon.png');
 const Logo = require('../assets/images/spplit_logo.png');
+const Unlock = require('../assets/images/unlock_icon.png');
 
 const HeaderContainer = styled.View `
     position: absolute;
@@ -17,33 +19,30 @@ const HeaderContainer = styled.View `
 `;
 
 const BackButtonContainer = styled.View `
-    flex: 1;
+    position: absolute;
+    left: 0;
+    width: 20%;
     height: 60px;
-    /* background-color: grey; */
     justify-content: center;
+    align-items: center;
 `;
 
-const BackButton = styled.Image `
-    width: 30px;
-    margin-left: 25px;
+const BackButtonImage = styled.Image `
+    width: 22px;
 `;
 
 const LogoContainer = styled.View`
     flex: 1;
     height: 60px;
-    /* background-color: aliceblue; */
     justify-content: center;
     align-items: center;
 `;
 
 const LogoImage = styled.Image`
-    width: 25px;
-    height: 30px;
+    width: 20px;
+    height: 23px;
 `;
 
-const EmptyContainer = styled.View`
-    flex: 1;
-`
 
 const LoginContainer = styled.View`
     flex: 1;
@@ -64,7 +63,7 @@ const MidContainer = styled.View`
 `;
 
 const WelcomeText = styled.Text`
-    font-size: 22;
+    font-size: 22px;
     text-align: center;
     color: #707070;
 `
@@ -78,89 +77,98 @@ const LoginFormContainer = styled.View`
     align-items: center;
 `
 
-const InputID = styled.TextInput`
+const IDInput = styled.TextInput`
     width: 100%;
     background-color: #F2F2F2;
-    border-radius: 15px;
-    height: 50px;
-    border: none;
+    border-radius: 10px;
+    height: 40px;
     font-size: 19px;
     padding-left: 12px;
     
 `
 
-const InputPW = styled.TextInput`
+const PasswordInput = styled.TextInput`
     width: 100%;
     background-color: #F2F2F2;
-    border-radius: 15px;
-    height: 50px;
+    border-radius: 10px;
+    height: 40px;
     border: none;
     font-size: 19px;
     padding-left: 12px;
     top: 20px;
 `
 
-const LoginButtonContainer = styled.View`
-    height: 51px;
-    width: 51px;
+const LoginButton = styled.TouchableOpacity`
+    height: 45px;
+    width: 45px;
     background-color: #f2f2f2;
-    border-radius: 5px;
-    border: none;
-    justify-content: center;
-`
-
-const LoginButton = styled.View`
-    /* flex: 1; */
-    height: 40px;
-    /* background-color: aliceblue; */
+    border-radius: 10px;
     justify-content: center;
     align-items: center;
 `;
 
 const LoginImage = styled.Image`
-    width: 25px;
-    height: 30px;
+    width: 20px;
 `;
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [errortext, setErrortext] = useState('');
+
+    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/login";
+
+    const loginSubmit = (ID, Password) => {
+        let form = new FormData();
+        form.append('email', ID)
+        form.append('password', Password)
+
+        axios.post(
+            url, form)
+            .then((response) => { console.log(response) })
+            .then(() => {
+                alert(`Welcome back!`)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     return (
         <LoginContainer>
             <HeaderContainer>
                 <BackButtonContainer>
-                    <TouchableOpacity onPress={() => navigation.navigate('Main')}>
-                        <BackButton resizeMode="contain" source={Back} />
+                    <TouchableOpacity onPress={() => navigation.navigate('AuthCheck')}>
+                        <BackButtonImage resizeMode="contain" source={BackButton} />
                     </TouchableOpacity>
                 </BackButtonContainer>
+
                 <LogoContainer>
                     <LogoImage source={Logo} />
                 </LogoContainer>
-                <EmptyContainer></EmptyContainer>
             </HeaderContainer>
+
             <MidContainer>
                 <WelcomeText>WELCOME!</WelcomeText>
                 <LoginFormContainer>
-                    <InputID placeholder="Username or Email" 
-                    style={{
-                        shadowColor: "#707070",
-                        shadowOpacity: 1,
-                        shadowRadius: 5,
-                        shadowOffset: { height: 2, width: 0 },
-                        elevation: 5
-                    }}></InputID>
-                    <InputPW placeholder="Password"
-                    style={{
-                        shadowColor: "#707070",
-                        shadowOpacity: 1,
-                        shadowRadius: 5,
-                        shadowOffset: { height: 2, width: 0 },
-                        elevation: 5
-                    }}></InputPW>
+                    <IDInput
+                        autoCapitalize='none'
+                        placeholder="Username or Email"
+                        onChangeText={(userEmail) => setUserEmail(userEmail)}
+                        />
+                    <PasswordInput
+                        autoCapitalize='none'
+                        placeholder="Password"
+                        onChangeText={(userPassword) => setUserPassword(userPassword)}
+                        />
                 </LoginFormContainer>
-                <LoginButtonContainer>
-                    <LoginButton>
-                        <LoginImage source={Logo}/>
-                    </LoginButton>
-                </LoginButtonContainer>
+                <LoginButton onPress={() => loginSubmit(userEmail, userPassword)}>
+                    <LoginImage
+                        resizeMode="contain" 
+                        source={Unlock}
+                        />
+                </LoginButton>
             </MidContainer>
         </LoginContainer>
     )

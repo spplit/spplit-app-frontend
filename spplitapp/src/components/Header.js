@@ -4,10 +4,11 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import * as Font from 'expo-font';
+import { CameraContainer } from '../components/QRCamera';
 
 const Logo = require('../assets/images/spplit_logo.png');
-const Bell = require('../assets/images/notice_bell.png');
-const Menubar = require('../assets/images/menubar.png');
+const Bell = require('../assets/images/notice_icon.png');
+const Menubar = require('../assets/images/menubar_icon.png');
 
 const HeaderContainer = styled.View `
     position: absolute;
@@ -53,6 +54,7 @@ const NoticeButtonContainer = styled.View`
     align-items: flex-end;
 `;
 
+
 const NoticeButton = styled.View`
     width: 50px;
     height: 26px;
@@ -84,7 +86,7 @@ export default function Header() {
                 </TouchableOpacity>
             </SidebarButtonContainer>
             <LogoContainer>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Main')}>
                 <LogoImage source={Logo} />
                 </TouchableOpacity>
             </LogoContainer>
