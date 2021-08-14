@@ -86,7 +86,7 @@ const MainStackScreen = ({navigation}) => {
 
 
 export default function App() {
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
 
   return (
     <NavigationContainer>
