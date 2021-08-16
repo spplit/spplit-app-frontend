@@ -16,6 +16,7 @@ import Detail from './src/routes/Detail';
 import CategoryEdit from './src/routes/CategoryEdit';
 import CustomDrawerContent from './src/components/CustomDrawerContent';
 import AuthCheck from './src/routes/AuthCheck';
+import { useIsFocused } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 const MainStack = createStackNavigator();
