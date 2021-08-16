@@ -80,19 +80,31 @@ const LogoutButton = styled.Text`
 export default function CustomDrawerContent(props) {
     const [data, setData] = useState('');
 
-    USER_TOKEN = "4b195ef3f83e7e6654caa4080157b761b836d38b"
-    const AuthStr = "Token ".concat(USER_TOKEN)
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        console.log(token)
+        return token
+    }
 
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user";
 
     useEffect(() => {
-        axios.get(url, { headers: { Authorization: AuthStr } })
-        .then((response) => {
-            setData(response.data)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+        async function getData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            console.log(AuthStr)
+            axios.get(url, { headers: { Authorization: AuthStr } })
+            .then((response) => {
+                setData(response.data)
+                console.log(data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
+
+        getData()
+        
     }, [])
 
     return (
