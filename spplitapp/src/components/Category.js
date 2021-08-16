@@ -86,6 +86,7 @@ export default function Category({ cardList }) {
     const [clicked, setClicked] = useState(0);
 
     USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
+
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     useEffect(() => {
