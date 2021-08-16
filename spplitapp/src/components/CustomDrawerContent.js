@@ -1,8 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, Image, Linking, TouchableOpacity } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import styled from 'styled-components';
+import Login from '../routes/Login';
 
 const ProfileContainer = styled.View`
     width: 100%;
@@ -77,7 +80,7 @@ const LogoutButton = styled.Text`
 export default function CustomDrawerContent(props) {
     const [data, setData] = useState('');
 
-    USER_TOKEN = "b8993f10696811e9da44c49e8439076c2a02a98f"
+    USER_TOKEN = "4b195ef3f83e7e6654caa4080157b761b836d38b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user";
@@ -103,7 +106,7 @@ export default function CustomDrawerContent(props) {
                 <ProfileTextContainer>
                     <FixedText>Welcome Back,</FixedText>
                     {/* 이용자 이름 넣는 공간 */}
-                    <Text style={{fontSize: 17, color: 'black'}}>{data[0].username}</Text> 
+                    {/* <Text style={{fontSize: 17, color: 'black'}}>{data[0].username}</Text>  */}
                 </ProfileTextContainer>
             </ProfileContainer>
 
@@ -131,7 +134,11 @@ export default function CustomDrawerContent(props) {
             </DrawerContentScrollView>
 
             <LogoutButtonContainer>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    props.navigation.navigate('Login')
+                    props.setLogin(false)
+                    AsyncStorage.removeItem('StorageKey')
+                    }}>
                     <LogoutButton>LOGOUT</LogoutButton>
                 </TouchableOpacity>
             </LogoutButtonContainer>
