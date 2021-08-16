@@ -7,6 +7,7 @@ import { NavigationEvents } from 'react-navigation';
 import styled from 'styled-components';
 import Login from '../routes/Login';
 
+
 const ProfileContainer = styled.View`
     width: 100%;
     height: 70px;
@@ -79,6 +80,7 @@ const LogoutButton = styled.Text`
 
 export default function CustomDrawerContent(props) {
     const [data, setData] = useState('');
+    const [isLoading, setLoading] = useState(true);
 
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
@@ -89,6 +91,16 @@ export default function CustomDrawerContent(props) {
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user";
 
     useEffect(() => {
+
+        axios.get(url, { headers: { Authorization: AuthStr } })
+        .then((response) => {
+            setData(response.data)
+        })
+        .finally(() => setLoading(false))
+        .catch((error) => {
+            console.log(error)
+        })
+
         async function getData() {
             const USER_TOKEN =  await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
@@ -98,14 +110,23 @@ export default function CustomDrawerContent(props) {
                 setData(response.data)
                 console.log(data)
             })
+            .finally(() => setLoading(false))
             .catch((error) => {
                 console.log(error)
             })
         }
 
         getData()
-        
+
     }, [])
+
+    if (isLoading) {
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        )
+    }
 
     return (
         <SafeAreaView style={{flex: 1}}>

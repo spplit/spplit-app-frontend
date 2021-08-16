@@ -15,8 +15,8 @@ export default function CardList() {
     const [cardList, setCardList] = useState([]);
 
 
-    // // 토큰 획득
-    USER_TOKEN = "4b195ef3f83e7e6654caa4080157b761b836d38b"
+    // 토큰 획득
+    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     // 카드 획득

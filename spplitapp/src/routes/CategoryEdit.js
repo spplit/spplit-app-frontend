@@ -100,7 +100,7 @@ export default function CategoryEdit() {
     const [isChecked7, setIsChecked7] = useState(false)
 
 
-    USER_TOKEN = "b8993f10696811e9da44c49e8439076c2a02a98f"
+    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     useEffect(() => {
@@ -117,7 +117,7 @@ export default function CategoryEdit() {
         })
         .finally(() => setLoading(false))
         .catch(function(error) {
-           console.log("category loading failure");
+           console.log("category loading failure")
         })
     }, [])
 
@@ -128,6 +128,7 @@ export default function CategoryEdit() {
             </View>
         )
     }
+
 
     const categoryEditList = []
     categoryEditList.push(categoryList[0].category1)

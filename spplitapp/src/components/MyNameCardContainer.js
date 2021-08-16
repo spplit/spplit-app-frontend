@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { StyleSheet, Text, View, Alert, Modal, Pressable, TouchableOpacity, TouchableOpacityBase } from 'react-native';
+import { StyleSheet, Text, View, Alert, Modal, Pressable, TouchableOpacity, TouchableOpacityBase, ScrollView } from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import axios from 'axios';
+import { useIsFocused } from '@react-navigation/native';
 
 const close = require('../assets/images/close_icon.png');
 
@@ -105,8 +106,14 @@ const SubmitText = styled.Text`
 `;
 
 export default function MyNameCardContainer() {
+
+    const isFocused = useIsFocused();
+    const [isLoading, setLoading] = useState(true);
+    const [myCardList, setMyCardList] = useState([]);
+
     const [modalVisible, setModalVisible] = useState(false);
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [job, setJob] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
@@ -114,36 +121,96 @@ export default function MyNameCardContainer() {
     const [tag2, setTag2] = useState('');
     const [tag3, setTag3] = useState('');
 
-
-    const url = "https://spplit.herokuapp.com/request";
-    USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
+    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
-    let form = new FormData()
-    form.append('name', name)
-    form.append('job', job)
-    form.append('phone', phone)
-    form.append('email', email)
-    form.append('tag1', tag1)
-    form.append('tag2', tag2)
-    form.append('tag3', tag3)
-    
-    axios.post(
-        url, form,
-        { headers: { Authorization: AuthStr,
-            "Content-Type" : "multipart/form-data" } 
-        })
-        .then(response => {
-        console.log(response);
-        })
-        .catch(error => {
-        console.log(error);
-    });
+    useEffect(() => {
+        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard"
+        axios.get(url, { headers: { Authorization: AuthStr } })
+            .then(function (response) {
+                console.log("Mycard loading success");
+                setMyCardList(response.data);
+            })
+            .finally(() => setLoading(false))
+            .catch(function (error) {
+                console.log(error)
+                console.log("Mycard loading failure");
+            })
+    }, [modalVisible])
 
 
+    if (isLoading) {
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        )
+    }
+
+    const SubmitBtnClick = () => {
+
+        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard/";
+ 
+        if (firstName && lastName && job && phone && email && tag1 && tag2 && tag3) {
+
+            const body = {
+                name : firstName + " " + lastName,
+                job : job,
+                phone : phone,
+                email : email,
+                tag1 : tag1,
+                tag2 : tag2,
+                tag3 : tag3,
+            }
+
+            axios.post(
+                url, body, 
+                { headers: { Authorization: AuthStr,} 
+                })
+                .then((response) => { 
+                    setFirstName("")
+                    setLastName("")
+                    setJob("")
+                    setEmail("")
+                    setPhone("")
+                    setTag1("")
+                    setTag2("")
+                    setTag3("")
+                    console.log("Mycard submit success")
+                })
+                .then(() => {
+                    alert("Your Card is successfully added !")
+                })
+                .then(() => {
+                    setModalVisible(!modalVisible)
+                })
+                .catch(function (error) {
+                    console.log("Mycard submit failure");
+                    console.log(error)
+                })
+        }
+
+        else {
+            alert("You should fill out all the contents above !")
+        }
+    }
 
     return (
+            
         <View>
+            {myCardList && (
+                myCardList.map((mycard) => (
+                    <View>
+                        <Text>{mycard.name}</Text>
+                        <Text>{mycard.job}</Text>
+                        <Text>{mycard.email}</Text>
+                        <Text>{mycard.phone}</Text>
+                        <Text>{mycard.tag1}</Text>
+                        <Text>{mycard.tag2}</Text>
+                        <Text>{mycard.tag3}</Text>
+                    </View>
+                ))
+            )}
             <Modal
                 animationType="slide"
                 visible={modalVisible}
@@ -162,36 +229,36 @@ export default function MyNameCardContainer() {
             </ModalHeader>
                 <AnnounceText>Create Your New NameCard!</AnnounceText>
                 <InputContainer>
-                    <FirstNameInput placeholder="First Name"/>
-                    <LastNameInput placeholder="Last Name"/>
+                    <FirstNameInput placeholder="First Name" value={firstName} onChangeText={text => setFirstName(text)}/>
+                    <LastNameInput placeholder="Last Name" value={lastName} onChangeText={text => setLastName(text)}/>
                 </InputContainer>
 
                 <InputContainer>
-                    <JobInput placeholder="Your Job"/>
+                    <JobInput placeholder="Your Job" value={job} onChangeText={text => setJob(text)}/>
                 </InputContainer>
 
                 <InputContainer>
-                    <PhoneNumberInput placeholder="Your PhoneNumber"/>
+                    <PhoneNumberInput placeholder="Your PhoneNumber" value={phone} onChangeText={text => setPhone(text)}/>
                 </InputContainer>
 
                 <InputContainer>
-                    <EmailInput placeholder="Your Email Address"/>
+                    <EmailInput placeholder="Your Email Address" value={email} onChangeText={text => setEmail(text)}/>
                 </InputContainer>
 
                 <InputContainer>
-                    <TagInput placeholder="First Tag"/>
+                    <TagInput placeholder="First Tag" value={tag1} onChangeText={text => setTag1(text)}/>
                 </InputContainer>
 
                 <InputContainer>
-                    <TagInput placeholder="Second Tag"/>
+                    <TagInput placeholder="Second Tag" value={tag2} onChangeText={text => setTag2(text)}/>
                 </InputContainer>
 
                 <InputContainer>
-                    <TagInput placeholder="Third Tag"/>
+                    <TagInput placeholder="Third Tag" value={tag3} onChangeText={text => setTag3(text)}/>
                 </InputContainer>
 
                 <SubmitButtonContainer>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => SubmitBtnClick()}>
                         <SubmitButton>
                             <SubmitText>Submit</SubmitText>
                         </SubmitButton>
