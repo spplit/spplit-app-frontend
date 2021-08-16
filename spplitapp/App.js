@@ -23,25 +23,26 @@ const ScheduleStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 
 // 로그인 혹은 회원가입 화면
-const AuthStackScreen = ({navigation}) => {
-  return (
-    <AuthStack.Navigator
-      screenOptions={{
-      headerShown: false,
-      cardStyle: {backgroundColor: 'white'}
-      }}
-    >
-      <AuthStack.Screen name="AuthCheck" component={AuthCheck} />
-      <AuthStack.Screen name="Login" component={Login} />
-      <AuthStack.Screen name="SignUp" component={SignUp} />
+// const AuthStackScreen = (props) => {
+//   return (
+//     <AuthStack.Navigator
+//       screenOptions={{
+//       headerShown: false,
+//       cardStyle: {backgroundColor: 'white'}
+//       }}
+//     >
+//       <AuthStack.Screen name="AuthCheck" component={AuthCheck} />
+//       <AuthStack.Screen name="Login">{props => <Login {...props} />}</AuthStack.Screen>
+//       <AuthStack.Screen name="SignUp" component={SignUp} />
 
-    </AuthStack.Navigator>
-  )
-}
+//     </AuthStack.Navigator>
+//   )
+// }
 
 // 메인화면
 const MainStackScreen = ({navigation}) => {
-    
+
+
     return(
       <MainStack.Navigator
         initialRouteName="Main"
@@ -87,7 +88,7 @@ const MainStackScreen = ({navigation}) => {
 
 
 export default function App() {
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
 
   return (
     <NavigationContainer>
@@ -97,7 +98,7 @@ export default function App() {
         drawerContentOptions={{
           activeTintColor: '#4672af',
         }}
-        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        drawerContent={(props) => <CustomDrawerContent {...props} login={login} setLogin={setLogin}/>}
       >
         <Drawer.Screen name="Main" component={MainStackScreen}/>
         <Drawer.Screen name="Schedule" component={ScheduleStackScreen}/>
@@ -106,7 +107,17 @@ export default function App() {
         <Drawer.Screen name="CategoryEdit" component={CategoryEdit}/>
       </Drawer.Navigator>
       ) : (
-        <AuthStackScreen />
+        <AuthStack.Navigator
+          screenOptions={{
+          headerShown: false,
+          cardStyle: {backgroundColor: 'white'}
+          }}
+        >
+          <AuthStack.Screen name="AuthCheck" component={AuthCheck} />
+          <AuthStack.Screen name="Login">{(props) => <Login {...props} login={login} setLogin={setLogin} />}</AuthStack.Screen>
+          <AuthStack.Screen name="SignUp" component={SignUp} />
+        
+        </AuthStack.Navigator>
       )
       }
 

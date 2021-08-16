@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BackButton = require('../assets/images/backbutton_icon.png');
 const Logo = require('../assets/images/spplit_logo.png');
@@ -111,13 +112,28 @@ const LoginImage = styled.Image`
     width: 20px;
 `;
 
-export default function Login({ navigation }) {
+export default function Login(props) {
+    // console.log(props)
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [errortext, setErrortext] = useState('');
 
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/login";
+
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        return token
+    }
+
+    const autoLogin = async () => {
+        const userToken = await getToken()
+        if (userToken) {
+            props.setLogin(true)
+        }
+    }
+
+    useEffect(() => { 
+        autoLogin()
+    }, [])
 
     const loginSubmit = (ID, Password) => {
         let form = new FormData();
@@ -126,12 +142,24 @@ export default function Login({ navigation }) {
 
         axios.post(
             url, form)
-            .then((response) => { console.log(response) })
-            .then(() => {
-                alert(`Welcome back!`)
+            .then((response) => {
+                // console.log(response.status)
+                // console.log(response.data.key)
+                // console.log(props.login)
+                if (response.status == 200) {
+                    alert(`Welcome back!`)
+                    AsyncStorage.setItem('StorageKey', response.data.key)
+                    props.setLogin(true)
+                }
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response.status == 400) {
+                    alert('Wrong Email or Password:(');
+                } else {
+                    alert (`error ${error.response.status}`)
+                    console.log(error)
+                }
+                
             })
     }
 

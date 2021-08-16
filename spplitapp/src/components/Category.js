@@ -85,7 +85,7 @@ export default function Category({ cardList }) {
     const [categoryList, setCategoryList] = useState([]);
     const [clicked, setClicked] = useState(0);
 
-    USER_TOKEN = "b8993f10696811e9da44c49e8439076c2a02a98f"
+    USER_TOKEN = "4b195ef3f83e7e6654caa4080157b761b836d38b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     useEffect(() => {
@@ -112,62 +112,62 @@ export default function Category({ cardList }) {
     }
 
 
-    const categoryCheckedList = []
+    // const categoryCheckedList = []
 
-    if (categoryList[0].is_checked_category1) {
-        categoryCheckedList.push(categoryList[0].category1)
-    }
+    // if (categoryList[0].is_checked_category1) {
+    //     categoryCheckedList.push(categoryList[0].category1)
+    // }
 
-    if (categoryList[0].is_checked_category2) {
-        categoryCheckedList.push(categoryList[0].category2)
-    }
+    // if (categoryList[0].is_checked_category2) {
+    //     categoryCheckedList.push(categoryList[0].category2)
+    // }
 
-    if (categoryList[0].is_checked_category3) {
-        categoryCheckedList.push(categoryList[0].category3)
-    }
+    // if (categoryList[0].is_checked_category3) {
+    //     categoryCheckedList.push(categoryList[0].category3)
+    // }
 
-    if (categoryList[0].is_checked_category4) {
-        categoryCheckedList.push(categoryList[0].category4)
-    }
+    // if (categoryList[0].is_checked_category4) {
+    //     categoryCheckedList.push(categoryList[0].category4)
+    // }
 
-    if (categoryList[0].is_checked_category5) {
-        categoryCheckedList.push(categoryList[0].category5)
-    }
+    // if (categoryList[0].is_checked_category5) {
+    //     categoryCheckedList.push(categoryList[0].category5)
+    // }
 
-    if (categoryList[0].is_checked_category6) {
-        categoryCheckedList.push(categoryList[0].category6)
-    }
+    // if (categoryList[0].is_checked_category6) {
+    //     categoryCheckedList.push(categoryList[0].category6)
+    // }
 
-    if (categoryList[0].is_checked_category7) {
-        categoryCheckedList.push(categoryList[0].category7)
-    }
+    // if (categoryList[0].is_checked_category7) {
+    //     categoryCheckedList.push(categoryList[0].category7)
+    // }
 
 
-    const categoryBar = categoryCheckedList.map((value, index) => {
-        return (
-            <CategoryTextContainer>
-                <CategoryText key={index} active={clicked === index} onPress={() => setClicked(index)}>{value}</CategoryText>
-            </CategoryTextContainer>
-        )
-    })
+    // const categoryBar = categoryCheckedList.map((value, index) => {
+    //     return (
+    //         <CategoryTextContainer>
+    //             <CategoryText key={index} active={clicked === index} onPress={() => setClicked(index)}>{value}</CategoryText>
+    //         </CategoryTextContainer>
+    //     )
+    // })
 
-    const cards = cardList.filter((card)=> {
-        // All 띄우기
-        if (clicked === categoryCheckedList.indexOf(categoryCheckedList[0])) {
-            return card
-        }
-        // Bookmark 띄우기
-        if (clicked === categoryCheckedList.indexOf(categoryCheckedList[1]) && card.isBookmarked === true) {
-            return card
-        }
-        // 카테고리별 필터
-        if (clicked === categoryCheckedList.indexOf(categoryCheckedList[2]) && categoryCheckedList[2].toLowerCase() === card.division.toLowerCase()) {
-            return card
-        }
-        if (clicked === categoryCheckedList.indexOf(categoryCheckedList[3]) && categoryCheckedList[3].toLowerCase() === card.division.toLowerCase()) {
-            return card
-        }
-    })
+    // const cards = cardList.filter((card)=> {
+    //     // All 띄우기
+    //     if (clicked === categoryCheckedList.indexOf(categoryCheckedList[0])) {
+    //         return card
+    //     }
+    //     // Bookmark 띄우기
+    //     if (clicked === categoryCheckedList.indexOf(categoryCheckedList[1]) && card.isBookmarked === true) {
+    //         return card
+    //     }
+    //     // 카테고리별 필터
+    //     if (clicked === categoryCheckedList.indexOf(categoryCheckedList[2]) && categoryCheckedList[2].toLowerCase() === card.division.toLowerCase()) {
+    //         return card
+    //     }
+    //     if (clicked === categoryCheckedList.indexOf(categoryCheckedList[3]) && categoryCheckedList[3].toLowerCase() === card.division.toLowerCase()) {
+    //         return card
+    //     }
+    // })
 
 
     return (
