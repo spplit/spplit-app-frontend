@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, Image, Linking, TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 
+
 const ProfileContainer = styled.View`
     width: 100%;
     height: 70px;
@@ -76,8 +77,9 @@ const LogoutButton = styled.Text`
 
 export default function CustomDrawerContent(props) {
     const [data, setData] = useState('');
+    const [isLoading, setLoading] = useState(true);
 
-    USER_TOKEN = "b8993f10696811e9da44c49e8439076c2a02a98f"
+    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user";
@@ -87,10 +89,19 @@ export default function CustomDrawerContent(props) {
         .then((response) => {
             setData(response.data)
         })
+        .finally(() => setLoading(false))
         .catch((error) => {
             console.log(error)
         })
     }, [])
+
+    if (isLoading) {
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        )
+    }
 
     return (
         <SafeAreaView style={{flex: 1}}>
