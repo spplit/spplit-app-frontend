@@ -92,28 +92,19 @@ export default function CustomDrawerContent(props) {
 
     useEffect(() => {
 
-        axios.get(url, { headers: { Authorization: AuthStr } })
-        .then((response) => {
-            setData(response.data)
-        })
-        .finally(() => setLoading(false))
-        .catch((error) => {
-            console.log(error)
-        })
-
         async function getData() {
-            const USER_TOKEN =  await getToken();
+            const USER_TOKEN = await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
             console.log(AuthStr)
             axios.get(url, { headers: { Authorization: AuthStr } })
-            .then((response) => {
-                setData(response.data)
-                console.log(data)
-            })
-            .finally(() => setLoading(false))
-            .catch((error) => {
-                console.log(error)
-            })
+                .then((response) => {
+                    setData(response.data)
+                    console.log(data)
+                })
+                .finally(() => setLoading(false))
+                .catch((error) => {
+                    console.log(error)
+                })
         }
 
         getData()
@@ -129,7 +120,7 @@ export default function CustomDrawerContent(props) {
     }
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <ProfileContainer>
                 <ProfileImageContainer>
                     <ProfileImageSkeleton>
@@ -146,12 +137,12 @@ export default function CustomDrawerContent(props) {
             <FollowerContainer>
                 <NameCardNumberContainer>
                     {/* 명함 개수 변하는 부분 */}
-                    <Text style={{marginRight: 4}}>5</Text>
+                    <Text style={{ marginRight: 4 }}>5</Text>
                     <FixedText>NameCards</FixedText>
                 </NameCardNumberContainer>
                 <AppointmentContainer>
                     {/* 약속 개수 변하는 부분 */}
-                    <Text style={{marginRight: 4}}>10</Text>
+                    <Text style={{ marginRight: 4 }}>10</Text>
                     <FixedText>Appointments</FixedText>
                 </AppointmentContainer>
             </FollowerContainer>
@@ -171,7 +162,7 @@ export default function CustomDrawerContent(props) {
                     props.navigation.navigate('Login')
                     props.setLogin(false)
                     AsyncStorage.removeItem('StorageKey')
-                    }}>
+                }}>
                     <LogoutButton>LOGOUT</LogoutButton>
                 </TouchableOpacity>
             </LogoutButtonContainer>

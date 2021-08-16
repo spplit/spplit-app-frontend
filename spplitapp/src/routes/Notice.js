@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { 
+import {
     StyleSheet,
     Text,
     View,
@@ -11,6 +11,7 @@ import {
     StatusBar,
     Touchable,
 } from 'react-native';
+import axios from 'axios';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useAnimatedStyle } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
@@ -44,7 +45,7 @@ const Notifications = [
 
 const backbutton = require('../assets/images/backbutton_icon.png')
 
-const HeaderContainer = styled.View `
+const HeaderContainer = styled.View`
     background-color: white;
     position: absolute;
     height: 100px;
@@ -95,10 +96,10 @@ const NoticeCardContainer = styled.View`
 
 const Notice = ({ navigation }) => {
     const [listData, setListData] = useState(
-        Notifications.map((NotificationItem,index) => ({
+        Notifications.map((NotificationItem, index) => ({
             key: `${index}`,
             title: NotificationItem.title,
-    }))
+        }))
     );
 
     const closerow = (rowMap, rowKey) => {
@@ -114,23 +115,23 @@ const Notice = ({ navigation }) => {
 
         return (
             <View>
-            <TouchableHighlight>
-                <NoticeCardContainer>
-                    <Text numberOfLines={1}>{ data.item.title }</Text>
-                </NoticeCardContainer>
-            </TouchableHighlight>
+                <TouchableHighlight>
+                    <NoticeCardContainer>
+                        <Text numberOfLines={1}>{data.item.title}</Text>
+                    </NoticeCardContainer>
+                </TouchableHighlight>
             </View>
         );
     };
 
     const renderItem = (data) => {
         return (
-            <VisibleItem data={ data }/>
+            <VisibleItem data={data} />
         );
     };
 
     const HiddenItemWithActions = props => {
-        const {onClose, onDelete} = props;
+        const { onClose, onDelete } = props;
 
         return (
             <View>
@@ -146,8 +147,8 @@ const Notice = ({ navigation }) => {
     }
 
     const renderHiddenItem = (data, rowMap) => {
-        <HiddenItemWithActions 
-            data={ data }
+        <HiddenItemWithActions
+            data={data}
             rowMap={rowMap}
             onClose={() => closeRow(rowMap, data.item.key)}
             onDelete={() => deleteRow(rowMap, data.item.key)}
@@ -159,7 +160,7 @@ const Notice = ({ navigation }) => {
             <HeaderContainer>
                 <BackButtonContainer>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <BackButton source={ backbutton } />
+                        <BackButton source={backbutton} />
                     </TouchableOpacity>
                 </BackButtonContainer>
                 <Title>Notifications</Title>
@@ -174,7 +175,7 @@ const Notice = ({ navigation }) => {
                 />
             </NoticeOuterContainer>
         </View>
-        
+
     )
 }
 
