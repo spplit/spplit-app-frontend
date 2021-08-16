@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Alert, Modal, Pressable, TouchableOpacity, Touc
 import TouchableScale from 'react-native-touchable-scale';
 import axios from 'axios';
 import { useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const close = require('../assets/images/close_icon.png');
 
@@ -106,8 +107,6 @@ const SubmitText = styled.Text`
 `;
 
 export default function MyNameCardContainer() {
-
-    const isFocused = useIsFocused();
     const [isLoading, setLoading] = useState(true);
     const [myCardList, setMyCardList] = useState([]);
 
@@ -121,23 +120,36 @@ export default function MyNameCardContainer() {
     const [tag2, setTag2] = useState('');
     const [tag3, setTag3] = useState('');
 
-    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
-    const AuthStr = "Token ".concat(USER_TOKEN)
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        console.log(token)
+        return token
+    }
+
+    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard";
 
     useEffect(() => {
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard"
-        axios.get(url, { headers: { Authorization: AuthStr } })
-            .then(function (response) {
-                console.log("Mycard loading success");
-                setMyCardList(response.data);
+        async function getData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            console.log(AuthStr)
+            axios.get(url, { headers: { Authorization: AuthStr } })
+            .then((response) => {
+                console.log("Mycard loading success")
+                setMyCardList(response.data)
+                console.log(myCardList)
             })
             .finally(() => setLoading(false))
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error)
                 console.log("Mycard loading failure");
             })
-    }, [modalVisible])
+        }
 
+        getData()
+
+    }, [modalVisible])
 
     if (isLoading) {
         return (

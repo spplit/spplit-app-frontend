@@ -49,7 +49,7 @@ const CategoryText = styled.Text`
 
 const CategoryCheckBoxContainer = styled.View`
     position : absolute;
-    right : 20;
+    right : 20px;
 `;
 
 // const UpdateButtonContainer = styled.View`
