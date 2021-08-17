@@ -91,7 +91,7 @@ export default function Category({ cardList }) {
         return token
     }
 
-    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user/division";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division";
 
     useEffect(() => {
         async function getData() {

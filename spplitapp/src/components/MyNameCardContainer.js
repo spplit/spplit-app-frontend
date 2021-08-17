@@ -127,7 +127,7 @@ export default function MyNameCardContainer() {
         return token
     }
 
-    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/mycard";
 
     useEffect(() => {
         async function getData() {

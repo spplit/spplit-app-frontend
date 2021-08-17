@@ -117,7 +117,7 @@ export default function Login(props) {
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
 
-    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/login";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/login";
 
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
@@ -131,7 +131,7 @@ export default function Login(props) {
         }
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         autoLogin()
     }, [])
 

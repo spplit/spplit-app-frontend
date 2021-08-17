@@ -20,7 +20,7 @@ export default function CardList() {
         return token
     }
 
-    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/card";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/card";
 
     useEffect(() => {
         async function getData() {
