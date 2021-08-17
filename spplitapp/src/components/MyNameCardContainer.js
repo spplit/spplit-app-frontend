@@ -138,7 +138,6 @@ export default function MyNameCardContainer() {
             .then((response) => {
                 console.log("Mycard loading success")
                 setMyCardList(response.data)
-                console.log(myCardList)
             })
             .finally(() => setLoading(false))
             .catch((error) => {
@@ -146,7 +145,6 @@ export default function MyNameCardContainer() {
                 console.log("Mycard loading failure");
             })
         }
-
         getData()
 
     }, [modalVisible])
@@ -161,7 +159,7 @@ export default function MyNameCardContainer() {
 
     const SubmitBtnClick = () => {
 
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard/";
+        const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/mycard/";
  
         if (firstName && lastName && job && phone && email && tag1 && tag2 && tag3) {
 
@@ -175,31 +173,37 @@ export default function MyNameCardContainer() {
                 tag3 : tag3,
             }
 
-            axios.post(
-                url, body, 
-                { headers: { Authorization: AuthStr,} 
-                })
-                .then((response) => { 
-                    setFirstName("")
-                    setLastName("")
-                    setJob("")
-                    setEmail("")
-                    setPhone("")
-                    setTag1("")
-                    setTag2("")
-                    setTag3("")
-                    console.log("Mycard submit success")
-                })
-                .then(() => {
-                    alert("Your Card is successfully added !")
-                })
-                .then(() => {
-                    setModalVisible(!modalVisible)
-                })
-                .catch(function (error) {
-                    console.log("Mycard submit failure");
-                    console.log(error)
-                })
+            async function createMyCard() {
+                const USER_TOKEN =  await getToken();
+                const AuthStr = "Token ".concat(USER_TOKEN)
+                console.log(AuthStr)
+                axios.post(
+                    url, body, 
+                    { headers: { Authorization : AuthStr} 
+                    })
+                    .then((response) => { 
+                        setFirstName("")
+                        setLastName("")
+                        setJob("")
+                        setEmail("")
+                        setPhone("")
+                        setTag1("")
+                        setTag2("")
+                        setTag3("")
+                        console.log("Mycard submit success")
+                    })
+                    .then(() => {
+                        alert("Your Card is successfully added !")
+                    })
+                    .then(() => {
+                        setModalVisible(!modalVisible)
+                    })
+                    .catch(function (error) {
+                        console.log("Mycard submit failure");
+                        console.log(error)
+                    })
+            }
+            createMyCard()
         }
 
         else {
