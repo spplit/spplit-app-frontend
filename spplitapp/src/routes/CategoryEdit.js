@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, CheckBox } from 'react-native';
 import Header from '../components/Header';
 import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import TouchableScale from 'react-native-touchable-scale';
-// import CheckBox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import CheckBox from '@react-native-community/checkbox';
 
 
 
@@ -100,6 +100,7 @@ export default function CategoryEdit() {
     const [isChecked6, setIsChecked6] = useState(false)
     const [isChecked7, setIsChecked7] = useState(false)
 
+
     // 토큰 획득
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
@@ -107,15 +108,14 @@ export default function CategoryEdit() {
         return token
     }
 
-    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division";
-
     useEffect(() => {
+        const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division"
         async function getData() {
             const USER_TOKEN =  await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
             console.log(AuthStr)
-            axios.get(url, { headers: { Authorization: AuthStr } })
-            .then((response) => {
+            axios.get(url, { headers : { Authorization: AuthStr} })
+            .then(function(response) {
                 console.log("category loading success")
                 setCategoryList(response.data)
                 setIsChecked3(response.data[0].is_checked_category3)
@@ -125,14 +125,13 @@ export default function CategoryEdit() {
                 setIsChecked7(response.data[0].is_checked_category7)
             })
             .finally(() => setLoading(false))
-            .catch((error) => {
-                console.log(error)
-                console.log("Category loading failure");
+            .catch(function(error) {
+            console.log("category loading failure")
             })
         }
-    
+
         getData()
-    
+        
     }, [])
 
     if (isLoading) {
@@ -170,7 +169,7 @@ export default function CategoryEdit() {
         }
 
         if (cnt_true === 2) {
-            const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user/division/change"
+            const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division/change"
             
             const body = {
                 is_checked_category3 : String(isChecked3)[0].toUpperCase() + String(isChecked3).slice(1),
@@ -180,21 +179,27 @@ export default function CategoryEdit() {
                 is_checked_category7 : String(isChecked7)[0].toUpperCase() + String(isChecked7).slice(1)
             }
 
-            axios.patch(
-                url, body, 
-                { headers: { Authorization: AuthStr,} 
-                })
-                .then((response) => { 
-                    console.log("category update success")
-                    alert("Your Categories have been updated !")
-                })
-                .then(() => {
-                    navigation.navigate('Main');
-                })
-                .catch(function (error) {
-                    console.log("category update failure");
-                    console.log(error)
-                })
+            async function updateCategory() {
+                const USER_TOKEN =  await getToken();
+                const AuthStr = "Token ".concat(USER_TOKEN)
+                console.log(AuthStr)
+                axios.patch(
+                    url, body, 
+                    { headers: { Authorization : AuthStr} 
+                    })
+                    .then((response) => { 
+                        console.log("category update success")
+                        alert("Your Categories have been updated !")
+                    })
+                    .then(() => {
+                        navigation.navigate('Main');
+                    })
+                    .catch(function (error) {
+                        console.log("category update failure");
+                        console.log(error)
+                    })
+                }
+            updateCategory()
         }
 
         else {

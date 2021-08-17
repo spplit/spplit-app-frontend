@@ -29,9 +29,7 @@ export default function CardList() {
             console.log(AuthStr)
             axios.get(url, { headers: { Authorization: AuthStr } })
             .then((response) => {
-                console.log(response.data)
                 setCardList(response.data)
-                console.log(cardList)
                 console.log("Card-data loading success");
             })
             .finally(() => setLoading(false))
