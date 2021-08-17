@@ -5,8 +5,8 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { validatePathConfig } from '@react-navigation/native';
 
-const MODAL_WIDTH = 350
-const MODAL_HEIGHT = 600
+const MODAL_WIDTH = 320
+const MODAL_HEIGHT = 250
 
 const ModalContainer = styled.View`
     background-color: #000000aa ;
@@ -26,32 +26,45 @@ const ModalMain = styled.View`
 `;
 
 const ModalHeader = styled.View`
-    /* background-color: yellow; */
-    height: 15%;
+    height: 20%;
     width : ${MODAL_WIDTH};
     display: flex;
     align-items: flex-end;
 `;
 
 const ModalContent = styled.View`
-    background-color: pink;
-    height: 70%;
+    height: 50%;
     width : ${MODAL_WIDTH};
+    justify-content: center;
+    align-items: center;
 `;
-const ModalButtom = styled.View`
-    background-color: yellow; 
-    height: 15%;
-    width: ${MODAL_WIDTH}px;
+
+const ContentBox = styled.View`
+    position: absolute;
+    top: 10px;
+`;
+
+const FlexRow = styled.View`
+    display: flex;
     flex-direction: row;
-    justify-content: space-around;
+`;
+
+const ModalButtom = styled.View`
+    height: 15%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
 `;
 const Button = styled.TouchableOpacity`
-    border-radius: 10;
+    border-radius: 10px;
     width: ${MODAL_WIDTH / 3};
     height: 80%;
     background-color: #29548e;
-    color: white;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    margin-left: 10px;
 `;
 const CloseBox = styled.TouchableOpacity`
     padding: 15px;
@@ -84,19 +97,36 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
                 <ModalMain>
                     <ModalHeader>
                         <CloseBox onPress={() => setVisible(false)}>
-                            <Icon name="close" size={25} />
+                            <Icon name="close" size={20} />
                         </CloseBox>
                     </ModalHeader>
                     <ModalContent>
-                        <Text>약속 : {props.title}</Text>
-                        <Text>약속 요청한 사람 : {props.sender_name}</Text>
-                        <Text>약속 대상 : {props.receiver_name}</Text>
-                        <Text>약속 내용 : {props.content}</Text>
-                        <Text>약속 시간 : {props.appointment_date}</Text>
+                        <ContentBox>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속  </Text>
+                                <Text>{props.title}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 요청한 사람  </Text>
+                                <Text>{props.sender_name}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 대상  </Text>
+                                <Text>{props.receiver_name}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 내용  </Text>
+                                <Text>{props.content}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 시간  </Text>
+                                <Text>{props.appointment_date}</Text>
+                            </FlexRow>
+                        </ContentBox>
                     </ModalContent>
                     <ModalButtom>
-                        <Button onPress={() => accept(props.id)}><Text>accept</Text></Button>
-                        <Button onPress={() => decline(props.id)}><Text>decline</Text></Button>
+                        <Button onPress={() => accept(props.id)}><Text style={{color: 'white'}}>accept</Text></Button>
+                        <Button onPress={() => decline(props.id)}><Text style={{color: 'white'}}>decline</Text></Button>
                     </ModalButtom>
                 </ModalMain>
             </ModalContainer>

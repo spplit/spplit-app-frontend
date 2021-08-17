@@ -89,6 +89,7 @@ export default function CustomDrawerContent(props) {
 
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user";
 
+    
     useEffect(() => {
         async function getData() {
             const USER_TOKEN = await getToken();
@@ -103,6 +104,7 @@ export default function CustomDrawerContent(props) {
         }
 
         getData()
+        
 
     }, [])
 
@@ -118,7 +120,7 @@ export default function CustomDrawerContent(props) {
                 <ProfileTextContainer>
                     <FixedText>Welcome Back,</FixedText>
                     {/* 이용자 이름 넣는 공간 */}
-                    {/* <Text style={{fontSize: 17, color: 'black'}}>{data[0].username}</Text>  */}
+                    {/* <Text style={{fontSize: 17, color: 'black'}}>{username}</Text>  */}
                 </ProfileTextContainer>
             </ProfileContainer>
 

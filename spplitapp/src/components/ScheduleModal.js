@@ -5,8 +5,8 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { validatePathConfig } from '@react-navigation/native';
 
-const MODAL_WIDTH = 350
-const MODAL_HEIGHT = 600
+const MODAL_WIDTH = 320
+const MODAL_HEIGHT = 250
 
 const ModalContainer = styled.View`
     background-color: #000000aa ;
@@ -34,13 +34,24 @@ const ModalHeader = styled.View`
 `;
 
 const ModalContent = styled.View`
-    background-color: pink;
-    height: 80%;
+    position: absolute;
+    bottom: 60px;
+    height: 50%;
     width : ${MODAL_WIDTH};
+    align-items: center;
+    justify-content: center;
+`;
+
+const ContentBox = styled.View`
+`;
+
+const FlexRow = styled.View`
+    display: flex;
+    flex-direction: row;
 `;
 
 const CloseBox = styled.TouchableOpacity`
-    padding: 15px;
+    padding: 10px;
 `;
 
 export default function ScheduleModal({ visible, setVisible, props }) {
@@ -54,15 +65,32 @@ export default function ScheduleModal({ visible, setVisible, props }) {
                 <ModalMain>
                     <ModalHeader>
                         <CloseBox onPress={() => setVisible(false)}>
-                            <Icon name="close" size={25} />
+                            <Icon resizeMode="contain" name="close" size={20} />
                         </CloseBox>
                     </ModalHeader>
                     <ModalContent>
-                        <Text>약속 : {props.title}</Text>
-                        <Text>약속 요청한 사람 : {props.user1_name}</Text>
-                        <Text>약속 대상 : {props.user2_name}</Text>
-                        <Text>약속 내용 : {props.content}</Text>
-                        <Text>약속 시간 : {props.appointment_date}</Text>
+                        <ContentBox>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속  </Text>
+                                <Text>{props.title}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 요청한 사람  </Text>
+                                <Text>{props.user1_name}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 대상  </Text>
+                                <Text>{props.user2_name}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 내용  </Text>
+                                <Text>{props.content}</Text>
+                            </FlexRow>
+                            <FlexRow>
+                                <Text style={{color: '#29548e'}}>약속 시간  </Text>
+                                <Text>{props.appointment_date}</Text>
+                            </FlexRow>
+                        </ContentBox>
                     </ModalContent>
                 </ModalMain>
             </ModalContainer>

@@ -27,10 +27,10 @@ const BackText = styled.Text`
 const CameraContainer = styled.View`
     background-color: #f2f2f2;
     position: absolute;
-    width: 26px;
+    width: 28px;
     height: 26px;
     top: 55px;
-    right: 85px;
+    right: 63px;
 
     align-items: center;
     justify-content: center;
