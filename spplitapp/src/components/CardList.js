@@ -21,7 +21,7 @@ export default function CardList() {
 
     // 카드 획득
     useEffect(() => {
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/card";
+        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/card/";
         axios.get(url, { headers: { Authorization: AuthStr } })
             .then(function (response) {
                 console.log("Card-data loading success");

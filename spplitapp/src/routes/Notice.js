@@ -4,7 +4,8 @@ import {
     StyleSheet,
     Text,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -45,7 +46,7 @@ const BackButton = styled.Image`
     height: 30px;
 `;
 
-const NoticeOuterContainer = styled.View`
+const NoticeOuterContainer = styled.ScrollView`
     position: absolute;
     top: 100px;
     background-color: white;
@@ -150,7 +151,8 @@ export default function Notice({ navigation }) {
         const url = `http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request/${pk}/accept`
         axios.get(url, { headers: { Authorization: AuthStr } })
             .then((response) => {
-                console.log("accept success")
+                console.log("accept success");
+                alert(`you accepted request`);
             })
     }
 
@@ -158,7 +160,8 @@ export default function Notice({ navigation }) {
         const url = `http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request/${pk}/decline`
         axios.get(url, { headers: { Authorization: AuthStr } })
             .then((response) => {
-                console.log("decline success")
+                console.log("decline success");
+                alert(`you declined request`);
             })
     }
 

@@ -63,6 +63,7 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
         axios.get(url, { headers: { Authorization: auth } })
             .then((response) => {
                 console.log("accept success")
+                alert(`you accepted request`);
             })
     }
 
@@ -71,6 +72,7 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
         axios.get(url, { headers: { Authorization: auth } })
             .then((response) => {
                 console.log("decline success")
+                alert(`you declined request`);
             })
     }
     return (
