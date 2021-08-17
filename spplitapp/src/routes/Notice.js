@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import AppointModal from '../AppointModal';
 
 
 const backbutton = require('../assets/images/backbutton_icon.png')
@@ -102,6 +103,8 @@ export default function Notice({ navigation }) {
     const [cards, setCards] = useState([]);
     const [appointments, setAppointments] = useState([]);
     const [username, setUsername] = useState();
+    const [visible, setVisible] = useState(false);
+    const [clicked, setClicked] = useState();
     const [isLoading1, setLoading1] = useState(true);
     const [isLoading2, setLoading2] = useState(true);
     const [isLoading3, setLoading3] = useState(true);
@@ -111,7 +114,7 @@ export default function Notice({ navigation }) {
         axios.get(cardurl, { headers: { Authorization: AuthStr } })
             .then((response) => {
                 console.log("card request loading success")
-                console.log(response.data)
+                // console.log(response.data)
                 setCards(response.data)
             })
             .finally(() => setLoading1(false))
@@ -122,7 +125,7 @@ export default function Notice({ navigation }) {
         axios.get(appointurl, { headers: { Authorization: AuthStr } })
             .then((response) => {
                 console.log("appoint request loading success")
-                console.log(response.data)
+                // console.log(response.data)
                 setAppointments(response.data)
             })
             .finally(() => setLoading2(false))
@@ -133,7 +136,7 @@ export default function Notice({ navigation }) {
         axios.get(userurl, { headers: { Authorization: AuthStr } })
             .then((response) => {
                 console.log("user loading success")
-                console.log(response.data)
+                // console.log(response.data)
                 setUsername(response.data[0].username)
             })
             .finally(() => setLoading3(false))
@@ -141,7 +144,7 @@ export default function Notice({ navigation }) {
                 console.log(error)
                 console.log("user loading failure");
             })
-    }, [isFocused])
+    }, [visible])
 
     const acceptCard = (pk) => {
         const url = `http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request/${pk}/accept`
@@ -173,7 +176,11 @@ export default function Notice({ navigation }) {
 
 
     const appointRequests = appointments.filter((request, index) => request.sender_name !== username).map((val, index) => {
-        return <NoticeAppointContainer>
+        return <NoticeAppointContainer key={index} onPress={() => {
+            setClicked(val)
+            console.log(clicked)
+            setVisible(true)
+        }}>
             <CardText>
                 <Text numberOfLines={1}>{val.sender_name} 님께서 약속 요청을 보내셨습니다.</Text>
             </CardText>
@@ -181,6 +188,7 @@ export default function Notice({ navigation }) {
                 <CardIcon></CardIcon>
                 <Icon name="chevron-right" size={25} />
             </CardIcons>
+            {visible && <AppointModal visible={visible} setVisible={setVisible} props={clicked} auth={AuthStr} />}
         </NoticeAppointContainer>
     })
 
@@ -195,7 +203,7 @@ export default function Notice({ navigation }) {
                 <Title>Notifications</Title>
             </HeaderContainer>
             <NoticeOuterContainer>
-                {isLoading1 && isLoading2 ? <Text>isLoading</Text> :
+                {(isLoading1 && isLoading2 && isLoading3) ? <Text>isLoading</Text> :
                     <>
                         {cardRequests}
                         {appointRequests}
