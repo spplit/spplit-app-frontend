@@ -20,7 +20,7 @@ export default function CardList() {
         return token
     }
 
-    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/card";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/card/";
 
     useEffect(() => {
         async function getData() {
@@ -29,9 +29,7 @@ export default function CardList() {
             console.log(AuthStr)
             axios.get(url, { headers: { Authorization: AuthStr } })
             .then((response) => {
-                console.log(response.data)
                 setCardList(response.data)
-                console.log(cardList)
                 console.log("Card-data loading success");
             })
             .finally(() => setLoading(false))

@@ -43,13 +43,18 @@ const CameraImage = styled.Image`
 
 export default function QRCamera({ visible, setVisible }) {
     const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request";
-    USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
-    const AuthStr = "Token ".concat(USER_TOKEN)
 
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const [code, setCode] = useState();
     const [cameraVisible, setCameraVisible] = useState(false);
+
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        console.log(token)
+        return token
+    }
 
     useEffect(() => {
         (async () => {
@@ -61,24 +66,30 @@ export default function QRCamera({ visible, setVisible }) {
     useEffect(() => {
         let form = new FormData()
         form.append('cardId', code)
+
+        async function postData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            console.log(AuthStr)
+            axios.post(
+                url, form, 
+                { headers: { Authorization: AuthStr,
+                "Content-Type" : "multipart/form-data" } 
+                })
+                .then((response) => { console.log("success") })
+                .then(() => {
+                    alert('card request success');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
         
-        axios.post(
-            url, form, 
-            { headers: { Authorization: AuthStr,
-            "Content-Type" : "multipart/form-data" } 
-            })
-            .then((response) => { console.log("success") })
-            .then(() => {
-                alert('card request success');
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        postData()
 
     }, [code])
 
     
-
 
     const handleBarCodeScanned = (BarCodeScannerResult) => {
         const { type, data, bounds: { origin } = {} } = BarCodeScannerResult;

@@ -16,6 +16,7 @@ const DetailContainer = styled.View`
 
 // 회색 컨테이너
 const NameCardContainer = styled.View`
+    overflow: visible;
     width: 100%;
     flex: 48;
     background-color: #d9d9d9;
@@ -25,6 +26,8 @@ const NameCardContainer = styled.View`
 
 // 회색 부분 안에 명함 주인 정보를 모아둔 컨테이너
 const NamecardContentContanier = styled.View`
+    overflow: visible;
+    position: relative;
     width: 100%;
     margin-top : 100px;
     margin-left : 20px;
@@ -54,8 +57,7 @@ const BackButton = styled.Image`
 
 const MemoButtonContainer = styled.View`
     position: absolute;
-    top: 400px;
-    right: 40px;
+    bottom: -10px;
 `;
 
 const MemoButton = styled.View`
@@ -144,15 +146,25 @@ export default function Detail({ route, navigation }) {
                 <NamecardContentContanier>
                     <NameText>{name}</NameText>
                     <JobText>{job}</JobText>
-                    <JobText>{email}</JobText>
-                    <JobText>{phone}</JobText>
-                    <JobText>{job}</JobText>
                     <TagContainer>
                         <TagText>{tag1}</TagText>
                         <TagText>{tag2}</TagText>
                         <TagText>{tag3}</TagText>
-                    </TagContainer>
-                    <CustomTagContainer>
+                    </TagContainer>   
+                </NamecardContentContanier>
+
+                <MemoButtonContainer>
+                    <TouchableOpacity>
+                        <MemoButton />
+                    </TouchableOpacity>
+                </MemoButtonContainer>
+                
+            </NameCardContainer>
+
+            <ContentContainer>
+                <JobText>{email}</JobText>
+                <JobText>{phone}</JobText>
+                <CustomTagContainer>
                     {custom_tag1 && (
                     <CustomTagText>{custom_tag1}</CustomTagText>
                     )}
@@ -168,14 +180,10 @@ export default function Detail({ route, navigation }) {
                     {custom_tag5 && (
                         <CustomTagText>{custom_tag5}</CustomTagText>
                     )}
-                    </CustomTagContainer>
+                </CustomTagContainer>
                     <Text>{notes}</Text>
                     <Text>{division}</Text>
                     <Text>{isBookmarked}</Text>
-                </NamecardContentContanier>
-            </NameCardContainer>
-
-            <ContentContainer>
                 <AppointmentButtonContainer>
                     <TouchableOpacity>
                         <AppointmentButton>
@@ -185,11 +193,7 @@ export default function Detail({ route, navigation }) {
                 </AppointmentButtonContainer>
             </ContentContainer>
 
-            <MemoButtonContainer>
-                <TouchableOpacity>
-                    <MemoButton />
-                </TouchableOpacity>
-            </MemoButtonContainer>
+           
         </DetailContainer>
     )
 }

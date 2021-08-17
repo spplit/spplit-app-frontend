@@ -7,7 +7,9 @@ import styled from 'styled-components/native';
 //타인 명함 한 개 컴포넌트
 
 const NameCardContainer = styled.View`
+    position: relative;
     width: 100%;
+    height: 115px;
     /* height: 130px; */
     background-color: #f2f2f2;
     box-shadow: rgba(149, 157, 165, 0.3) 3px 5px 5px;
@@ -19,7 +21,7 @@ const NameCardContainer = styled.View`
 const NameText = styled.Text`
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 `;
 
 const JobText = styled.Text`
@@ -27,29 +29,26 @@ const JobText = styled.Text`
 `;
 
 const TagContainer = styled.View`
+    position: absolute;
     flex-direction: row;
+    bottom: 10;
+    margin-left: 12px;
+`;
+
+const TagBox = styled.View`
+    width: auto;
+    height: 20px;
+    background-color: #29548E;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    padding: 2px 7px;
 `;
 
 const TagText = styled.Text`
-    background-color: #29548E;
     font-size : 10px;
-    margin-left : 2px;
-    color : #ffffff;
-    padding : 3px;
-    border-radius: 3px;
-`;
-
-const CustomTagContainer = styled.View`
-    flex-direction: row;
-`;
-
-const CustomTagText = styled.Text`
-    background-color: #707070;
-    font-size : 10px;
-    margin-left : 2px;
-    color : #ffffff;
-    padding : 3px;
-    border-radius: 3px;
+    color: #fff;
 `;
 
 export default function NameCard({ name, job, email, phone, tag1, tag2, tag3, custom_tag1, custom_tag2, custom_tag3, custom_tag4, custom_tag5, notes, division, isBookmarked }) {
@@ -67,27 +66,11 @@ export default function NameCard({ name, job, email, phone, tag1, tag2, tag3, cu
             <NameText>{name}</NameText>
             <JobText>{job}</JobText>
             <TagContainer>
-                <TagText>{tag1}</TagText>
-                <TagText>{tag2}</TagText>
-                <TagText>{tag3}</TagText>
+
+                <TagBox><TagText>{tag1}</TagText></TagBox>
+                <TagBox><TagText>{tag2}</TagText></TagBox>
+                <TagBox><TagText>{tag3}</TagText></TagBox>
             </TagContainer>
-            <CustomTagContainer>
-                {custom_tag1 && (
-                    <CustomTagText>{custom_tag1}</CustomTagText>
-                )}
-                {custom_tag2 && (
-                    <CustomTagText>{custom_tag2}</CustomTagText>
-                )}
-                {custom_tag3 && (
-                    <CustomTagText>{custom_tag3}</CustomTagText>
-                )}
-                {custom_tag4 && (
-                    <CustomTagText>{custom_tag4}</CustomTagText>
-                )}
-                {custom_tag5 && (
-                    <CustomTagText>{custom_tag5}</CustomTagText>
-                )}
-            </CustomTagContainer>
         </NameCardContainer>
         </TouchableScale>
     )
