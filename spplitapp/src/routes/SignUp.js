@@ -172,26 +172,30 @@ export default function Signup({navigation}) {
       }, [text]);
     
     useEffect(() => {
+        console.log(body["password2"])
+        if (body["password2"] !== "") {
+            handleSubmit()
+        }
         console.log(body)
-    }, [num])
+    }, [body])
 
     const handleBack = () => {
-        if ( num == 0 ) {
+        if (num == 0) {
             navigation.navigate('AuthCheck')
         } else {
-            setNum(num-1)
+            setNum(num - 1)
         }
 
     }
 
     const handleNext = (text) => {
-        if ( num == 4 ) {
-            setBody({...body, [bodyIndex[num]] : text})
-            handleSubmit()
+        if (num == 4) {
+            setBody({ ...body, [bodyIndex[num]]: text })
+
         } else {
             setText('')
-            setBody({...body, [bodyIndex[num]] : text})
-            setNum(num+1)
+            setBody({ ...body, [bodyIndex[num]]: text })
+            setNum(num + 1)
         }
     }
  
@@ -213,6 +217,7 @@ export default function Signup({navigation}) {
                 alert("Welcome to Spplit")
             }
         })
+        .then(() => navigation.navigate('AuthCheck'))
         .catch(error => {
             console.log(error)
             alert("Already Spplitting?")

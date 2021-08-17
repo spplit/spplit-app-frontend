@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import AppointModal from '../components/AppointModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const backbutton = require('../assets/images/backbutton_icon.png')
@@ -42,8 +43,7 @@ const BackButtonContainer = styled.View`
 `;
 
 const BackButton = styled.Image`
-    width: 30px;
-    height: 30px;
+    width: 22px;
 `;
 
 const NoticeOuterContainer = styled.ScrollView`
@@ -96,8 +96,7 @@ const CardIcon = styled.View`
 
 
 export default function Notice({ navigation }) {
-    const USER_TOKEN = "57c05ec10b751d982859426d129b2553d78fc5c1"
-    const AuthStr = "Token ".concat(USER_TOKEN)
+
     const cardurl = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request";
     const appointurl = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/appointment/request";
     const userurl = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user"
@@ -110,59 +109,89 @@ export default function Notice({ navigation }) {
     const [isLoading2, setLoading2] = useState(true);
     const [isLoading3, setLoading3] = useState(true);
     const isFocused = useIsFocused();
+
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        return token
+    }
+
+    async function getData() {
+        const USER_TOKEN = await getToken();
+        const AuthStr = "Token ".concat(USER_TOKEN)
+        return AuthStr
+    }
+
+    const AuthStr = getData()
+
     useEffect(() => {
-        console.log(AuthStr)
-        axios.get(cardurl, { headers: { Authorization: AuthStr } })
-            .then((response) => {
-                console.log("card request loading success")
-                // console.log(response.data)
-                setCards(response.data)
-            })
-            .finally(() => setLoading1(false))
-            .catch((error) => {
-                console.log(error)
-                console.log("category loading failure");
-            })
-        axios.get(appointurl, { headers: { Authorization: AuthStr } })
-            .then((response) => {
-                console.log("appoint request loading success")
-                // console.log(response.data)
-                setAppointments(response.data)
-            })
-            .finally(() => setLoading2(false))
-            .catch((error) => {
-                console.log(error)
-                console.log("category loading failure");
-            })
-        axios.get(userurl, { headers: { Authorization: AuthStr } })
-            .then((response) => {
-                console.log("user loading success")
-                // console.log(response.data)
-                setUsername(response.data[0].username)
-            })
-            .finally(() => setLoading3(false))
-            .catch((error) => {
-                console.log(error)
-                console.log("user loading failure");
-            })
+        async function getData() {
+            const USER_TOKEN = await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            axios.get(cardurl, { headers: { Authorization: AuthStr } })
+                .then((response) => {
+                    console.log("card request loading success")
+                    // console.log(response.data)
+                    setCards(response.data)
+                })
+                .finally(() => setLoading1(false))
+                .catch((error) => {
+                    console.log(error)
+                    console.log("category loading failure");
+                })
+            axios.get(appointurl, { headers: { Authorization: AuthStr } })
+                .then((response) => {
+                    console.log("appoint request loading success")
+                    // console.log(response.data)
+                    setAppointments(response.data)
+                })
+                .finally(() => setLoading2(false))
+                .catch((error) => {
+                    console.log(error)
+                    console.log("category loading failure");
+                })
+            axios.get(userurl, { headers: { Authorization: AuthStr } })
+                .then((response) => {
+                    console.log("user loading success")
+                    // console.log(response.data)
+                    setUsername(response.data[0].username)
+                })
+                .finally(() => setLoading3(false))
+                .catch((error) => {
+                    console.log(error)
+                    console.log("user loading failure");
+                })
+        }
+        getData()
+
     }, [visible])
 
     const acceptCard = (pk) => {
         const url = `http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request/${pk}/accept`
-        axios.get(url, { headers: { Authorization: AuthStr } })
-            .then((response) => {
-                console.log("accept success");
-                alert(`you accepted request`);
-            })
+        async function getData() {
+            const USER_TOKEN = await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            axios.get(url, { headers: { Authorization: AuthStr } })
+                .then((response) => {
+                    console.log("accept success");
+                    alert(`you accepted request`);
+                })
+        }
+        getData()
     }
 
     const declineCard = (pk) => {
         const url = `http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request/${pk}/decline`
-        axios.get(url, { headers: { Authorization: AuthStr } })
-            .then((response) => {
-                console.log("decline success");
-                alert(`you declined request`);
-            })
+        async function getData() {
+            const USER_TOKEN = await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            axios.get(url, { headers: { Authorization: AuthStr } })
+                .then((response) => {
+                    console.log("decline success");
+                    alert(`you declined request`);
+                })
+        }
+        getData()
     }
 
     const cardRequests = cards.filter((request, index) => request.sender !== username).map((val, index) => {
@@ -200,7 +229,7 @@ export default function Notice({ navigation }) {
             <HeaderContainer>
                 <BackButtonContainer>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <BackButton source={backbutton} />
+                        <BackButton resizeMode="contain" source={backbutton} />
                     </TouchableOpacity>
                 </BackButtonContainer>
                 <Title>Notifications</Title>

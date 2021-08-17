@@ -28,7 +28,7 @@ const Main = () => {
         <MainView>
             <CardList />
             <Header />
-            {/* <QRCamera /> */}
+            <QRCamera />
             <FloatingQR />
         </MainView>
     )
