@@ -7,12 +7,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-native-async-storage/async-storage": "react-native-async-storage/async-storage",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/checkbox": "^0.5.8",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/drawer": "^5.12.5",
-    "@react-navigation/native": "react-navigation/native",
+    "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^5.14.5",
     "axios": "^0.21.1",
     "expo": "~42.0.1",

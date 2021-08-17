@@ -42,7 +42,7 @@ const CameraImage = styled.Image`
 `;
 
 export default function QRCamera({ visible, setVisible }) {
-    const url = "https://spplit.herokuapp.com/request";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request";
     USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
     const AuthStr = "Token ".concat(USER_TOKEN)
 

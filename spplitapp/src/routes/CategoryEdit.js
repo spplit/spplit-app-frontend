@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, CheckBox } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import Header from '../components/Header';
 import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components/native';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import TouchableScale from 'react-native-touchable-scale';
 // import CheckBox from '@react-native-community/checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -99,26 +100,39 @@ export default function CategoryEdit() {
     const [isChecked6, setIsChecked6] = useState(false)
     const [isChecked7, setIsChecked7] = useState(false)
 
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        console.log(token)
+        return token
+    }
 
-    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
-    const AuthStr = "Token ".concat(USER_TOKEN)
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division";
 
     useEffect(() => {
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user/division"
-        axios.get(url, { headers : { Authorization: AuthStr} })
-        .then(function(response) {
-            console.log("category loading success")
-            setCategoryList(response.data)
-            setIsChecked3(response.data[0].is_checked_category3)
-            setIsChecked4(response.data[0].is_checked_category4)
-            setIsChecked5(response.data[0].is_checked_category5)
-            setIsChecked6(response.data[0].is_checked_category6)
-            setIsChecked7(response.data[0].is_checked_category7)
-        })
-        .finally(() => setLoading(false))
-        .catch(function(error) {
-           console.log("category loading failure")
-        })
+        async function getData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            console.log(AuthStr)
+            axios.get(url, { headers: { Authorization: AuthStr } })
+            .then((response) => {
+                console.log("category loading success")
+                setCategoryList(response.data)
+                setIsChecked3(response.data[0].is_checked_category3)
+                setIsChecked4(response.data[0].is_checked_category4)
+                setIsChecked5(response.data[0].is_checked_category5)
+                setIsChecked6(response.data[0].is_checked_category6)
+                setIsChecked7(response.data[0].is_checked_category7)
+            })
+            .finally(() => setLoading(false))
+            .catch((error) => {
+                console.log(error)
+                console.log("Category loading failure");
+            })
+        }
+    
+        getData()
+    
     }, [])
 
     if (isLoading) {
