@@ -3349,6 +3349,13 @@ expo-modules-core@~0.2.0:
   resolved "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-0.2.0.tgz"
   integrity sha512-inpfZ5X/BaTtbj2wG9PA9AC0MN8VyId6KSRlVuEg7+ziurHBy/kKDFxpOddUokhwiln2uhoYPSStJjR/tKypdw==
 
+expo-screen-capture@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/expo-screen-capture/-/expo-screen-capture-3.2.0.tgz#2e9695f2d6a363eb2eaac46984dd61108bca0ac5"
+  integrity sha512-/9dN/y/07dVfdgM16k6ugUF3DRIp9n5TVfb3yisAFTti1h4Q8wKo30nngcP6Wl7vbL9gQ/mbY04NRhlrnsphSQ==
+  dependencies:
+    "@unimodules/core" "~7.1.1"
+
 expo-splash-screen@~0.11.2:
   version "0.11.2"
   resolved "https://registry.npmjs.org/expo-splash-screen/-/expo-splash-screen-0.11.2.tgz"
