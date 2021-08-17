@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import Search from '../components/Search';
 import { useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // const home = require('../assets/images/home_icon.png')
 // const bookmark = require('../assets/images/bookmark_icon.png')
@@ -78,31 +79,38 @@ const CategoryText = styled.Text`
 
 
 export default function Category({ cardList }) {
-
     const isFocused = useIsFocused();
     const [isLoading, setLoading] = useState(true);
-
     const [categoryList, setCategoryList] = useState([]);
     const [clicked, setClicked] = useState(0);
 
-    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
+     // 토큰 획득
+     async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        return token
+    }
 
-    const AuthStr = "Token ".concat(USER_TOKEN)
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division";
 
     useEffect(() => {
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user/division"
-        axios.get(url, { headers : { Authorization: AuthStr} })
-        .then(function(response) {
-            console.log("category loading success")
-            setCategoryList(response.data)
-        })
-        .finally(() => setLoading(false))
-        .catch(function(error) {
-            console.log("category loading failure")
-            console.log(error);
-        })
-    }, [isFocused])
+        async function getData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            axios.get(url, { headers: { Authorization: AuthStr } })
+            .then((response) => {
+                console.log("category loading success")
+                setCategoryList(response.data)
+            })
+            .finally(() => setLoading(false))
+            .catch((error) => {
+                console.log(error)
+                console.log("category loading failure");
+            })
+        }
 
+        getData()
+
+    }, [isFocused])
 
     if (isLoading) {
         return (

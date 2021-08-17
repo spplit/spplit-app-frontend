@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Alert, Modal, Pressable, TouchableOpacity, Touc
 import TouchableScale from 'react-native-touchable-scale';
 import axios from 'axios';
 import { useIsFocused } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const close = require('../assets/images/close_icon.png');
 
@@ -106,8 +107,6 @@ const SubmitText = styled.Text`
 `;
 
 export default function MyNameCardContainer() {
-
-    const isFocused = useIsFocused();
     const [isLoading, setLoading] = useState(true);
     const [myCardList, setMyCardList] = useState([]);
 
@@ -121,23 +120,32 @@ export default function MyNameCardContainer() {
     const [tag2, setTag2] = useState('');
     const [tag3, setTag3] = useState('');
 
-    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
-    const AuthStr = "Token ".concat(USER_TOKEN)
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        return token
+    }
+
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/mycard/";
 
     useEffect(() => {
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard"
-        axios.get(url, { headers: { Authorization: AuthStr } })
-            .then(function (response) {
-                console.log("Mycard loading success");
-                setMyCardList(response.data);
+        async function getData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            axios.get(url, { headers: { Authorization: AuthStr } })
+            .then((response) => {
+                console.log("Mycard loading success")
+                setMyCardList(response.data)
             })
             .finally(() => setLoading(false))
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error)
                 console.log("Mycard loading failure");
             })
-    }, [modalVisible])
+        }
+        getData()
 
+    }, [modalVisible])
 
     if (isLoading) {
         return (
@@ -149,7 +157,7 @@ export default function MyNameCardContainer() {
 
     const SubmitBtnClick = () => {
 
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/mycard/";
+        const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/mycard/";
  
         if (firstName && lastName && job && phone && email && tag1 && tag2 && tag3) {
 
@@ -163,31 +171,37 @@ export default function MyNameCardContainer() {
                 tag3 : tag3,
             }
 
-            axios.post(
-                url, body, 
-                { headers: { Authorization: AuthStr,} 
-                })
-                .then((response) => { 
-                    setFirstName("")
-                    setLastName("")
-                    setJob("")
-                    setEmail("")
-                    setPhone("")
-                    setTag1("")
-                    setTag2("")
-                    setTag3("")
-                    console.log("Mycard submit success")
-                })
-                .then(() => {
-                    alert("Your Card is successfully added !")
-                })
-                .then(() => {
-                    setModalVisible(!modalVisible)
-                })
-                .catch(function (error) {
-                    console.log("Mycard submit failure");
-                    console.log(error)
-                })
+            async function createMyCard() {
+                const USER_TOKEN =  await getToken();
+                const AuthStr = "Token ".concat(USER_TOKEN)
+                console.log(AuthStr)
+                axios.post(
+                    url, body, 
+                    { headers: { Authorization : AuthStr} 
+                    })
+                    .then((response) => { 
+                        setFirstName("")
+                        setLastName("")
+                        setJob("")
+                        setEmail("")
+                        setPhone("")
+                        setTag1("")
+                        setTag2("")
+                        setTag3("")
+                        console.log("Mycard submit success")
+                    })
+                    .then(() => {
+                        alert("Your Card is successfully added !")
+                    })
+                    .then(() => {
+                        setModalVisible(!modalVisible)
+                    })
+                    .catch(function (error) {
+                        console.log("Mycard submit failure");
+                        console.log(error)
+                    })
+            }
+            createMyCard()
         }
 
         else {

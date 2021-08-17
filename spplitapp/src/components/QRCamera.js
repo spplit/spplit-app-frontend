@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Camera = require('../assets/images/camera_icon.png');
 const { width, height } = Dimensions.get('window');
@@ -42,14 +43,18 @@ const CameraImage = styled.Image`
 `;
 
 export default function QRCamera({ visible, setVisible }) {
-    const url = "https://spplit.herokuapp.com/request";
-    USER_TOKEN = "57c05ec10b751d982859426d129b2553d78fc5c1"
-    const AuthStr = "Token ".concat(USER_TOKEN)
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request";
 
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const [code, setCode] = useState();
     const [cameraVisible, setCameraVisible] = useState(false);
+
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        return token
+    }
 
     useEffect(() => {
         (async () => {
@@ -62,24 +67,27 @@ export default function QRCamera({ visible, setVisible }) {
         let form = new FormData()
         form.append('cardId', code)
 
-        axios.post(
-            url, form,
-            {
-                headers: {
-                    Authorization: AuthStr,
-                    "Content-Type": "multipart/form-data"
-                }
-            })
-            .then((response) => { console.log("success") })
-            .then(() => {
-                alert('card request success');
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        async function postData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            console.log(AuthStr)
+            axios.post(
+                url, form, 
+                { headers: { Authorization: AuthStr,
+                "Content-Type" : "multipart/form-data" } 
+                })
+                .then((response) => { console.log("success") })
+                .then(() => {
+                    alert('card request success');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        }
+        
+        postData()
 
     }, [code])
-
 
 
 

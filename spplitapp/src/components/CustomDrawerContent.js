@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, Image, Linking, TouchableOpacity } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import styled from 'styled-components';
-import Login from '../routes/Login';
 
 
 const ProfileContainer = styled.View`
@@ -80,44 +79,33 @@ const LogoutButton = styled.Text`
 
 export default function CustomDrawerContent(props) {
     const [data, setData] = useState('');
-    const [isLoading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
+    // 토큰 획득
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user";
 
     useEffect(() => {
-
         async function getData() {
             const USER_TOKEN = await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
-            console.log(AuthStr)
             axios.get(url, { headers: { Authorization: AuthStr } })
-                .then((response) => {
-                    setData(response.data)
-                    console.log(data)
-                })
-                .finally(() => setLoading(false))
-                .catch((error) => {
-                    console.log(error)
-                })
+            .then((response) => {
+                setData(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         }
 
         getData()
 
     }, [])
 
-    if (isLoading) {
-        return (
-            <View>
-                <Text>Loading...</Text>
-            </View>
-        )
-    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>

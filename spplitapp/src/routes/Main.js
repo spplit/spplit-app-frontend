@@ -17,7 +17,6 @@ const Main = () => {
 
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
@@ -27,7 +26,7 @@ const Main = () => {
 
     return (
         <MainView>
-            {/* <CardList /> */}
+            <CardList />
             <Header />
             {/* <QRCamera /> */}
             <FloatingQR />

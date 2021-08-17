@@ -6,6 +6,7 @@ import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import TouchableScale from 'react-native-touchable-scale';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import CheckBox from '@react-native-community/checkbox';
 
 
@@ -49,7 +50,7 @@ const CategoryText = styled.Text`
 
 const CategoryCheckBoxContainer = styled.View`
     position : absolute;
-    right : 20;
+    right : 20px;
 `;
 
 // const UpdateButtonContainer = styled.View`
@@ -100,25 +101,37 @@ export default function CategoryEdit() {
     const [isChecked7, setIsChecked7] = useState(false)
 
 
-    USER_TOKEN = "8e773c033cd7d7dc036536190748b8ea2b6e882b"
-    const AuthStr = "Token ".concat(USER_TOKEN)
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        console.log(token)
+        return token
+    }
 
     useEffect(() => {
-        const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user/division"
-        axios.get(url, { headers : { Authorization: AuthStr} })
-        .then(function(response) {
-            console.log("category loading success")
-            setCategoryList(response.data)
-            setIsChecked3(response.data[0].is_checked_category3)
-            setIsChecked4(response.data[0].is_checked_category4)
-            setIsChecked5(response.data[0].is_checked_category5)
-            setIsChecked6(response.data[0].is_checked_category6)
-            setIsChecked7(response.data[0].is_checked_category7)
-        })
-        .finally(() => setLoading(false))
-        .catch(function(error) {
-           console.log("category loading failure")
-        })
+        const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division"
+        async function getData() {
+            const USER_TOKEN =  await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            console.log(AuthStr)
+            axios.get(url, { headers : { Authorization: AuthStr} })
+            .then(function(response) {
+                console.log("category loading success")
+                setCategoryList(response.data)
+                setIsChecked3(response.data[0].is_checked_category3)
+                setIsChecked4(response.data[0].is_checked_category4)
+                setIsChecked5(response.data[0].is_checked_category5)
+                setIsChecked6(response.data[0].is_checked_category6)
+                setIsChecked7(response.data[0].is_checked_category7)
+            })
+            .finally(() => setLoading(false))
+            .catch(function(error) {
+            console.log("category loading failure")
+            })
+        }
+
+        getData()
+        
     }, [])
 
     if (isLoading) {
@@ -156,7 +169,7 @@ export default function CategoryEdit() {
         }
 
         if (cnt_true === 2) {
-            const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user/division/change"
+            const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/user/division/change"
             
             const body = {
                 is_checked_category3 : String(isChecked3)[0].toUpperCase() + String(isChecked3).slice(1),
@@ -166,21 +179,27 @@ export default function CategoryEdit() {
                 is_checked_category7 : String(isChecked7)[0].toUpperCase() + String(isChecked7).slice(1)
             }
 
-            axios.patch(
-                url, body, 
-                { headers: { Authorization: AuthStr,} 
-                })
-                .then((response) => { 
-                    console.log("category update success")
-                    alert("Your Categories have been updated !")
-                })
-                .then(() => {
-                    navigation.navigate('Main');
-                })
-                .catch(function (error) {
-                    console.log("category update failure");
-                    console.log(error)
-                })
+            async function updateCategory() {
+                const USER_TOKEN =  await getToken();
+                const AuthStr = "Token ".concat(USER_TOKEN)
+                console.log(AuthStr)
+                axios.patch(
+                    url, body, 
+                    { headers: { Authorization : AuthStr} 
+                    })
+                    .then((response) => { 
+                        console.log("category update success")
+                        alert("Your Categories have been updated !")
+                    })
+                    .then(() => {
+                        navigation.navigate('Main');
+                    })
+                    .catch(function (error) {
+                        console.log("category update failure");
+                        console.log(error)
+                    })
+                }
+            updateCategory()
         }
 
         else {

@@ -109,7 +109,7 @@ export default function AuthCheck() {
                         </TouchableOpacity>
                     </ButtonContainer>
                     <ButtonContainer>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                             <SignUpButton>
                                 <SignUpImage resizeMode='contain' source={Pen} />
                             </SignUpButton>

@@ -20,6 +20,7 @@ const HeaderContainer = styled.View `
 `;
 
 const BackButtonContainer = styled.View `
+    z-index: 5;
     position: absolute;
     left: 0;
     width: 20%;
@@ -113,11 +114,13 @@ const LoginImage = styled.Image`
 `;
 
 export default function Login(props) {
+    const navigation = useNavigation();
     // console.log(props)
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
+    const [hide, setHide] = useState(true);
 
-    const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/login";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/login";
 
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
@@ -131,7 +134,7 @@ export default function Login(props) {
         }
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         autoLogin()
     }, [])
 
@@ -188,6 +191,7 @@ export default function Login(props) {
                     <PasswordInput
                         autoCapitalize='none'
                         placeholder="Password"
+                        secureTextEntry={hide}
                         onChangeText={(userPassword) => setUserPassword(userPassword)}
                         />
                 </LoginFormContainer>
