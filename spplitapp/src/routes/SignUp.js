@@ -2,20 +2,53 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
+import axios from 'axios';
 
 const Back = require('../assets/images/backbutton_icon.png');
 const Logo = require('../assets/images/spplit_logo.png');
 
-const SignUpContainer = styled.View `
-    flex: 1;
-    align-items: center;
-    justify-content: space-between;
-`;
+const InputInfo = [
+    {
+        id: 0,
+        data: 'username',
+        question: 'What is your name?',
+        button: 'NEXT',
+    },
+    {
+        id: 1,
+        data: 'email',
+        question: 'What is your email?',
+        button: 'NEXT',
+    },
+    {
+        id: 2,
+        data: 'phone',
+        question: 'What is your phonenumber?',
+        button: 'NEXT',
+    },
+    {
+        id: 3,
+        data: 'password1',
+        question: 'Please set your password',
+        button: 'NEXT',
+    },
+    {
+        id: 4,
+        data: 'password2',
+        question: 'Check your password once again!',
+        button: 'START SPPLITTING!',
+    },
+]
 
-// 헤더에 버튼 2개와 View 3개 제작 (3번째 View 'EmptyContainer' 는 빈 거야 간격 맞추려고 ㅠ.ㅠ)
+const SignUpContainer = styled.View`
+    flex: 1;
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
+`
 
 const HeaderContainer = styled.View `
-    /* position: absolute; */
+    position: absolute;
     height: 100px;
     width: 100%;
     top: 0;
@@ -24,16 +57,18 @@ const HeaderContainer = styled.View `
     align-items: flex-end;
 `;
 
-const BackButtonContainer = styled.View `
-    flex: 1;
+const BackButtonContainer = styled.TouchableOpacity `
+    z-index: 5;
+    position: absolute;
+    left: 0;
+    width: 20%;
     height: 60px;
-    /* background-color: grey; */
     justify-content: center;
+    align-items: center;
 `;
 
-const BackButton = styled.Image `
-    width: 32px;
-    margin-left: 25px;
+const BackButtonImage = styled.Image `
+    width: 22px;
 `;
 
 const LogoContainer = styled.View`
@@ -44,23 +79,18 @@ const LogoContainer = styled.View`
 `;
 
 const LogoImage = styled.Image`
-    width: 25px;
-    height: 30px;
+    width: 20px;
+    height: 23px;
 `;
-
-const EmptyContainer = styled.View`
-    flex: 1;
-`
 
 // 여기서부터 아래쪽 View 만들고 안에 요소 집어 넣기
 const SignUpQuestionContainer = styled.View`
     position: absolute;
     display: flex;
-    height: 85%;
+    top: 105px;
     width: 90%;
-    /* background-color: yellow; */
     justify-content: space-between;
-    bottom: 15;
+    bottom: 15px;
 `
 
 const UpConatiner = styled.View`
@@ -70,7 +100,7 @@ const UpConatiner = styled.View`
 `
 
 const SignUpQuestion = styled.Text`
-    font-size: 18;
+    font-size: 18px;
     color: #707070;
 `
 
@@ -87,76 +117,133 @@ const SignUpInput = styled.TextInput`
     font-size: 18px;
 `
 
-const NextButton = styled.View`
-    background-color: #F2F2F2;
+const NextButton = styled.TouchableOpacity `
+    position: absolute;
+    margin: auto;
+    bottom: 20px;
+    width: 100%;
+    /* background-color: #F2F2F2; */
     justify-content: center;
-    height: 48px;
+    height: 46px;
     border-radius: 15px;
+    background-color: ${ props => props.color === true ? '#29548e' : '#f2f2f2' };
 `
 
 const NEXT = styled.Text`
     text-align: center;
-    font-size: 26;
-    color: #707070;
+    font-size: 18px;
+    color: ${ props => props.color === true ? 'white' : 'black' };
 `
-
-    // 색깔을 바꾸자
-    // return () => {
-    //     console.log('컴포넌트가 화면에서 사라짐');
-    //   };
-
-    // useEffect(() => {
-    //     const id = setInterval(() => {
-    //       setCount(c => c + 1);
-    //     }, 1000);
-    //     return () => clearInterval(id);
-    //   }, []);  
 
 export default function Signup({navigation}) {
     const [text, setText] = useState('');
+    const [hide, setHide] = useState(true);
+    const [color, setColor] = useState(false);
+    const [num, setNum] = useState(0);
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password1, setPassword1] = useState('');
+    const [password2, setPassword2] = useState('');
+    const [body, setBody] = useState(
+        {
+            username : userName,
+            email : email,
+            phone : phone,
+            password1 : password1,
+            password2 : password2,
+        }
+    )
+    const [disable, setDisable] = useState(true)
+
+    const bodyIndex = [ "username", "email", "phone", "password1", "password2" ]
 
     useEffect(() => { 
-        console.log(text);
-        // 색깔 바꾸는 코드 넣기, 여기 맞나?
-      }, [text]);
-
-
-    const isEmpty = (value) => {
-        if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
-            console.log("아무 값도 들어있지 않습니다");
-            // 색깔 바꾸고 터치 막기
-        }else{
-            console.log("값이 있어요");
-            // 파란색 바뀌면 터치 되는거? 여기? 함수랑 useEffect 관계가 헷갈리네
+        const isEmpty = (value) => {
+            if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+                setColor(false);
+                setDisable(true)
+            }else{
+                setColor(true)
+                setDisable(false)
+            }
         }
-    };
+        isEmpty(text)
+      }, [text]);
+    
+    useEffect(() => {
+        console.log(body)
+    }, [num])
+
+    const handleBack = () => {
+        if ( num == 0 ) {
+            navigation.navigate('AuthCheck')
+        } else {
+            setNum(num-1)
+        }
+
+    }
+
+    const handleNext = (text) => {
+        if ( num == 4 ) {
+            setBody({...body, [bodyIndex[num]] : text})
+            handleSubmit()
+        } else {
+            setText('')
+            setBody({...body, [bodyIndex[num]] : text})
+            setNum(num+1)
+        }
+    }
+ 
+    const handleSubmit = () => {
+        console.log(body)
+        const url = 'http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/register';
+
+        axios.post(
+            url, body
+        )
+        .then((response) => {
+            if (response.status >= 200 && response.status <= 204) {
+                console.log(response)
+                setUserName("")
+                setEmail("")
+                setPhone("")
+                setPassword1("")
+                setPassword2("")
+                alert("Welcome to Spplit")
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            alert("Already Spplitting?")
+        })
+    }
+
     
     return (
         <SignUpContainer>
             <HeaderContainer>
-                <BackButtonContainer>
-                    <TouchableOpacity onPress={() => navigation.navigate('Main')}>
-                        <BackButton source={Back} />
-                    </TouchableOpacity>
+                <BackButtonContainer onPress={() => handleBack()}>
+                        <BackButtonImage resizeMode='contain' source={Back} />
                 </BackButtonContainer>
                 <LogoContainer>
                     <LogoImage source={Logo} />
                 </LogoContainer>
-                <EmptyContainer></EmptyContainer>
             </HeaderContainer>
+
             <SignUpQuestionContainer>
+
                 <UpConatiner>
-                    <SignUpQuestion>What`s Your Name?</SignUpQuestion>
+                    <SignUpQuestion>{InputInfo[num].question}</SignUpQuestion>
                     <SignUpInputContainer>
-                        <SignUpInput onChangeText={(text) => setText(text)}></SignUpInput>
+                        <SignUpInput value={text} onChangeText={(text) => setText(text)}></SignUpInput>
                     </SignUpInputContainer>
                 </UpConatiner>
-                <NextButton>
-                    {/* <TouchableOpacity onPress={() => navigation.navigate('Main')}> */}
-                    <TouchableOpacity onPress={() => isEmpty(text)}>
-                        <NEXT>NEXT</NEXT>
-                    </TouchableOpacity>
+
+                <NextButton disabled={disable} color={color} onPress={() => handleNext(text)}>
+                        <NEXT color={color}>{InputInfo[num].button}</NEXT>
                 </NextButton>
+
             </SignUpQuestionContainer>
         </SignUpContainer>
     )

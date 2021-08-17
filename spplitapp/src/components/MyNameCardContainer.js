@@ -123,17 +123,15 @@ export default function MyNameCardContainer() {
     // 토큰 획득
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
-    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/mycard";
+    const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/mycard/";
 
     useEffect(() => {
         async function getData() {
             const USER_TOKEN =  await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
-            console.log(AuthStr)
             axios.get(url, { headers: { Authorization: AuthStr } })
             .then((response) => {
                 console.log("Mycard loading success")
