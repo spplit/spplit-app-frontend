@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
-import AppointModal from '../AppointModal';
+import AppointModal from '../components/AppointModal';
 
 
 const backbutton = require('../assets/images/backbutton_icon.png')

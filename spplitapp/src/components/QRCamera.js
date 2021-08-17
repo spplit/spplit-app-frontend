@@ -43,7 +43,7 @@ const CameraImage = styled.Image`
 
 export default function QRCamera({ visible, setVisible }) {
     const url = "https://spplit.herokuapp.com/request";
-    USER_TOKEN = "d956ff93cd9912ce04966deef265679dadbfda4b"
+    USER_TOKEN = "57c05ec10b751d982859426d129b2553d78fc5c1"
     const AuthStr = "Token ".concat(USER_TOKEN)
 
     const [hasPermission, setHasPermission] = useState(null);
@@ -61,11 +61,14 @@ export default function QRCamera({ visible, setVisible }) {
     useEffect(() => {
         let form = new FormData()
         form.append('cardId', code)
-        
+
         axios.post(
-            url, form, 
-            { headers: { Authorization: AuthStr,
-            "Content-Type" : "multipart/form-data" } 
+            url, form,
+            {
+                headers: {
+                    Authorization: AuthStr,
+                    "Content-Type": "multipart/form-data"
+                }
             })
             .then((response) => { console.log("success") })
             .then(() => {
@@ -77,7 +80,7 @@ export default function QRCamera({ visible, setVisible }) {
 
     }, [code])
 
-    
+
 
 
     const handleBarCodeScanned = (BarCodeScannerResult) => {
@@ -103,7 +106,7 @@ export default function QRCamera({ visible, setVisible }) {
         <View>
             <Modal
                 visible={cameraVisible}
-                onRequestClose={() => {setCameraVisible(!cameraVisible)}}
+                onRequestClose={() => { setCameraVisible(!cameraVisible) }}
                 style={{
                     flex: 1,
                     flexDirection: 'column',
@@ -133,9 +136,9 @@ export default function QRCamera({ visible, setVisible }) {
             </Modal>
 
             <TouchableOpacity onPress={() => setCameraVisible(true)}>
-                    <CameraContainer>
-                        <CameraImage resizeMode='contain' source={Camera} />
-                    </CameraContainer>
+                <CameraContainer>
+                    <CameraImage resizeMode='contain' source={Camera} />
+                </CameraContainer>
             </TouchableOpacity>
 
         </View>
