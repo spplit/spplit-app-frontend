@@ -95,6 +95,39 @@ const NoticeCardContainer = styled.View`
 `;
 
 const Notice = ({ navigation }) => {
+    const cardurl = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request";
+    const appointurl = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/appointment/request";
+    const [cards, setCards] = useState([]);
+    const [appointments, setAppointments] = useState([]);
+    const [isLoading1, setLoading1] = useState(true);
+    const [isLoading2, setLoading2] = useState(true);
+    useEffect(() => {
+        const USER_TOKEN = "57c05ec10b751d982859426d129b2553d78fc5c1"
+        const AuthStr = "Token ".concat(USER_TOKEN)
+        console.log(AuthStr)
+        axios.get(cardurl, { headers: { Authorization: AuthStr } })
+            .then((response) => {
+                console.log("card request loading success")
+                console.log(response.data)
+                setCards(response.data)
+            })
+            .finally(() => setLoading1(false))
+            .catch((error) => {
+                console.log(error)
+                console.log("category loading failure");
+            })
+        axios.get(appointurl, { headers: { Authorization: AuthStr } })
+            .then((response) => {
+                console.log("appoint request loading success")
+                console.log(response.data)
+                setAppointments(response.data)
+            })
+            .finally(() => setLoading2(false))
+            .catch((error) => {
+                console.log(error)
+                console.log("category loading failure");
+            })
+    }, [])
     const [listData, setListData] = useState(
         Notifications.map((NotificationItem, index) => ({
             key: `${index}`,
@@ -155,6 +188,19 @@ const Notice = ({ navigation }) => {
         />
     };
 
+    const CardRequests = cards.map((request, index) => {
+        return <NoticeCardContainer>
+            <Text>{request.sender} sent you a namecard request</Text>
+        </NoticeCardContainer>
+    })
+
+
+    const AppointRequests = appointments.map((request, index) => {
+        return <NoticeCardContainer>
+            <Text>{request.sender_name} sent you an appointment request</Text>
+        </NoticeCardContainer>
+    })
+
     return (
         <View>
             <HeaderContainer>
@@ -166,13 +212,19 @@ const Notice = ({ navigation }) => {
                 <Title>Notifications</Title>
             </HeaderContainer>
             <NoticeOuterContainer>
-                <SwipeListView
+                {isLoading1 && isLoading2 ? <Text>isLoading</Text> :
+                    <>
+                        <CardRequests />
+                        <AppointRequests />
+                        {/* <SwipeListView
                     data={listData}
                     renderItem={renderItem}
                     renderHiddenItem={renderHiddenItem}
                     leftOpenValue={75}
                     rightOpenValue={-150}
-                />
+                /> */}
+                    </>
+                }
             </NoticeOuterContainer>
         </View>
 
