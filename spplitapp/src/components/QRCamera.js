@@ -89,7 +89,7 @@ export default function QRCamera({ visible, setVisible }) {
 
     }, [code])
 
-    
+
 
     const handleBarCodeScanned = (BarCodeScannerResult) => {
         const { type, data, bounds: { origin } = {} } = BarCodeScannerResult;
@@ -114,7 +114,7 @@ export default function QRCamera({ visible, setVisible }) {
         <View>
             <Modal
                 visible={cameraVisible}
-                onRequestClose={() => {setCameraVisible(!cameraVisible)}}
+                onRequestClose={() => { setCameraVisible(!cameraVisible) }}
                 style={{
                     flex: 1,
                     flexDirection: 'column',
@@ -144,9 +144,9 @@ export default function QRCamera({ visible, setVisible }) {
             </Modal>
 
             <TouchableOpacity onPress={() => setCameraVisible(true)}>
-                    <CameraContainer>
-                        <CameraImage resizeMode='contain' source={Camera} />
-                    </CameraContainer>
+                <CameraContainer>
+                    <CameraImage resizeMode='contain' source={Camera} />
+                </CameraContainer>
             </TouchableOpacity>
 
         </View>
