@@ -102,7 +102,6 @@ export default function Category({ cardList }) {
             .then((response) => {
                 console.log("category loading success")
                 setCategoryList(response.data)
-                console.log(categoryList)
             })
             .finally(() => setLoading(false))
             .catch((error) => {
