@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Camera = require('../assets/images/camera_icon.png');
 const { width, height } = Dimensions.get('window');
@@ -52,7 +53,6 @@ export default function QRCamera({ visible, setVisible }) {
     // 토큰 획득
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 

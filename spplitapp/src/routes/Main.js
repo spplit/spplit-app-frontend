@@ -17,7 +17,6 @@ const Main = () => {
 
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
