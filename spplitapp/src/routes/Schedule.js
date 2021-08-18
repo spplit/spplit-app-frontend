@@ -13,6 +13,7 @@ import { useIsFocused } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import Header from '../components/Header';
 import ScheduleModal from '../components/ScheduleModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ScheduleOuterContainer = styled.ScrollView`
     position: absolute;
@@ -44,6 +45,13 @@ export default function Schedule() {
     const [appointment, setAppointment] = useState([]);
     const [clicked, setClicked] = useState();
     const [visible, setVisible] = useState();
+
+    // 토큰 획득
+    async function getToken() {
+        const token = await AsyncStorage.getItem("StorageKey")
+        return token
+    }
+
 
     useEffect(() => {
         async function getData() {
