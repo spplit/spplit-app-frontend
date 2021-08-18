@@ -5,11 +5,13 @@ import CardOverview from './CardOverview';
 
 
 const SearchbarContainer = styled.View`
+    margin-top : 35px;
     height: 47px;
     width: 100%;
     background-color: white;
     justify-content: center;
     align-items: center;
+
 `;
 
 const Searchbar = styled.TextInput `

@@ -584,9 +584,9 @@ export default function Detail({ route, navigation }) {
                         rowTextForSelection={(item, index) => {
                             return item
                         }}
-                        buttonStyle={{borderRadius: '8px', width: 100, height: 40}}
+                        buttonStyle={{borderRadius: 8, width: 100, height: 40}}
                         buttonTextStyle={{fontSize: 14}}
-                        dropdownStyle={{borderRadius: '8px',}}
+                        dropdownStyle={{borderRadius: 8}}
                 />
                 </CategoryContainer>
 

@@ -12,7 +12,7 @@ const NameCardListContainer = styled.View`
     position: absolute;
     width: 100%;
     height: 700px;
-    top: 25px;
+    top: 70px;
     justify-content: center;
     align-items: center;
     background-color: transparent;
