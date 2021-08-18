@@ -8,13 +8,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const close = require('../assets/images/close_icon.png');
 
+const CardListContainer = styled.ScrollView`
+    width : 100%;
+    height : 100%;
+`;
+
+
 // 누르면 모달 오픈
 const CardContainer = styled.View`
-    width: 315px;
+    width: 300px;
     height: 400px;
     border-radius: 14px;
     background-color: #d9d9d9;
     box-shadow: 0px 2px 8px rgba(99, 99, 99, 0.2);
+    justify-content : center;
+    align-items : center;
+    margin-top : 150px;
+    margin-left : 10px;
+    margin-right : 10px;
 `;
 
 //closeText 담긴 부분
@@ -106,6 +117,41 @@ const SubmitText = styled.Text`
     font-size: 20px;
 `;
 
+const NameText = styled.Text`
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+`;
+
+const JobText = styled.Text`
+    font-size: 20px;
+    margin-bottom: 15px;
+`;
+
+const PhoneText = styled.Text`
+    font-size: 20px;
+    margin-bottom: 15px;
+`;
+
+const EmailText = styled.Text`
+    font-size: 20px;
+    margin-bottom: 15px;
+`;
+
+const TagContainer = styled.View`
+    flex-direction: row;
+`;
+
+const TagText = styled.Text`
+    background-color: #29548E;
+    font-size : 15px;
+    margin-left : 5px;
+    color : #ffffff;
+    padding : 3px;
+    border-radius: 3px;
+`;
+
+
 export default function MyNameCardContainer() {
     const [isLoading, setLoading] = useState(true);
     const [myCardList, setMyCardList] = useState([]);
@@ -173,6 +219,7 @@ export default function MyNameCardContainer() {
                 tag3 : tag3,
             }
 
+
             async function createMyCard() {
                 const USER_TOKEN =  await getToken();
                 const AuthStr = "Token ".concat(USER_TOKEN)
@@ -212,87 +259,90 @@ export default function MyNameCardContainer() {
     }
 
     return (
-            
-        <View>
-            {myCardList && (
-                myCardList.map((mycard) => (
-                    <View>
-                        <Text>{mycard.name}</Text>
-                        <Text>{mycard.job}</Text>
-                        <Text>{mycard.email}</Text>
-                        <Text>{mycard.phone}</Text>
-                        <Text>{mycard.tag1}</Text>
-                        <Text>{mycard.tag2}</Text>
-                        <Text>{mycard.tag3}</Text>
-                    </View>
-                ))
-            )}
-            <Modal
-                animationType="slide"
-                visible={modalVisible}
-                presentationStyle='pageSheet'
-                onRequestClose={() => {
-                  setModalVisible(!modalVisible);
-                }}
+            <CardListContainer 
+                horizontal={true}
+                showsHorizontalScrollIndicator = {true}
             >
-            <ModalHeader>
-            
-            <TouchableOpacity
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-                <CloseText>Close</CloseText>
-            </TouchableOpacity>
-            </ModalHeader>
-                <AnnounceText>Create Your New NameCard!</AnnounceText>
-                <InputContainer>
-                    <FirstNameInput placeholder="First Name" value={firstName} onChangeText={text => setFirstName(text)}/>
-                    <LastNameInput placeholder="Last Name" value={lastName} onChangeText={text => setLastName(text)}/>
-                </InputContainer>
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    presentationStyle='pageSheet'
+                    onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                    }}
+                >
+                <ModalHeader>
+                <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                >
+                    <CloseText>Close</CloseText>
+                </TouchableOpacity>
+                </ModalHeader>
+                    <AnnounceText>Create Your New NameCard!</AnnounceText>
+                    <InputContainer>
+                        <FirstNameInput placeholder="First Name" value={firstName} onChangeText={text => setFirstName(text)}/>
+                        <LastNameInput placeholder="Last Name" value={lastName} onChangeText={text => setLastName(text)}/>
+                    </InputContainer>
 
-                <InputContainer>
-                    <JobInput placeholder="Your Job" value={job} onChangeText={text => setJob(text)}/>
-                </InputContainer>
+                    <InputContainer>
+                        <JobInput placeholder="Your Job" value={job} onChangeText={text => setJob(text)}/>
+                    </InputContainer>
 
-                <InputContainer>
-                    <PhoneNumberInput placeholder="Your PhoneNumber" value={phone} onChangeText={text => setPhone(text)}/>
-                </InputContainer>
+                    <InputContainer>
+                        <PhoneNumberInput placeholder="Your PhoneNumber" value={phone} onChangeText={text => setPhone(text)}/>
+                    </InputContainer>
 
-                <InputContainer>
-                    <EmailInput placeholder="Your Email Address" value={email} onChangeText={text => setEmail(text)}/>
-                </InputContainer>
+                    <InputContainer>
+                        <EmailInput placeholder="Your Email Address" value={email} onChangeText={text => setEmail(text)}/>
+                    </InputContainer>
 
-                <InputContainer>
-                    <TagInput placeholder="First Tag" value={tag1} onChangeText={text => setTag1(text)}/>
-                </InputContainer>
+                    <InputContainer>
+                        <TagInput placeholder="First Tag" value={tag1} onChangeText={text => setTag1(text)}/>
+                    </InputContainer>
 
-                <InputContainer>
-                    <TagInput placeholder="Second Tag" value={tag2} onChangeText={text => setTag2(text)}/>
-                </InputContainer>
+                    <InputContainer>
+                        <TagInput placeholder="Second Tag" value={tag2} onChangeText={text => setTag2(text)}/>
+                    </InputContainer>
 
-                <InputContainer>
-                    <TagInput placeholder="Third Tag" value={tag3} onChangeText={text => setTag3(text)}/>
-                </InputContainer>
+                    <InputContainer>
+                        <TagInput placeholder="Third Tag" value={tag3} onChangeText={text => setTag3(text)}/>
+                    </InputContainer>
 
-                <SubmitButtonContainer>
-                    <TouchableOpacity onPress={() => SubmitBtnClick()}>
-                        <SubmitButton>
-                            <SubmitText>Submit</SubmitText>
-                        </SubmitButton>
-                    </TouchableOpacity>
-                </SubmitButtonContainer>
-            
-            </Modal>
+                    <SubmitButtonContainer>
+                        <TouchableOpacity onPress={() => SubmitBtnClick()}>
+                            <SubmitButton>
+                                <SubmitText>Submit</SubmitText>
+                            </SubmitButton>
+                        </TouchableOpacity>
+                    </SubmitButtonContainer>
+                
+                </Modal>
 
-            <TouchableScale
-                activeScale={0.9}
-                tension={18}
-                friction={7}
-                useNativeDriver={true}
-                onPress={() => setModalVisible(true)}
-            >
-                <CardContainer />
-            </TouchableScale>
-        </View>
+                {myCardList && (
+                    myCardList.map((mycard) => (
+                    <CardContainer>
+                        <NameText>{mycard.name}</NameText>
+                        <JobText>{mycard.job}</JobText>
+                        <EmailText>{mycard.email}</EmailText>
+                        <PhoneText>{mycard.phone}</PhoneText>
+                        <TagContainer>
+                            <TagText>{mycard.tag1}</TagText>
+                            <TagText>{mycard.tag2}</TagText>
+                            <TagText>{mycard.tag3}</TagText>
+                        </TagContainer>
+                    </CardContainer>
+                    )))}
+
+                <TouchableScale
+                    activeScale={0.9}
+                    tension={18}
+                    friction={7}
+                    useNativeDriver={true}
+                    onPress={() => setModalVisible(true)}
+                >
+                    <CardContainer/>
+                </TouchableScale>
+            </CardListContainer>
     )
 }
 

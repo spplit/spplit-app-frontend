@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import Search from '../components/Search';
 import { useIsFocused } from '@react-navigation/native';
+import TouchableScale from 'react-native-touchable-scale';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const home = require('../assets/images/home_icon.png')
-// const bookmark = require('../assets/images/bookmark_icon.png')
-// const coffee = require('../assets/images/coffee_icon.png')
-// const book = require('../assets/images/book_icon.png')
+const all = require('../assets/images/home_icon.png')
+const bookmark = require('../assets/images/bookmark_icon.png')
+const work = require('../assets/images/briefcase_icon.png')
+const group = require('../assets/images/users_icon.png')
+const sports = require('../assets/images/ball_icon.png')
+const hobby = require('../assets/images/film_icon.png')
+const others = require('../assets/images/archive_icon.png')
 
 const TotalContainer = styled.View`
     position: absolute;
@@ -32,7 +36,7 @@ const CategoryContainer = styled.View `
 
 const Categorybar = styled.View `
     position: absolute;
-    background-color: white;
+    background-color: #d9d9d9;
     box-shadow: 4px 4px 10px rgba(17, 17, 26, 0.25);
     width: 90%;
     height: 60px;
@@ -43,38 +47,46 @@ const Categorybar = styled.View `
     flex-direction: row;
 `;
 
-// const CategoryIconContainer = styled.View`
-//     flex: 1;
-//     justify-content: center;
-//     align-items: center;
-// `;
-
-// const CategoryIcon = styled.Image`
-//     width: 23px;
-//     height: 23px;
-// `;
-
-// const CategoryIconList = [home, bookmark, coffee, book]
-
-const CategoryTextContainer = styled.View`
+const CategoryIconContainer = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    width : 25%;
 `;
 
-const CategoryText = styled.Text`
-    text-align : center;
-    border: none;
-    ${({ active }) =>
-        active &&
-        css`
-          background-color: #4672AF;
-          &:hover {
-            background: #4672AF;
-          }
-        `}
+const CategoryIcon = styled.Image`
+    /* width: 23px;
+    height: 23px; */
 `;
+
+const CategoryLine = styled.View`
+    width : 30px;
+    height : 5px;
+    background-color : #4672AF;
+    margin-top : 3px;
+`;
+
+const CategoryIconList = [all, bookmark, work, group, sports, hobby, others]
+const CategoryIconTextList = ["all", "bookmark", "work", "group", "sports", "hobby", "others"]
+
+// const CategoryTextContainer = styled.View`
+//     flex: 1;
+//     justify-content: center;
+//     align-items: center;
+//     width : 25%;
+// `;
+
+// const CategoryText = styled.Text`
+//     text-align : center;
+//     border: none;
+//     ${({ active }) =>
+//         active &&
+//         css`
+//           background-color: #4672AF;
+//           &:hover {
+//             background: #4672AF;
+//           }
+//         `}
+// `;
 
 
 
@@ -155,10 +167,14 @@ export default function Category({ cardList }) {
 
 
     const categoryBar = categoryCheckedList.map((value, index) => {
+
         return (
-            <CategoryTextContainer>
-                <CategoryText key={index} active={clicked === index} onPress={() => setClicked(index)}>{value}</CategoryText>
-            </CategoryTextContainer>
+            <CategoryIconContainer>
+                <TouchableOpacity active={clicked === index} onPress={() => setClicked(index)}>
+                    <CategoryIcon key={index} source={CategoryIconList[CategoryIconTextList.indexOf(value.toLowerCase())]}/>
+                </TouchableOpacity>
+                {clicked === index ? <CategoryLine></CategoryLine> : <View></View>}
+            </CategoryIconContainer>
         )
     })
 

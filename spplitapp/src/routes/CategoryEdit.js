@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import TouchableScale from 'react-native-touchable-scale';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { CheckBox } from 'react-native-elements'
 // import CheckBox from '@react-native-community/checkbox';
 
 
