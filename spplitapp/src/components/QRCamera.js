@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Dimensions, Modal, Text, View, Button, TouchableOpacity, Touchable } from 'react-native';
+import { StyleSheet, Dimensions, Modal, Text, View, Button, TouchableOpacity, Touchable, Platform } from 'react-native';
 import React from 'react';
 import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { PermissionsAndroid } from 'react-native';
 
 const Camera = require('../assets/images/camera_icon.png');
 const { width, height } = Dimensions.get('window');
@@ -24,14 +25,23 @@ const BackText = styled.Text`
     font-size: 18px;
 `;
 
+
 const CameraContainer = styled.View`
+    /* background-color: #f2f2f2;
+    width: 28px;
+    height: 26px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-left : 270px;
+    margin-top : 55px;
+    z-index : 100; */
     background-color: #f2f2f2;
     position: absolute;
     width: 28px;
     height: 26px;
     top: 55px;
     right: 63px;
-
     align-items: center;
     justify-content: center;
     border-radius: 5px;
@@ -41,6 +51,7 @@ const CameraImage = styled.Image`
     width: 18px;
     height: 18px;
 `;
+
 
 export default function QRCamera({ visible, setVisible }) {
     const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/request";
@@ -55,6 +66,7 @@ export default function QRCamera({ visible, setVisible }) {
         const token = await AsyncStorage.getItem("StorageKey")
         return token
     }
+
 
     useEffect(() => {
         (async () => {
@@ -145,13 +157,11 @@ export default function QRCamera({ visible, setVisible }) {
                     </BackContainer>
                 </BarCodeScanner>
             </Modal>
-
-            <TouchableOpacity onPress={() => setCameraVisible(true)}>
-                <CameraContainer>
+            <CameraContainer>
+                <TouchableOpacity onPress={() => setCameraVisible(true)}>
                     <CameraImage resizeMode='contain' source={Camera} />
-                </CameraContainer>
-            </TouchableOpacity>
-
+                </TouchableOpacity>
+            </CameraContainer>
         </View>
     )
 }
