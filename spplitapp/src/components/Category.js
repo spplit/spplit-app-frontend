@@ -99,7 +99,6 @@ export default function Category({ cardList }) {
      // 토큰 획득
      async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
@@ -109,7 +108,6 @@ export default function Category({ cardList }) {
         async function getData() {
             const USER_TOKEN =  await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
-            console.log(AuthStr)
             axios.get(url, { headers: { Authorization: AuthStr } })
             .then((response) => {
                 console.log("category loading success")

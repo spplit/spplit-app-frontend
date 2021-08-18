@@ -5,19 +5,20 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Main from './Main';
 import Notice from './Notice';
+import RequestDetail from "./RequestDetail";
 
-const MainStack = createStackNavigator(); 
+const MainStack = createStackNavigator();
 
-const MainStackScreen = ({navigation}) => {
-    return(
-      <MainStack.Navigator
-        screenOptions={{
+const MainStackScreen = ({ navigation }) => {
+  return (
+    <MainStack.Navigator
+      screenOptions={{
         headerShown: false,
-        cardStyle: {backgroundColor: 'transparent'}
-        }}
-      >
-        <MainStack.Screen name="Main" component={Main} />
-        <MainStack.Screen name="Notice" component={Notice} />
-      </MainStack.Navigator>
-    )
-  }
+        cardStyle: { backgroundColor: 'transparent' }
+      }}
+    >
+      <MainStack.Screen name="Main" component={Main} />
+      <MainStack.Screen name="Notice" component={Notice} />
+    </MainStack.Navigator>
+  )
+}

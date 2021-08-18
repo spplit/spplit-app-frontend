@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/native';
 import axios from 'axios';
 import { BarCodeScanner, BarCodeScannerResult } from 'expo-barcode-scanner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Camera = require('../assets/images/camera_icon.png');
 const { width, height } = Dimensions.get('window');
@@ -26,10 +27,10 @@ const BackText = styled.Text`
 const CameraContainer = styled.View`
     background-color: #f2f2f2;
     position: absolute;
-    width: 26px;
+    width: 28px;
     height: 26px;
     top: 55px;
-    right: 85px;
+    right: 63px;
 
     align-items: center;
     justify-content: center;
@@ -52,7 +53,6 @@ export default function QRCamera({ visible, setVisible }) {
     // 토큰 획득
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
@@ -89,7 +89,7 @@ export default function QRCamera({ visible, setVisible }) {
 
     }, [code])
 
-    
+
 
     const handleBarCodeScanned = (BarCodeScannerResult) => {
         const { type, data, bounds: { origin } = {} } = BarCodeScannerResult;
@@ -114,7 +114,7 @@ export default function QRCamera({ visible, setVisible }) {
         <View>
             <Modal
                 visible={cameraVisible}
-                onRequestClose={() => {setCameraVisible(!cameraVisible)}}
+                onRequestClose={() => { setCameraVisible(!cameraVisible) }}
                 style={{
                     flex: 1,
                     flexDirection: 'column',
@@ -144,9 +144,9 @@ export default function QRCamera({ visible, setVisible }) {
             </Modal>
 
             <TouchableOpacity onPress={() => setCameraVisible(true)}>
-                    <CameraContainer>
-                        <CameraImage resizeMode='contain' source={Camera} />
-                    </CameraContainer>
+                <CameraContainer>
+                    <CameraImage resizeMode='contain' source={Camera} />
+                </CameraContainer>
             </TouchableOpacity>
 
         </View>

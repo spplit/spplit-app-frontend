@@ -8,7 +8,7 @@ const QRCode = require('../assets/images/qrcode_icon.png')
 
 const QRContainer = styled.View`
     position: absolute;
-    bottom: 90px;
+    bottom: 100px;
     right: 20px;
     width: 60px;
     height: 60px;

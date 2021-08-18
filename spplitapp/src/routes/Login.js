@@ -20,6 +20,7 @@ const HeaderContainer = styled.View `
 `;
 
 const BackButtonContainer = styled.View `
+    z-index: 5;
     position: absolute;
     left: 0;
     width: 20%;
@@ -113,9 +114,11 @@ const LoginImage = styled.Image`
 `;
 
 export default function Login(props) {
+    const navigation = useNavigation();
     // console.log(props)
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
+    const [hide, setHide] = useState(true);
 
     const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/login";
 
@@ -188,6 +191,7 @@ export default function Login(props) {
                     <PasswordInput
                         autoCapitalize='none'
                         placeholder="Password"
+                        secureTextEntry={hide}
                         onChangeText={(userPassword) => setUserPassword(userPassword)}
                         />
                 </LoginFormContainer>

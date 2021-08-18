@@ -84,21 +84,19 @@ export default function CustomDrawerContent(props) {
     // 토큰 획득
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
     const url = "http://spplit.eba-p9nfypbf.us-west-2.elasticbeanstalk.com/user";
 
+    
     useEffect(() => {
         async function getData() {
-            const USER_TOKEN =  await getToken();
+            const USER_TOKEN = await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
-            console.log(AuthStr)
             axios.get(url, { headers: { Authorization: AuthStr } })
             .then((response) => {
                 setData(response.data)
-                console.log(data)
             })
             .catch((error) => {
                 console.log(error)
@@ -106,12 +104,13 @@ export default function CustomDrawerContent(props) {
         }
 
         getData()
+        
 
     }, [])
 
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <ProfileContainer>
                 <ProfileImageContainer>
                     <ProfileImageSkeleton>
@@ -121,19 +120,19 @@ export default function CustomDrawerContent(props) {
                 <ProfileTextContainer>
                     <FixedText>Welcome Back,</FixedText>
                     {/* 이용자 이름 넣는 공간 */}
-                    {/* <Text style={{fontSize: 17, color: 'black'}}>{data[0].username}</Text>  */}
+                    {/* <Text style={{fontSize: 17, color: 'black'}}>{username}</Text>  */}
                 </ProfileTextContainer>
             </ProfileContainer>
 
             <FollowerContainer>
                 <NameCardNumberContainer>
                     {/* 명함 개수 변하는 부분 */}
-                    <Text style={{marginRight: 4}}>5</Text>
+                    <Text style={{ marginRight: 4 }}>5</Text>
                     <FixedText>NameCards</FixedText>
                 </NameCardNumberContainer>
                 <AppointmentContainer>
                     {/* 약속 개수 변하는 부분 */}
-                    <Text style={{marginRight: 4}}>10</Text>
+                    <Text style={{ marginRight: 4 }}>10</Text>
                     <FixedText>Appointments</FixedText>
                 </AppointmentContainer>
             </FollowerContainer>
@@ -153,7 +152,7 @@ export default function CustomDrawerContent(props) {
                     props.navigation.navigate('Login')
                     props.setLogin(false)
                     AsyncStorage.removeItem('StorageKey')
-                    }}>
+                }}>
                     <LogoutButton>LOGOUT</LogoutButton>
                 </TouchableOpacity>
             </LogoutButtonContainer>

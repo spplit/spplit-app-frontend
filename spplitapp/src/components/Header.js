@@ -56,7 +56,7 @@ const NoticeButtonContainer = styled.View`
 
 
 const NoticeButton = styled.View`
-    width: 50px;
+    width: 28px;
     height: 26px;
     border-radius: 7px;
     background-color: #f2f2f2;
@@ -67,13 +67,7 @@ const NoticeButton = styled.View`
 `;
 
 const NoticeImage = styled.Image`
-    width: 14px;
-    margin-right: 6px;
-`;
-
-const NoticeNumber = styled.Text`
-    color: #707070;
-    font-size: 15px;
+    width: 16px;
 `;
 
 export default function Header() {
@@ -94,7 +88,6 @@ export default function Header() {
                 <TouchableOpacity onPress={() => navigation.navigate('Notice')}>
                     <NoticeButton>
                         <NoticeImage resizeMode="contain" source={Bell} />
-                        <NoticeNumber>7</NoticeNumber>
                     </NoticeButton>
                 </TouchableOpacity>
             </NoticeButtonContainer>

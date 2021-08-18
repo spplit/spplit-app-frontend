@@ -16,7 +16,6 @@ export default function CardList() {
     // 토큰 획득
     async function getToken() {
         const token = await AsyncStorage.getItem("StorageKey")
-        console.log(token)
         return token
     }
 
