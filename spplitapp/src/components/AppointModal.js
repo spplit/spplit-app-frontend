@@ -77,7 +77,9 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
             .then((response) => {
                 console.log("accept success")
                 alert(`you accepted request`);
+                setVisible(false);
             })
+            .catch((err) => console.log(err))
     }
 
     const decline = (id) => {
@@ -86,7 +88,9 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
             .then((response) => {
                 console.log("decline success")
                 alert(`you declined request`);
+                setVisible(false);
             })
+            .catch((err) => console.log(err))
     }
     return (
         <Modal
@@ -103,30 +107,30 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
                     <ModalContent>
                         <ContentBox>
                             <FlexRow>
-                                <Text style={{color: '#29548e'}}>약속  </Text>
+                                <Text style={{ color: '#29548e' }}>약속  </Text>
                                 <Text>{props.title}</Text>
                             </FlexRow>
                             <FlexRow>
-                                <Text style={{color: '#29548e'}}>약속 요청한 사람  </Text>
+                                <Text style={{ color: '#29548e' }}>약속 요청한 사람  </Text>
                                 <Text>{props.sender_name}</Text>
                             </FlexRow>
                             <FlexRow>
-                                <Text style={{color: '#29548e'}}>약속 대상  </Text>
+                                <Text style={{ color: '#29548e' }}>약속 대상  </Text>
                                 <Text>{props.receiver_name}</Text>
                             </FlexRow>
                             <FlexRow>
-                                <Text style={{color: '#29548e'}}>약속 내용  </Text>
+                                <Text style={{ color: '#29548e' }}>약속 내용  </Text>
                                 <Text>{props.content}</Text>
                             </FlexRow>
                             <FlexRow>
-                                <Text style={{color: '#29548e'}}>약속 시간  </Text>
+                                <Text style={{ color: '#29548e' }}>약속 시간  </Text>
                                 <Text>{props.appointment_date}</Text>
                             </FlexRow>
                         </ContentBox>
                     </ModalContent>
                     <ModalButtom>
-                        <Button onPress={() => accept(props.id)}><Text style={{color: 'white'}}>accept</Text></Button>
-                        <Button onPress={() => decline(props.id)}><Text style={{color: 'white'}}>decline</Text></Button>
+                        <Button onPress={() => accept(props.id)}><Text style={{ color: 'white' }}>accept</Text></Button>
+                        <Button onPress={() => decline(props.id)}><Text style={{ color: 'white' }}>decline</Text></Button>
                     </ModalButtom>
                 </ModalMain>
             </ModalContainer>

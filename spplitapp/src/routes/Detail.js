@@ -219,6 +219,7 @@ const InputContainer = styled.View`
     flex-direction: row;
     margin-left : 20px;
     margin-top: 8px;
+
 `;
 
 const ModalHeader = styled.View`
@@ -600,6 +601,7 @@ export default function Detail({ route, navigation }) {
                                 setEditBookmark(!editBookmark);
                             }}
                         />
+
                 </CheckBoxContainer>
 
                 <EditText>Write Tags (Max 5 Tags available)</EditText>

@@ -68,13 +68,16 @@ export default function QRCamera({ visible, setVisible }) {
         form.append('cardId', code)
 
         async function postData() {
-            const USER_TOKEN =  await getToken();
+            const USER_TOKEN = await getToken();
             const AuthStr = "Token ".concat(USER_TOKEN)
             console.log(AuthStr)
             axios.post(
-                url, form, 
-                { headers: { Authorization: AuthStr,
-                "Content-Type" : "multipart/form-data" } 
+                url, form,
+                {
+                    headers: {
+                        Authorization: AuthStr,
+                        "Content-Type": "multipart/form-data"
+                    }
                 })
                 .then((response) => { console.log("success") })
                 .then(() => {
@@ -84,7 +87,7 @@ export default function QRCamera({ visible, setVisible }) {
                     console.log(error);
                 })
         }
-        
+
         postData()
 
     }, [code])
@@ -96,7 +99,7 @@ export default function QRCamera({ visible, setVisible }) {
         const { x, y } = origin;
         if (x >= viewMinX && y >= viewMinY && x <= (viewMinX + boxLen / 2) && y <= (viewMinY + boxLen / 2)) {
             setScanned(true);
-            setVisible(false);
+            setCameraVisible(false);
             setCode(data);
             console.log(code)
             setScanned(false);

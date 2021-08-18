@@ -109,6 +109,7 @@ export default function Notice({ navigation }) {
     const [isLoading2, setLoading2] = useState(true);
     const [isLoading3, setLoading3] = useState(true);
     const isFocused = useIsFocused();
+    const [auth, setAuth] = useState();
 
     // 토큰 획득
     async function getToken() {
@@ -119,6 +120,7 @@ export default function Notice({ navigation }) {
     async function getData() {
         const USER_TOKEN = await getToken();
         const AuthStr = "Token ".concat(USER_TOKEN)
+        setAuth(AuthStr);
         return AuthStr
     }
 
@@ -208,6 +210,7 @@ export default function Notice({ navigation }) {
 
 
     const appointRequests = appointments.filter((request, index) => request.sender_name !== username).map((val, index) => {
+        // console.log(auth)
         return <NoticeAppointContainer key={index} onPress={() => {
             setClicked(val)
             console.log(clicked)
@@ -220,7 +223,7 @@ export default function Notice({ navigation }) {
                 <CardIcon></CardIcon>
                 <Icon name="chevron-right" size={25} />
             </CardIcons>
-            {visible && <AppointModal visible={visible} setVisible={setVisible} props={clicked} auth={AuthStr} />}
+            {visible && <AppointModal visible={visible} setVisible={setVisible} props={clicked} auth={auth} />}
         </NoticeAppointContainer>
     })
 
