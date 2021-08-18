@@ -7,7 +7,9 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import TouchableScale from 'react-native-touchable-scale';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { Checkbox } from 'react-native-paper';
+
 
 const backbutton = require('../assets/images/backbutton_icon.png')
 

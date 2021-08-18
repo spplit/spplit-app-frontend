@@ -51,7 +51,7 @@ const TagText = styled.Text`
     color: #fff;
 `;
 
-export default function NameCard({ name, job, email, phone, tag1, tag2, tag3, custom_tag1, custom_tag2, custom_tag3, custom_tag4, custom_tag5, notes, division, isBookmarked }) {
+export default function NameCard({ id, name, job, email, phone, tag1, tag2, tag3, custom_tag1, custom_tag2, custom_tag3, custom_tag4, custom_tag5, notes, division, isBookmarked }) {
     const navigation = useNavigation();
     return (
         <TouchableScale
@@ -59,7 +59,7 @@ export default function NameCard({ name, job, email, phone, tag1, tag2, tag3, cu
             tension={18}
             friction={7}
             useNativeDriver={true}
-            onPress={() => navigation.navigate('Detail', { name, job, email, phone, tag1, tag2, tag3, 
+            onPress={() => navigation.navigate('Detail', { id, name, job, email, phone, tag1, tag2, tag3, 
                     custom_tag1, custom_tag2, custom_tag3, custom_tag4, custom_tag5, notes, division, isBookmarked })}
         >
         <NameCardContainer>
