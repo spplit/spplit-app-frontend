@@ -69,7 +69,7 @@ export default function Schedule() {
                     console.log("appointment loading failure");
                 })
         }
-        getData()
+        setInterval(() => getData(), 2000)
 
     }, [])
 

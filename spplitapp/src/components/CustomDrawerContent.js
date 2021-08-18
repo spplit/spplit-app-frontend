@@ -128,7 +128,7 @@ export default function CustomDrawerContent(props) {
                 })
         }
 
-        getData()
+        setInterval(() => getData(), 2000)
 
 
     }, [])
