@@ -46,17 +46,23 @@ export default function Schedule() {
     const [visible, setVisible] = useState();
 
     useEffect(() => {
-        axios.get(scheduleurl, { headers: { Authorization: AuthStr } })
-            .then((response) => {
-                console.log("appointment loading success")
-                console.log(response.data)
-                setAppointment(response.data)
-            })
-            .finally(() => setLoading(false))
-            .catch((error) => {
-                console.log(error)
-                console.log("appointment loading failure");
-            })
+        async function getData() {
+            const USER_TOKEN = await getToken();
+            const AuthStr = "Token ".concat(USER_TOKEN)
+            axios.get(scheduleurl, { headers: { Authorization: AuthStr } })
+                .then((response) => {
+                    console.log("appointment loading success")
+                    console.log(response.data)
+                    setAppointment(response.data)
+                })
+                .finally(() => setLoading(false))
+                .catch((error) => {
+                    console.log(error)
+                    console.log("appointment loading failure");
+                })
+        }
+        getData()
+
     }, [])
 
     const schedules = appointment.map((schedule, index) => {
