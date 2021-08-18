@@ -300,13 +300,15 @@ const DateInput = styled.TextInput`
 `;
 
 const DateContainer = styled.View`
+    position: relative;
     flex-direction : row;
-    align-items: center;
+    margin-top: 20px;
 `;
 
 const DatePickerButton = styled.View`
-    margin-top : 20px;
-    margin-left : 200px;
+    position: absolute;
+    bottom: 0px;
+    right: -300px;
     width: 70px;
     height: 30px;
     background-color: #4672af;
@@ -327,7 +329,7 @@ const SubmitButtonContainer = styled.View`
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 40px;
 `;
 
 const SubmitButton = styled.View`
@@ -637,6 +639,7 @@ export default function Detail({ route, navigation }) {
             <TitleInput placeholder="Appointment Title" value={title} onChangeText={text => setTitle(text)}/>
             <ContentInputText>Appointment</ContentInputText>
             <ContentInput placeholder="Appointment Content" value={content} onChangeText={text => setContent(text)}/>
+
             <DateContainer>
             <DateInputText>Date</DateInputText>
             <TouchableOpacity onPress={() => setDatePickerVisible(!isDatePickerVisible)}>
@@ -645,6 +648,7 @@ export default function Detail({ route, navigation }) {
                 </DatePickerButton>
             </TouchableOpacity>
             </DateContainer>
+
             <DateInput value={appointmentDate} editable={false}/>
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
