@@ -418,23 +418,23 @@ export default function Detail({ route, navigation }) {
 
     const SubmitBtnClick = () => {
         
+
+        
         const url = "http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/appointment/request";
  
         if (title && content && appointmentDate) {
 
-            const body = {
-                active_card : id,
-                title : title,
-                content : content,
-                appointment_date : appointmentDate
-            }
-
+            let form = new FormData()
+            form.append('active_card', id)
+            form.append('title', title)
+            form.append('content', content)
+            form.append('appointment_date', appointmentDate)
 
             async function createAppointment() {
                 const USER_TOKEN =  await getToken();
                 const AuthStr = "Token ".concat(USER_TOKEN)
                 axios.post(
-                    url, body, 
+                    url, form, 
                     { headers: { Authorization: AuthStr } 
                     })
                     .then((response) => { 
@@ -452,7 +452,8 @@ export default function Detail({ route, navigation }) {
                     })
                     .catch(function (error) {
                         console.log("Appointment submit failure");
-                        console.log(error)
+                        // console.log(error.response.data)
+                        console.log(error.response.status)
                     })
             }
             createAppointment()
@@ -465,8 +466,9 @@ export default function Detail({ route, navigation }) {
 
     const UpdateBtnClick = () => {
         
-        const url = `http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/appointment/${id}`;
+        const url = `http://spplitsuccess.eba-xefre73m.us-west-2.elasticbeanstalk.com/card/${id}`;
  
+
         if (editCategory) {
 
             const body = {
@@ -479,8 +481,6 @@ export default function Detail({ route, navigation }) {
                 division : editCategory,
                 isBookmarked : String(editBookmark)[0].toUpperCase() + String(editBookmark).slice(1)
             }
-
-            console.log(body)
 
             async function updateCard() {
                 const USER_TOKEN =  await getToken();
@@ -496,7 +496,7 @@ export default function Detail({ route, navigation }) {
                         alert("Card has been successfully updated !")
                     })
                     .then(() => {
-                        navigation.navigate('Detail')
+                        navigation.navigate('Main')
                     })
                     .catch(function (error) {
                         console.log("Card update failure");
@@ -530,21 +530,11 @@ export default function Detail({ route, navigation }) {
                         <TagText>{tag3}</TagText>
                     </TagContainer>   
                     <CustomTagContainer>
-                    {custom_tag1 && (
-                    <CustomTagText>{custom_tag1}</CustomTagText>
-                    )}
-                    {custom_tag2 && (
-                        <CustomTagText>{custom_tag2}</CustomTagText>
-                    )}
-                    {custom_tag3 && (
-                        <CustomTagText>{custom_tag3}</CustomTagText>
-                    )}
-                    {custom_tag4 && (
-                        <CustomTagText>{custom_tag4}</CustomTagText>
-                    )}
-                    {custom_tag5 && (
-                        <CustomTagText>{custom_tag5}</CustomTagText>
-                    )}
+                    {customTag1 ? <CustomTagText>{customTag1}</CustomTagText> : <View></View>}
+                    {customTag2 ? <CustomTagText>{customTag2}</CustomTagText> : <View></View>}
+                    {customTag3 ? <CustomTagText>{customTag3}</CustomTagText> : <View></View>}
+                    {customTag4 ? <CustomTagText>{customTag4}</CustomTagText> : <View></View>}
+                    {customTag5 ? <CustomTagText>{customTag5}</CustomTagText> : <View></View>}
                 </CustomTagContainer>
                 </NamecardContentContanier>
                 <MemoButtonContainer>
@@ -565,6 +555,7 @@ export default function Detail({ route, navigation }) {
                         data={customCategoryList}
                         defaultValue={editCategory? editCategory : customCategoryList[0]}
                         onSelect={(selectedItem, index) => {
+                            setEditCategory(selectedItem)
                         }}
                         buttonTextAfterSelection={(selectedItem, index) => {
                             return selectedItem
@@ -579,13 +570,13 @@ export default function Detail({ route, navigation }) {
                     <CheckBox value={editBookmark} onValueChange={setEditBookmark}/>
                     <TextInput value={String(editBookmark)} onChangeText={text => setEditBookmark(text)} editable={false}/>
                 </CheckBoxContainer>
-                <EditText>Write Tags</EditText>
+                <EditText>Write Tags (Max 5 Tags available)</EditText>
                 <CheckBoxContainer>
-                <EditTagInput value={customTag1} onChangeText={text => setCustomTag1(text)}/>
-                <EditTagInput value={customTag2} onChangeText={text => setCustomTag2(text)}/>
-                <EditTagInput value={customTag3} onChangeText={text => setCustomTag3(text)}/>
-                <EditTagInput value={customTag4} onChangeText={text => setCustomTag4(text)}/>
-                <EditTagInput value={customTag5} onChangeText={text => setCustomTag5(text)}/>
+                <EditTagInput value={customTag1 ? customTag1 : ""} onChangeText={text => setCustomTag1(text)}/>
+                <EditTagInput value={customTag2 ? customTag2 : ""} onChangeText={text => setCustomTag2(text)}/>
+                <EditTagInput value={customTag3 ? customTag3 : ""} onChangeText={text => setCustomTag3(text)}/>
+                <EditTagInput value={customTag4 ? customTag4 : ""} onChangeText={text => setCustomTag4(text)}/>
+                <EditTagInput value={customTag5 ? customTag5 : ""} onChangeText={text => setCustomTag5(text)}/>
                 </CheckBoxContainer>
                 <AppointmentButtonContainer>
                     <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
