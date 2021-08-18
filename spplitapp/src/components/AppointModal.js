@@ -77,6 +77,7 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
             .then((response) => {
                 console.log("accept success")
                 alert(`you accepted request`);
+                setVisible(false);
             })
             .catch((err) => console.log(err))
     }
@@ -87,6 +88,7 @@ export default function AppointModal({ visible, setVisible, props, auth }) {
             .then((response) => {
                 console.log("decline success")
                 alert(`you declined request`);
+                setVisible(false);
             })
             .catch((err) => console.log(err))
     }
