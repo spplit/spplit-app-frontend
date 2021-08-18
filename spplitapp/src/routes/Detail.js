@@ -45,6 +45,7 @@ const DetailContainer = styled.View`
 // 회색 컨테이너
 const NameCardContainer = styled.View`
     overflow: visible;
+    position: relative;
     width: 100%;
     flex: 48;
     background-color: #d9d9d9;
@@ -54,11 +55,10 @@ const NameCardContainer = styled.View`
 
 // 회색 부분 안에 명함 주인 정보를 모아둔 컨테이너
 const NamecardContentContanier = styled.View`
-    overflow: visible;
-    position: relative;
+    position: absolute;
     width: 100%;
-    margin-top : 100px;
-    margin-left : 20px;
+    bottom: 25px;
+    left: 30px;
 `;
 
 
@@ -87,6 +87,7 @@ const BackButton = styled.Image`
 const MemoButtonContainer = styled.View`
     position: absolute;
     bottom: -10px;
+    right: 40px;
 `;
 
 const MemoButton = styled.View`
@@ -135,27 +136,32 @@ const NameText = styled.Text`
 
 const JobText = styled.Text`
     font-size: 18px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 `;
 
 const TagContainer = styled.View`
     flex-direction: row;
+    margin-top: 15px;
+`;
+
+const TagBox = styled.View`
+    background-color: #29548E;
+    border-radius: 5px;
+    margin-right: 4px;
 `;
 
 const TagText = styled.Text`
-    background-color: #29548E;
     font-size : 15px;
     margin-left : 2px;
     color : #ffffff;
     padding : 3px;
-    border-radius: 3px;
 `;
 
 const EditText = styled.Text`
     font-size: 15px;
     margin-top : 10px;
-    margin-bottom : 10px;
-    margin-right : 50px;
+    margin-bottom : 5px;
+    margin-right : 20px;
     margin-left : 20px;
 `;
 
@@ -163,19 +169,21 @@ const EditTextInput = styled.TextInput`
     font-size: 15px;
     width : 90%;
     height : 35px;
-    margin-bottom: 10px;
-    border : black;
+    margin-bottom: 18px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
     padding : 5px;
-    margin-left : 20px;
+    margin-left : 10px;
 `;
 
 const EditTagInput = styled.TextInput`
     font-size: 12px;
-    width : 15%;
+    width: auto;
     height : 35px;
-    border : black;
-    padding : 2px;
-    margin-left : 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding : 4px 6px;
+    margin-right: 10px;
     text-align : center;
 `;
 
@@ -184,13 +192,16 @@ const CustomTagContainer = styled.View`
     margin-top : 10px;
 `;
 
-const CustomTagText = styled.Text`
+const CustomTagBox = styled.View`
     background-color: #707070;
+    border-radius: 5px;
+    margin-right: 4px;
+`;
+
+const CustomTagText = styled.Text`
     font-size : 15px;
-    margin-left : 2px;
     color : #ffffff;
     padding : 3px;
-    border-radius: 3px;
 `;
 
 const CategoryContainer = styled.View`
@@ -198,7 +209,17 @@ const CategoryContainer = styled.View`
 `;
 
 const CheckBoxContainer = styled.View`
+    display: flex;
     flex-direction: row;
+
+`;
+
+const InputContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    margin-left : 20px;
+    margin-top: 8px;
+
 `;
 
 const ModalHeader = styled.View`
@@ -248,11 +269,10 @@ const TitleInput = styled.TextInput`
     height : 50px;
     margin-top : 10px;
     margin-left : 20px;
-    border : black;
     font-size: 15px;
     padding: 10px;
     border-radius: 10px;
-    background-color: white;
+    background-color: #f2f2f2;
     box-shadow: 0px 6px 5px rgba(50, 50, 93, 0.25);
 `;
 
@@ -261,11 +281,10 @@ const ContentInput = styled.TextInput`
     height : 200px;
     margin-top : 10px;
     margin-left : 20px;
-    border : black;
     font-size: 15px;
     padding: 10px;
     border-radius: 10px;
-    background-color: white;
+    background-color: #f2f2f2;
     box-shadow: 0px 6px 5px rgba(50, 50, 93, 0.25);
 `;
 
@@ -274,25 +293,27 @@ const DateInput = styled.TextInput`
     height : 50px;
     margin-top : 10px;
     margin-left : 20px;
-    border : black;
     font-size: 15px;
     padding: 10px;
     border-radius: 10px;
-    background-color: white;
+    background-color: #f2f2f2;
     box-shadow: 0px 6px 5px rgba(50, 50, 93, 0.25);
 `;
 
 const DateContainer = styled.View`
+    position: relative;
     flex-direction : row;
-    align-items: center;
+    margin-top: 20px;
 `;
 
 const DatePickerButton = styled.View`
-    margin-top : 20px;
-    margin-left : 200px;
+    position: absolute;
+    bottom: 0px;
+    right: -300px;
     width: 70px;
     height: 30px;
-    background-color: skyblue;
+    background-color: #4672af;
+    border-radius: 5px;
     align-items: center;
     justify-content: center;
 `;
@@ -309,7 +330,7 @@ const SubmitButtonContainer = styled.View`
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 40px;
 `;
 
 const SubmitButton = styled.View`
@@ -522,19 +543,19 @@ export default function Detail({ route, navigation }) {
                 <NamecardContentContanier>
                     <NameText>{name}</NameText>
                     <JobText>{job}</JobText>
-                    <JobText>{email}</JobText>
-                    <JobText>{phone}</JobText>
+                    <Text>{email}</Text>
+                    <Text>{phone}</Text>
                     <TagContainer>
-                        <TagText>{tag1}</TagText>
-                        <TagText>{tag2}</TagText>
-                        <TagText>{tag3}</TagText>
+                        <TagBox><TagText>{tag1}</TagText></TagBox>
+                        <TagBox><TagText>{tag2}</TagText></TagBox>
+                        <TagBox><TagText>{tag3}</TagText></TagBox>
                     </TagContainer>   
                     <CustomTagContainer>
-                    {customTag1 ? <CustomTagText>{customTag1}</CustomTagText> : <View></View>}
-                    {customTag2 ? <CustomTagText>{customTag2}</CustomTagText> : <View></View>}
-                    {customTag3 ? <CustomTagText>{customTag3}</CustomTagText> : <View></View>}
-                    {customTag4 ? <CustomTagText>{customTag4}</CustomTagText> : <View></View>}
-                    {customTag5 ? <CustomTagText>{customTag5}</CustomTagText> : <View></View>}
+                    {customTag1 ? <CustomTagBox><CustomTagText>{customTag1}</CustomTagText></CustomTagBox> : <View></View>}
+                    {customTag2 ? <CustomTagBox><CustomTagText>{customTag2}</CustomTagText></CustomTagBox> : <View></View>}
+                    {customTag3 ? <CustomTagBox><CustomTagText>{customTag3}</CustomTagText></CustomTagBox> : <View></View>}
+                    {customTag4 ? <CustomTagBox><CustomTagText>{customTag4}</CustomTagText></CustomTagBox> : <View></View>}
+                    {customTag5 ? <CustomTagBox><CustomTagText>{customTag5}</CustomTagText></CustomTagBox> : <View></View>}
                 </CustomTagContainer>
                 </NamecardContentContanier>
                 <MemoButtonContainer>
@@ -562,29 +583,36 @@ export default function Detail({ route, navigation }) {
                         }}
                         rowTextForSelection={(item, index) => {
                             return item
-                        }} 
+                        }}
+                        buttonStyle={{borderRadius: '8px', width: 100, height: 40}}
+                        buttonTextStyle={{fontSize: 14}}
+                        dropdownStyle={{borderRadius: '8px',}}
                 />
                 </CategoryContainer>
+
+                
                 <CheckBoxContainer>
-                    <EditText>Check Bookmark</EditText>
+                <EditText>Bookmark?</EditText>
                     <Checkbox.Item
-                        value={editBookmark}
-                        onValueChange={setEditBookmark}
-                        status={editBookmark ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                            setEditBookmark(!editBookmark);
-                        }}
-                    />
-                    <TextInput value={String(editBookmark)} onChangeText={text => setEditBookmark(text)} editable={false}/>
+                            value={editBookmark}
+                            onValueChange={setEditBookmark}
+                            status={editBookmark ? 'checked' : 'unchecked'}
+                            onPress={() => {
+                                setEditBookmark(!editBookmark);
+                            }}
+                        />
+
                 </CheckBoxContainer>
+
                 <EditText>Write Tags (Max 5 Tags available)</EditText>
-                <CheckBoxContainer>
-                <EditTagInput value={customTag1 ? customTag1 : ""} onChangeText={text => setCustomTag1(text)}/>
-                <EditTagInput value={customTag2 ? customTag2 : ""} onChangeText={text => setCustomTag2(text)}/>
-                <EditTagInput value={customTag3 ? customTag3 : ""} onChangeText={text => setCustomTag3(text)}/>
-                <EditTagInput value={customTag4 ? customTag4 : ""} onChangeText={text => setCustomTag4(text)}/>
-                <EditTagInput value={customTag5 ? customTag5 : ""} onChangeText={text => setCustomTag5(text)}/>
-                </CheckBoxContainer>
+
+                <InputContainer>
+                <EditTagInput value={customTag1 ? customTag1 : "    "} onChangeText={text => setCustomTag1(text)}/>
+                <EditTagInput value={customTag2 ? customTag2 : "    "} onChangeText={text => setCustomTag2(text)}/>
+                <EditTagInput value={customTag3 ? customTag3 : "    "} onChangeText={text => setCustomTag3(text)}/>
+                <EditTagInput value={customTag4 ? customTag4 : "    "} onChangeText={text => setCustomTag4(text)}/>
+                <EditTagInput value={customTag5 ? customTag5 : "    "} onChangeText={text => setCustomTag5(text)}/>
+                </InputContainer>
                 <AppointmentButtonContainer>
                     <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                         <AppointmentButton>
@@ -613,6 +641,7 @@ export default function Detail({ route, navigation }) {
             <TitleInput placeholder="Appointment Title" value={title} onChangeText={text => setTitle(text)}/>
             <ContentInputText>Appointment</ContentInputText>
             <ContentInput placeholder="Appointment Content" value={content} onChangeText={text => setContent(text)}/>
+
             <DateContainer>
             <DateInputText>Date</DateInputText>
             <TouchableOpacity onPress={() => setDatePickerVisible(!isDatePickerVisible)}>
@@ -621,6 +650,7 @@ export default function Detail({ route, navigation }) {
                 </DatePickerButton>
             </TouchableOpacity>
             </DateContainer>
+
             <DateInput value={appointmentDate} editable={false}/>
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
