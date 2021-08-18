@@ -6,6 +6,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import SelectDropdown from 'react-native-select-dropdown'
+import { Checkbox } from 'react-native-paper';
 
 Date.prototype.format = function(f) {
     if (!this.valueOf()) return " ";
@@ -198,7 +199,6 @@ const CategoryContainer = styled.View`
 
 const CheckBoxContainer = styled.View`
     flex-direction: row;
-    margin-left : 20px;
 `;
 
 const ModalHeader = styled.View`
@@ -565,9 +565,16 @@ export default function Detail({ route, navigation }) {
                         }} 
                 />
                 </CategoryContainer>
-                <EditText>Check Bookmark</EditText>
                 <CheckBoxContainer>
-                    <CheckBox value={editBookmark} onValueChange={setEditBookmark}/>
+                    <EditText>Check Bookmark</EditText>
+                    <Checkbox.Item
+                        value={editBookmark}
+                        onValueChange={setEditBookmark}
+                        status={editBookmark ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                            setEditBookmark(!editBookmark);
+                        }}
+                    />
                     <TextInput value={String(editBookmark)} onChangeText={text => setEditBookmark(text)} editable={false}/>
                 </CheckBoxContainer>
                 <EditText>Write Tags (Max 5 Tags available)</EditText>

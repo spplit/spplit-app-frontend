@@ -116,6 +116,8 @@ export default function CategoryEdit() {
     
     const [categoryList, setCategoryList] = useState([]);
 
+    const [isChecked1, setIsChecked1] = useState(true)
+    const [isChecked2, setIsChecked2] = useState(true)
     const [isChecked3, setIsChecked3] = useState(false)
     const [isChecked4, setIsChecked4] = useState(false)
     const [isChecked5, setIsChecked5] = useState(false)
@@ -248,7 +250,9 @@ export default function CategoryEdit() {
                 <CategoryText>{categoryEditList[0]}</CategoryText>
                 <CategoryCheckBoxContainer>
                 <Checkbox.Item
-                    disabled={true}
+                    value={isChecked1}
+                    status={isChecked1 ? 'checked' : 'unchecked'}
+                    disable={true}
                 />
                 </CategoryCheckBoxContainer>
             </CategoryContainer>
@@ -256,7 +260,9 @@ export default function CategoryEdit() {
                 <CategoryText>{categoryEditList[1]}</CategoryText>
                 <CategoryCheckBoxContainer>
                     <Checkbox.Item
-                        disabled={true}
+                        value={isChecked2}
+                        status={isChecked2 ? 'checked' : 'unchecked'}
+                        disable={true}
                     />
                 </CategoryCheckBoxContainer>
             </CategoryContainer>
